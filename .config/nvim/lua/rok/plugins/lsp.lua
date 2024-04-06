@@ -28,7 +28,7 @@ return {
             vim.keymap.set(
                 "n",
                 "gd",
-                "<cmd>lua vim.lsp.buf.definition<cr>",
+                "<cmd>lua vim.lsp.buf.definition()<cr>",
                 { buffer = bufnr, desc = "goto definition" }
             )
             vim.keymap.set(
