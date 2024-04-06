@@ -1,0 +1,4 @@
+.DS_Store
+.env
+.config/tmux/plugins
+.config/nvim/.git.legacy
