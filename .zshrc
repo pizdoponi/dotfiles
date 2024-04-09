@@ -1,11 +1,6 @@
-
-
-
 # zmodload zsh/zprof
 
 export PATH="/usr/local/sbin:$PATH"
-
-
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -135,6 +130,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+conda deactivate
 conda activate main
 # lazyload conda python pip ipython jupyter -- "eval \"$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)\" || { [ -f \"/usr/local/anaconda3/etc/profile.d/conda.sh\" ] && . \"/usr/local/anaconda3/etc/profile.d/conda.sh\" || export PATH=\"/usr/local/anaconda3/bin:\$PATH\"; }; conda activate main"
 # lazyload python pip ipython jupyter -- 'conda activate main'
@@ -142,9 +138,9 @@ conda activate main
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-# [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-# [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-lazyload nvm node npm npx yarn pnpm -- '[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"; [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"'
+  # [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+lazyload nvm node npm npx yarn pnpm -- '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"; [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
