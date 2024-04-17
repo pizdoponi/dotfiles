@@ -1,0 +1,14 @@
+{
+  :main
+
+  [
+    {
+      :des "caps_lock to esc when pressed alone, to ctrl as modifier"
+      :rules [[:##caps_lock :left_control nil {:alone :escape}]]
+    }
+    {
+      :des "TARMAK 1a: j to n, k to e, n to k, e to j"
+      :rules [[:j :n] [:k :e] [:n :k] [:e :j] [:!Sj :!Sn] [:!Sk :!Se] [:!Sn :!Sk] [:!Se :!Sj]]
+    }
+  ]
+}
