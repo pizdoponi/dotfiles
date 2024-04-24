@@ -130,4 +130,22 @@ return {
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = true,
     },
+    {
+        "mrjones2014/smart-splits.nvim",
+        lazy = false,
+        config = function()
+            require("smart-splits").setup({})
+
+            vim.keymap.set("n", "<S-A-left>", require("smart-splits").resize_left)
+            vim.keymap.set("n", "<S-A-down>", require("smart-splits").resize_down)
+            vim.keymap.set("n", "<S-A-up>", require("smart-splits").resize_up)
+            vim.keymap.set("n", "<S-A-right>", require("smart-splits").resize_right)
+            -- moving between splits
+            vim.keymap.set("n", "<A-left>", require("smart-splits").move_cursor_left)
+            vim.keymap.set("n", "<A-down>", require("smart-splits").move_cursor_down)
+            vim.keymap.set("n", "<A-up>", require("smart-splits").move_cursor_up)
+            vim.keymap.set("n", "<A-right>", require("smart-splits").move_cursor_right)
+            vim.keymap.set("n", "<A-\\>", require("smart-splits").move_cursor_previous)
+        end,
+    },
 }

@@ -23,14 +23,10 @@ vim.keymap.set("n", "<leader>w-", "<cmd>split<cr>", { desc = "Window Split" })
 vim.keymap.set("n", "<leader>wo", "<cmd>only<cr>", { desc = "Window Only" })
 vim.keymap.set("n", "<leader>w=", "<cmd>resize<cr>", { desc = "Window Equal" })
 vim.keymap.set("n", "<leader>w_", "<cmd>vertical resize<cr>", { desc = "Window Equal" })
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Window Left" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Window Down" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Window Up" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Window Right" })
-vim.keymap.set("n", "<leader>wh", "<C-w>h", { desc = "Window Left" })
-vim.keymap.set("n", "<leader>wj", "<C-w>j", { desc = "Window Down" })
-vim.keymap.set("n", "<leader>wk", "<C-w>k", { desc = "Window Up" })
-vim.keymap.set("n", "<leader>wl", "<C-w>l", { desc = "Window Right" })
+vim.keymap.set("n", "<C-h>", "<cmd>wincmd h<CR>")
+vim.keymap.set("n", "<C-j>", "<cmd>wincmd j<CR>")
+vim.keymap.set("n", "<C-k>", "<cmd>wincmd k<CR>")
+vim.keymap.set("n", "<C-l>", "<cmd>wincmd l<CR>")
 vim.keymap.set("n", "<leader>wmh", "<C-w>H", { desc = "Window Move Left" })
 vim.keymap.set("n", "<leader>wmj", "<C-w>J", { desc = "Window Move Down" })
 vim.keymap.set("n", "<leader>wmk", "<C-w>K", { desc = "Window Move Up" })
@@ -44,10 +40,6 @@ vim.keymap.set("n", "<leader>wch", "<cmd>leftabove close<cr>", { desc = "[W]indo
 vim.keymap.set("n", "<leader>wck", "<cmd>above close<cr>", { desc = "[W]indow [C]lose Above" })
 vim.keymap.set("n", "<leader>wcj", "<cmd>below close<cr>", { desc = "[W]indow [C]lose Below" })
 vim.keymap.set("n", "<leader>wcl", "<cmd>rightbelow close<cr>", { desc = "[W]indow [C]lose Right" })
-vim.keymap.set("n", "<M-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<M-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width" })
-vim.keymap.set("n", "<M-Up>", "<cmd>resize +2<CR>", { desc = "Increase window height" })
-vim.keymap.set("n", "<M-Down>", "<cmd>resize -2<CR>", { desc = "Decrease window height" })
 
 -- buffers
 vim.keymap.set("n", "<leader>bq", "<cmd>bdelete!<cr>", { desc = "[b]uffer [q]uit" })
@@ -69,10 +61,10 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
 
 -- moving lines
 -- ISSUE: make this work
-vim.keymap.set("n", "<M-j>", ":m .+1<cr>==", { desc = "Move Line Down" }) -- <alt-j> normal
+vim.keymap.set("n", "<M-j>", ":m .+1<cr>==", { desc = "Move Line Down" })      -- <alt-j> normal
 vim.keymap.set("v", "<M-j>", ":m '>+1<cr>gv=gv", { desc = "Move Lines Down" }) -- <alt-j> visual
-vim.keymap.set("n", "<M-k>", ":m .-2<cr>==", { desc = "Move Line Up" }) -- <alt-k> normal
-vim.keymap.set("v", "<M-k>", ":m '<-2<cr>gv=gv", { desc = "Move Lines Up" }) -- <alt-k> visual
+vim.keymap.set("n", "<M-k>", ":m .-2<cr>==", { desc = "Move Line Up" })        -- <alt-k> normal
+vim.keymap.set("v", "<M-k>", ":m '<-2<cr>gv=gv", { desc = "Move Lines Up" })   -- <alt-k> visual
 
 -- better indenting
 vim.keymap.set("v", "<", "<gv", { desc = "Indent Left" })

@@ -20,6 +20,7 @@ return {
             typescript = { "prettier" },
             svelte = { "prettier" },
             html = { "prettier" },
+            edn = { "cljfmt" },
         },
         format_on_save = {
             async = true,

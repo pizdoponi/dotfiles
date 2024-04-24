@@ -7,6 +7,10 @@ return {
         end,
     },
     {
+        "tpope/vim-rhubarb",
+        event = "VeryLazy",
+    },
+    {
         "NeogitOrg/neogit",
         keys = {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
