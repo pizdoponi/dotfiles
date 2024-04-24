@@ -111,10 +111,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias l="ls -lah"
-# alias bsmods="cd /Users/rok/Library/Containers/net.froemling.bombsquad/Data/Library/Application\ Support/BombSquad/mods";
-alias pinentry="pinentry-mac"
-alias gs="git status"
+source ~/.zshrc.aliases
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -132,21 +130,24 @@ unset __conda_setup
 # <<< conda initialize <<<
 conda deactivate
 conda activate main
-# lazyload conda python pip ipython jupyter -- "eval \"$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)\" || { [ -f \"/usr/local/anaconda3/etc/profile.d/conda.sh\" ] && . \"/usr/local/anaconda3/etc/profile.d/conda.sh\" || export PATH=\"/usr/local/anaconda3/bin:\$PATH\"; }; conda activate main"
-# lazyload python pip ipython jupyter -- 'conda activate main'
-
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
   # [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   # [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# lazyload nvm
 lazyload nvm node npm npx yarn pnpm -- '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"; [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # packages
 eval "$(zoxide init zsh --cmd cd)"
 eval "$(fzf --zsh)"
 export GPG_TTY=$TTY
+
+# start gpg-agent
+eval ${gpg-agent --daemon >& /dev/null}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 # zprof

@@ -1,0 +1,16 @@
+# I use neovim, btw
+alias n="nvim"
+alias e="nvim"
+alias vimdiff="nvim -d"
+
+alias l="ls -lah"
+
+# git
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gcm="git commit -m"
+
+# other
+# alias bsmods="cd /Users/rok/Library/Containers/net.froemling.bombsquad/Data/Library/Application\ Support/BombSquad/mods";
+alias pinentry="pinentry-mac"
