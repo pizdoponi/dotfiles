@@ -1,28 +1,4 @@
 return {
-    {
-        "tpope/vim-fugitive",
-        event = "VeryLazy",
-        config = function()
-            vim.keymap.set("n", "<leader>gtB", "<cmd>Git blame<cr>", { desc = "Git blame" })
-        end,
-    },
-    {
-        "tpope/vim-rhubarb",
-        event = "VeryLazy",
-    },
-    {
-        "NeogitOrg/neogit",
-        keys = {
-            { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
-        },
-        dependencies = {
-            "nvim-lua/plenary.nvim", -- required
-            "sindrets/diffview.nvim", -- optional - Diff integration
-            "nvim-telescope/telescope.nvim", -- optional
-        },
-        config = true,
-    },
-    {
         "lewis6991/gitsigns.nvim",
         event = "BufRead",
         config = function()
@@ -136,5 +112,4 @@ return {
                 end,
             })
         end,
-    },
-}
+    }

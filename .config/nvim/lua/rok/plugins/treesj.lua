@@ -1,5 +1,6 @@
 return {
     "Wansmer/treesj",
+    enabled = false,
     keys = { "<space>m", "<cmd>lua require('treesj').toggle()<cr>", desc = "[m]odify tree toggle" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()

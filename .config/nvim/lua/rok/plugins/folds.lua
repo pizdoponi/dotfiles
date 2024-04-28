@@ -1,5 +1,4 @@
 return {
-    -- "vim-scripts/restore_view.vim", -- keep folds after save
     {
         "chrisgrieser/nvim-origami",
         lazy = true,
@@ -28,8 +27,9 @@ return {
             "vim-scripts/restore_view.vim",
         },
         init = function()
-            vim.o.foldcolumn = "0" -- '0' is not bad
-            vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+            -- "0" means that fold level is not shown in the sidebar
+            vim.o.foldcolumn = "0"
+            vim.o.foldlevel = 99
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
         end,
