@@ -142,6 +142,7 @@ lazyload nvm node npm npx yarn pnpm -- '[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] &&
 # packages
 eval "$(zoxide init zsh --cmd cd)"
 eval "$(fzf --zsh)"
+eval $(thefuck --alias)
 export GPG_TTY=$TTY
 
 # start gpg-agent

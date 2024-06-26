@@ -1,7 +1,5 @@
 -- general
-vim.keymap.set("n", "<leader>q", "<cmd>qall<cr>", { desc = "[q]uit all" })
-vim.keymap.set("n", "<leader>Q", "<cmd>qall!<cr>", { desc = "USE THE FORCE LUKE" })
-vim.keymap.set("n", "<esc>", function()
+vim.keymap.set("n", "<C-c>", function()
     local notify_ok, notify = pcall(require, "notify")
     if notify_ok then
         notify.dismiss()
@@ -61,10 +59,10 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
 
 -- moving lines
 -- ISSUE: make this work
-vim.keymap.set("n", "<M-j>", ":m .+1<cr>==", { desc = "Move Line Down" })      -- <alt-j> normal
+vim.keymap.set("n", "<M-j>", ":m .+1<cr>==", { desc = "Move Line Down" }) -- <alt-j> normal
 vim.keymap.set("v", "<M-j>", ":m '>+1<cr>gv=gv", { desc = "Move Lines Down" }) -- <alt-j> visual
-vim.keymap.set("n", "<M-k>", ":m .-2<cr>==", { desc = "Move Line Up" })        -- <alt-k> normal
-vim.keymap.set("v", "<M-k>", ":m '<-2<cr>gv=gv", { desc = "Move Lines Up" })   -- <alt-k> visual
+vim.keymap.set("n", "<M-k>", ":m .-2<cr>==", { desc = "Move Line Up" }) -- <alt-k> normal
+vim.keymap.set("v", "<M-k>", ":m '<-2<cr>gv=gv", { desc = "Move Lines Up" }) -- <alt-k> visual
 
 -- better indenting
 vim.keymap.set("v", "<", "<gv", { desc = "Indent Left" })
@@ -86,14 +84,15 @@ vim.keymap.set("v", "p", [["_dP]], { desc = "Paste Over" }) -- paste over visual
 vim.keymap.set("i", "<CR>", function()
     local copilot_ok, suggestion = pcall(require, "copilot.suggestion")
     local cmp_ok, cmp = pcall(require, "cmp")
-    -- if not copilot_ok then
-    --     return "<CR>"
-    -- end
-    -- if not cmp_ok then
-    --     return "<CR>"
-    -- end
+    if not copilot_ok then
+        return "<CR>"
+    end
+    if not cmp_ok then
+        return "<CR>"
+    end
     if
-        cmp
+        cmp_ok
+        and cmp
         and (
             cmp.visible() and cmp.get_selected_entry() ~= nil
             or cmp.visible() and (not suggestion or not suggestion.is_visible())
@@ -104,7 +103,7 @@ vim.keymap.set("i", "<CR>", function()
         end, 5)
         return true
     end
-    if suggestion and suggestion.is_visible() then
+    if copilot_ok and suggestion and suggestion.is_visible() then
         vim.defer_fn(function()
             suggestion.accept()
         end, 5)

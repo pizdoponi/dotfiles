@@ -11,6 +11,10 @@ alias ga="git add"
 alias gc="git commit"
 alias gcm="git commit -m"
 
+# services
+alias chat="source ~/packages/open-webui/backend/.venv/bin/activate && bash ~/packages/open-webui/backend/start.sh"
+alias kbd="sudo cd"
+
 # other
 # alias bsmods="cd /Users/rok/Library/Containers/net.froemling.bombsquad/Data/Library/Application\ Support/BombSquad/mods";
 alias pinentry="pinentry-mac"

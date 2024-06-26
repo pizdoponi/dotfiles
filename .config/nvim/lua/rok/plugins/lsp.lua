@@ -27,12 +27,6 @@ return {
             )
             vim.keymap.set(
                 "n",
-                "gd",
-                "<cmd>lua vim.lsp.buf.definition()<cr>",
-                { buffer = bufnr, desc = "goto definition" }
-            )
-            vim.keymap.set(
-                "n",
                 "gR",
                 "<cmd>Telescope lsp_references<cr>",
                 { buffer = bufnr, desc = "Telescope [r]eferences" }
@@ -40,6 +34,12 @@ return {
             vim.keymap.set(
                 "n",
                 "gs",
+                "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+                { buffer = bufnr, desc = "show signature" }
+            )
+            vim.keymap.set(
+                "i",
+                "<C-s>",
                 "<cmd>lua vim.lsp.buf.signature_help()<cr>",
                 { buffer = bufnr, desc = "show signature" }
             )
@@ -57,21 +57,9 @@ return {
             )
             vim.keymap.set(
                 "n",
-                "gx",
+                "gd",
                 "<cmd>lua vim.diagnostic.open_float()<cr>",
                 { buffer = bufnr, desc = "show diagnostic" }
-            )
-            vim.keymap.set(
-                "n",
-                "[x",
-                "<cmd>lua vim.diagnostic.goto_prev()<cr>",
-                { buffer = bufnr, desc = "previous diagnostic" }
-            )
-            vim.keymap.set(
-                "n",
-                "]x",
-                "<cmd>lua vim.diagnostic.goto_next()<cr>",
-                { buffer = bufnr, desc = "next diagnostic" }
             )
         end)
 

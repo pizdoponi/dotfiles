@@ -6,13 +6,16 @@ return {
 
         iron.setup({
             config = {
+                highlight_last = "IronLastSent",
+                visibility = require("iron.visibility").toggle,
                 scratch_repl = true,
                 close_window_on_exit = true,
+                scope = require("iron.scope").singelton,
                 repl_definition = {
                     sh = {
                         command = { "zsh" },
-                        -- python = require("iron.fts.python").ipython,
                     },
+                    python = require("iron.fts.python").ipython,
                 },
                 repl_open_cmd = require("iron.view").split.vertical.botright(function()
                     return vim.o.columns * 0.5

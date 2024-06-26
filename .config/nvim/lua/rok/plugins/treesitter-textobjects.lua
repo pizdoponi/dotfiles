@@ -25,54 +25,54 @@ return {
                         ["ak"] = { query = "@call.outer", desc = "Select outer part of a function call" },
                         ["ik"] = { query = "@call.inner", desc = "Select inner part of a function call" },
 
-                        ["af"] = { query = "@function.outer", desc = "Select outer part of a [F]unction" },
-                        ["if"] = { query = "@function.inner", desc = "Select inner part of a [F]unction" },
+                        ["am"] = { query = "@function.outer", desc = "Select outer part of a [m]ethod" },
+                        ["im"] = { query = "@function.inner", desc = "Select inner part of a [m]ethod" },
 
-                        ["ac"] = { query = "@class.outer", desc = "Select outer part of a [C]lass" },
-                        ["ic"] = { query = "@class.inner", desc = "Select inner part of a [C]lass" },
+                        ["ar"] = { query = "@class.outer", desc = "Select outer part of a class" },
+                        ["ir"] = { query = "@class.inner", desc = "Select inner part of a class" },
                     },
                 },
-                -- swap = {
-                --   enable = true,
-                --   swap_next = {
-                --     ["<leader>na"] = "@parameter.inner", -- swap parameters/argument with next
-                --     ["<leader>n:"] = "@property.outer", -- swap object property with next
-                --     ["<leader>nm"] = "@function.outer", -- swap function with next
-                --   },
-                --   swap_previous = {
-                --     ["<leader>pa"] = "@parameter.inner", -- swap parameters/argument with prev
-                --     ["<leader>p:"] = "@property.outer", -- swap object property with prev
-                --     ["<leader>pm"] = "@function.outer", -- swap function with previous
-                --   },
-                -- },
+                swap = {
+                    enable = true,
+                    swap_next = {
+                        ["<leader>;a"] = "@parameter.inner", -- swap parameters/argument with next
+                        ["<leader>;p"] = "@property.outer", -- swap object property with next
+                        ["<leader>;m"] = "@function.outer", -- swap function with next
+                    },
+                    swap_previous = {
+                        ["<leader>,a"] = "@parameter.inner", -- swap parameters/argument with prev
+                        ["<leader>,p"] = "@property.outer", -- swap object property with prev
+                        ["<leader>,m"] = "@function.outer", -- swap function with previous
+                    },
+                },
                 move = {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
                         ["]k"] = { query = "@call.outer", desc = "Next function call start" },
-                        ["]f"] = { query = "@function.outer", desc = "Next [F]unction start" },
-                        ["]c"] = { query = "@class.outer", desc = "Next [C]lass start" },
+                        ["]m"] = { query = "@function.outer", desc = "next [f]unction start" },
+                        ["]r"] = { query = "@class.outer", desc = "Next [C]lass start" },
                         ["]i"] = { query = "@conditional.outer", desc = "Next [I]f start" },
                         ["]l"] = { query = "@loop.outer", desc = "Next [L]oop start" },
                     },
                     goto_next_end = {
                         ["]K"] = { query = "@call.outer", desc = "Next function call end" },
-                        ["]F"] = { query = "@function.outer", desc = "Next [F]unction end" },
-                        ["]C"] = { query = "@class.outer", desc = "Next [C]lass end" },
+                        ["]M"] = { query = "@function.outer", desc = "Next [F]unction end" },
+                        ["]R"] = { query = "@class.outer", desc = "Next [C]lass end" },
                         ["]I"] = { query = "@conditional.outer", desc = "Next [I]f end" },
                         ["]L"] = { query = "@loop.outer", desc = "Next [L]oop end" },
                     },
                     goto_previous_start = {
                         ["[k"] = { query = "@call.outer", desc = "Prev function call start" },
-                        ["[f"] = { query = "@function.outer", desc = "Prev [F]unction start" },
-                        ["[c"] = { query = "@class.outer", desc = "Prev [C]lass start" },
+                        ["[m"] = { query = "@function.outer", desc = "Prev [F]unction start" },
+                        ["[r"] = { query = "@class.outer", desc = "Prev [C]lass start" },
                         ["[i"] = { query = "@conditional.outer", desc = "Prev [I]f start" },
                         ["[l"] = { query = "@loop.outer", desc = "Prev [L]oop start" },
                     },
                     goto_previous_end = {
                         ["[K"] = { query = "@call.outer", desc = "Prev function call end" },
-                        ["[F"] = { query = "@function.outer", desc = "Prev [F]unction end" },
-                        ["[C"] = { query = "@class.outer", desc = "Prev [C]lass end" },
+                        ["[M"] = { query = "@function.outer", desc = "Prev [F]unction end" },
+                        ["[R"] = { query = "@class.outer", desc = "Prev [C]lass end" },
                         ["[I"] = { query = "@conditional.outer", desc = "Prev [I]f end" },
                         ["[L"] = { query = "@loop.outer", desc = "Prev [L]oop end" },
                     },
@@ -87,9 +87,9 @@ return {
         vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
 
         -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-        vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-        vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-        vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-        vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+        vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f, { expr = true, silent = true })
+        vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F, { expr = true, silent = true })
+        vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t, { expr = true, silent = true })
+        vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T, { expr = true, silent = true })
     end,
 }

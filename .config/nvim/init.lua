@@ -26,6 +26,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- init lazy
 require("lazy").setup("rok.plugins", {
+
     change_detection = {
         notify = false,
     },

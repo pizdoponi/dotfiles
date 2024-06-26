@@ -18,7 +18,7 @@ return {
             --         },
             --     },
             -- },
-            extensions = { "oil" }
+            extensions = { "oil" },
         })
     end,
 }

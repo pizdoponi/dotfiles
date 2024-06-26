@@ -22,7 +22,7 @@ return {
             html = { "prettier" },
             edn = { "cljfmt" },
         },
-        format_on_save = {
+        format_after_save = {
             async = true,
             lsp_fallback = true,
         },
