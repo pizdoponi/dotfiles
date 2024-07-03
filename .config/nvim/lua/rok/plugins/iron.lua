@@ -22,8 +22,8 @@ return {
                 end),
             },
             keymaps = {
-                send_motion = "<leader>re",
-                visual_send = "<leader>re",
+                send_motion = "<leader>e",
+                visual_send = "<leader>e",
                 send_file = "<leader>rf",
                 send_line = "<leader>rl",
                 send_until_cursor = "<leader>ru",
@@ -41,10 +41,23 @@ return {
             ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
         })
 
+        local function iron_insert_mode()
+            local success, result = pcall(function()
+                vim.cmd("IronFocus")
+            end)
+            -- enter insert mode in the repl in either case
+            vim.api.nvim_feedkeys("i", "n", false)
+        end
+
         vim.keymap.set("n", "<leader>rr", "<cmd>IronRepl<cr>", { desc = "[r]epl toggle" })
-        vim.keymap.set("n", "<leader>ri", "<cmd>IronFocus<cr>a", { desc = "[r]epl [i]nsert" })
-        -- TODO: add IronWatch
-        -- vim.keymap.set("n", "<leader>rw", "<cmd>IronWatch<cr>a", { desc = "[r]epl watch" })
         vim.keymap.set("t", "<leader>rr", "<C-\\><C-n><wincmd>w<cmd>IronHide<cr>", { desc = "[r]epl close" })
+        vim.keymap.set("n", "<leader>ri", iron_insert_mode, { desc = "[r]epl [i]nsert" })
+        vim.keymap.set("n", "<leader>i", iron_insert_mode, { desc = "[i]nsert to repl" })
+        vim.keymap.set("n", "<leader>re", function()
+            iron.send_motion()
+        end, { desc = "[r]epl [e]val" })
+        vim.keymap.set("v", "<leader>re", function()
+            iron.send_line()
+        end, { desc = "[r]epl [e]val" })
     end,
 }

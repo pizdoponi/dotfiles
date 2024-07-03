@@ -8,7 +8,7 @@ return {
     },
     event = "VeryLazy",
     keys = {
-        -- { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Search Files" },
+        { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Search Files" },
         { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
         { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "[S]earch [B]uffers" },
         { "<leader>sr", "<cmd>Telescope lsp_references<cr>", desc = "[S]earch [R]eferences" },

@@ -104,6 +104,13 @@ vim.keymap.set("i", "<CR>", function()
         return true
     end
     if copilot_ok and suggestion and suggestion.is_visible() then
+        -- if the cmp item is not selected, but the user accepts copilot suggestion
+        -- close cmp and accept copilot suggestion
+        if cmp_ok and cmp.visible() then
+            vim.defer_fn(function()
+                cmp.close()
+            end, 5)
+        end
         vim.defer_fn(function()
             suggestion.accept()
         end, 5)
