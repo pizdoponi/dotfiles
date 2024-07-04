@@ -18,6 +18,6 @@ o.startofline = true
 o.cursorline = false
 
 o.clipboard = "unnamedplus"
-
 o.scrolloff = 4
-o.splitright = true
+
+o.backspace = "indent,eol,nostop"

@@ -13,8 +13,13 @@ return {
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-calc",
         "lukas-reineke/cmp-rg",
+        -- TODO: make dictionary work (brew install wordnet)
+        -- dont forget to uncomment line below, in the sources list and setup at the botton of config on this page
+        -- "uga-rosa/cmp-dictionary",
+        "lukas-reineke/cmp-under-comparator",
         -- tailwindcss
         {
             "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -29,7 +34,6 @@ return {
         local cmp = require("cmp")
         local luasnip = require("luasnip")
         local cmp_action = require("lsp-zero").cmp_action()
-        local max_items = 99
 
         -- load the snippets
         require("luasnip.loaders.from_vscode").lazy_load()
@@ -40,16 +44,37 @@ return {
                 entries = { name = "custom", selection_order = "near_cursor" },
             },
             sources = {
-                { name = "nvim_lsp", max_item_count = max_items },
-                { name = "nvim_lua", max_item_count = max_items },
-                { name = "luasnip", max_item_count = max_items },
-                { name = "buffer", max_item_count = max_items },
-                { name = "path", max_item_count = max_items },
-                { name = "calc", max_item_count = max_items },
+                { name = "nvim_lsp_signature_help", group_index = 0 },
+                { name = "path", group_index = 1 },
+                { name = "calc", group_index = 1 },
+                { name = "nvim_lsp", group_index = 1 },
+                { name = "nvim_lua", group_index = 1 },
+                { name = "luasnip", group_index = 1 },
+                { name = "buffer", group_index = 1, max_item_count = 5 },
                 {
                     name = "rg",
-                    max_item_count = max_items,
                     keyword_length = 3,
+                    group_index = 1,
+                    max_item_count = 3,
+                },
+                -- {
+                --     name = "dictionary",
+                --     keyword_length = 3,
+                --     group_index = 1,
+                --     max_item_count = 3,
+                -- },
+            },
+            sorting = {
+                priority_weight = 2,
+                comparators = {
+                    cmp.config.compare.exact,
+                    cmp.config.compare.offset,
+                    cmp.config.compare.score,
+                    cmp.config.compare.recently_used,
+                    cmp.config.compare.scopes,
+                    require("cmp-under-comparator").under,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
                 },
             },
             window = {
@@ -235,5 +260,17 @@ return {
         -- other sources
         vim.api.nvim_set_hl(0, "CmpItemKindCalc", { fg = colors.sapphire })
         vim.api.nvim_set_hl(0, "CmpItemKindRg", { fg = colors.mauve })
+
+        -- setup dictionary
+        -- require("cmp_dictionary").setup({
+        --     paths = { "/usr/share/dict/words" },
+        --     exact_length = 3,
+        --     max_number_items = 3,
+        --     first_case_insensitive = true,
+        --     document = {
+        --         enable = true,
+        --         command = { "wn", "${label}", "-over" },
+        --     },
+        -- })
     end,
 }

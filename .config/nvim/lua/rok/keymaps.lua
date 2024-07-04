@@ -84,11 +84,12 @@ vim.keymap.set("v", "p", [["_dP]], { desc = "Paste Over" }) -- paste over visual
 vim.keymap.set("i", "<CR>", function()
     local copilot_ok, suggestion = pcall(require, "copilot.suggestion")
     local cmp_ok, cmp = pcall(require, "cmp")
-    if not copilot_ok then
-        return "<CR>"
-    end
-    if not cmp_ok then
-        return "<CR>"
+    -- if not copilot_ok, and cmp has entry, accept it
+    if not copilot_ok and cmp_ok and cmp and cmp.visible() and cmp.get_selected_entry() ~= nil then
+        vim.defer_fn(function()
+            cmp.confirm({ select = true })
+        end, 5)
+        return true
     end
     if
         cmp_ok
