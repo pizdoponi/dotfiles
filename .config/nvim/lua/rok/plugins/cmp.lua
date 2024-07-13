@@ -18,7 +18,7 @@ return {
         "lukas-reineke/cmp-rg",
         -- TODO: make dictionary work (brew install wordnet)
         -- dont forget to uncomment line below, in the sources list and setup at the botton of config on this page
-        -- "uga-rosa/cmp-dictionary",
+        "uga-rosa/cmp-dictionary",
         "lukas-reineke/cmp-under-comparator",
         -- tailwindcss
         {
@@ -57,21 +57,21 @@ return {
                     group_index = 1,
                     max_item_count = 3,
                 },
-                -- {
-                --     name = "dictionary",
-                --     keyword_length = 3,
-                --     group_index = 1,
-                --     max_item_count = 3,
-                -- },
+                {
+                    name = "dictionary",
+                    keyword_length = 3,
+                    group_index = 1,
+                    max_item_count = 3,
+                },
             },
             sorting = {
                 priority_weight = 2,
                 comparators = {
-                    cmp.config.compare.exact,
                     cmp.config.compare.offset,
                     cmp.config.compare.score,
                     cmp.config.compare.recently_used,
                     cmp.config.compare.scopes,
+                    cmp.config.compare.exact,
                     require("cmp-under-comparator").under,
                     cmp.config.compare.kind,
                     cmp.config.compare.sort_text,
@@ -169,7 +169,9 @@ return {
                         item.kind = ""
                         item.kind_hl_group = "CmpItemKindRg"
                     elseif entry.source.name == "buffer" then
-                        item.kind = "󰯁"
+                        item.kind = "󰦨"
+                    elseif entry.source.name == "dictionary" then
+                        item.kind = ""
                     else
                         item.kind = kind_icon[item.kind] or ""
                     end
@@ -224,7 +226,6 @@ return {
 
         -- color of text in the completion menu
         vim.api.nvim_set_hl(0, "CmpItemAbbr", { bg = "NONE", link = "Normal" })
-        -- vim.api.nvim_set_hl(0, "CmpItemAbbr", { bg = "NONE", fg = "#cdd6f4" })
         -- color of the matched text
         vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = colors.gold })
         vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
@@ -240,37 +241,37 @@ return {
         vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = colors.cyan }) -- Also for Variable, Property
         vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = colors.cyan }) -- Also for Field, Property
         vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = colors.cyan }) -- Also for Variable, Field
-        vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = colors.red })
+        vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = colors.crimson })
         vim.api.nvim_set_hl(0, "CmpItemKindModule", { fg = colors.lavender })
         vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = colors.lavender })
         vim.api.nvim_set_hl(0, "CmpItemKindValue", { fg = colors.lavender })
-        vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = colors.sapphire }) -- Also for EnumMember
-        vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = colors.sapphire }) -- Also for Enum
-        vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = colors.mauve })
-        vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = colors.mauve })
+        vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = colors.hotpink }) -- Also for EnumMember
+        vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = colors.hotpink }) -- Also for Enum
+        vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = colors.magenta })
+        vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = colors.violet })
         vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = colors.lavender })
-        vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = colors.red })
-        vim.api.nvim_set_hl(0, "CmpItemKindReference", { fg = colors.lime })
+        vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = colors.teal })
+        vim.api.nvim_set_hl(0, "CmpItemKindReference", { fg = colors.green })
         vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = colors.red })
-        vim.api.nvim_set_hl(0, "CmpItemKindConstant", { fg = colors.blue })
-        vim.api.nvim_set_hl(0, "CmpItemKindStruct", { fg = colors.mauve })
+        vim.api.nvim_set_hl(0, "CmpItemKindConstant", { fg = colors.coral })
+        vim.api.nvim_set_hl(0, "CmpItemKindStruct", { fg = colors.salmon })
         vim.api.nvim_set_hl(0, "CmpItemKindEvent", { fg = colors.lavender })
         vim.api.nvim_set_hl(0, "CmpItemKindOperator", { fg = colors.lavender })
         vim.api.nvim_set_hl(0, "CmpItemKindTypeParameter", { fg = colors.lavender })
         -- other sources
-        vim.api.nvim_set_hl(0, "CmpItemKindCalc", { fg = colors.sapphire })
-        vim.api.nvim_set_hl(0, "CmpItemKindRg", { fg = colors.mauve })
+        vim.api.nvim_set_hl(0, "CmpItemKindCalc", { fg = colors.maroon })
+        vim.api.nvim_set_hl(0, "CmpItemKindRg", { fg = colors.orange })
 
         -- setup dictionary
-        -- require("cmp_dictionary").setup({
-        --     paths = { "/usr/share/dict/words" },
-        --     exact_length = 3,
-        --     max_number_items = 3,
-        --     first_case_insensitive = true,
-        --     document = {
-        --         enable = true,
-        --         command = { "wn", "${label}", "-over" },
-        --     },
-        -- })
+        require("cmp_dictionary").setup({
+            paths = { "/usr/share/dict/words" },
+            exact_length = 3,
+            max_number_items = 3,
+            first_case_insensitive = true,
+            document = {
+                enable = true,
+                command = { "wn", "${label}", "-over" },
+            },
+        })
     end,
 }
