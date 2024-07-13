@@ -1,0 +1,3 @@
+- search for symbols (telescope)
+- list symbols (trouble)
+- chat plugin. can it work with ollama?
