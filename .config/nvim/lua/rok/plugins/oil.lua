@@ -5,8 +5,8 @@ return {
         { "<leader>o", "<cmd>Oil<cr>", desc = "coconut oil" },
     },
     opts = {
+        default_file_explorer = true,
         keymaps = {
-
             ["g?"] = "actions.show_help",
             ["<CR>"] = "actions.select",
             ["<BS>"] = "actions.parent",
