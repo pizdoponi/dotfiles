@@ -13,23 +13,23 @@ return {
                         ["l="] = { query = "@assignment.lhs", desc = "Select [L]hs of an assignment" },
                         ["=r"] = { query = "@assignment.rhs", desc = "Select [R]hs of an assignment" },
 
-                        ["aa"] = { query = "@parameter.outer", desc = "Select outer part of an [A]rgument" },
-                        ["ia"] = { query = "@parameter.inner", desc = "Select inner part of an [A]rgument" },
+                        ["aa"] = { query = "@parameter.outer", desc = "outer parameter" },
+                        ["ia"] = { query = "@parameter.inner", desc = "inner parameter" },
 
-                        ["ai"] = { query = "@conditional.outer", desc = "Select outer part of a [I]f" },
-                        ["ii"] = { query = "@conditional.inner", desc = "Select inner part of a [I]f" },
+                        ["ai"] = { query = "@conditional.outer", desc = "outer conditional" },
+                        ["ii"] = { query = "@conditional.inner", desc = "inner conditional" },
 
-                        ["al"] = { query = "@loop.outer", desc = "Select outer part of a [L]oop" },
-                        ["il"] = { query = "@loop.inner", desc = "Select inner part of a [L]oop" },
+                        ["ao"] = { query = "@loop.outer", desc = "outer loop" },
+                        ["io"] = { query = "@loop.inner", desc = "inner loop" },
 
-                        ["ak"] = { query = "@call.outer", desc = "Select outer part of a function call" },
-                        ["ik"] = { query = "@call.inner", desc = "Select inner part of a function call" },
+                        ["an"] = { query = "@call.outer", desc = "outer function call" },
+                        ["in"] = { query = "@call.inner", desc = "inner function call" },
 
-                        ["am"] = { query = "@function.outer", desc = "Select outer part of a [m]ethod" },
-                        ["im"] = { query = "@function.inner", desc = "Select inner part of a [m]ethod" },
+                        ["am"] = { query = "@function.outer", desc = "outer method" },
+                        ["im"] = { query = "@function.inner", desc = "inner method" },
 
-                        ["ar"] = { query = "@class.outer", desc = "Select outer part of a class" },
-                        ["ir"] = { query = "@class.inner", desc = "Select inner part of a class" },
+                        ["ar"] = { query = "@class.outer", desc = "outer class" },
+                        ["ir"] = { query = "@class.inner", desc = "inner class" },
                     },
                 },
                 swap = {
@@ -49,32 +49,32 @@ return {
                     enable = true,
                     set_jumps = true, -- whether to set jumps in the jumplist
                     goto_next_start = {
-                        ["]k"] = { query = "@call.outer", desc = "Next function call start" },
-                        ["]m"] = { query = "@function.outer", desc = "next [f]unction start" },
-                        ["]r"] = { query = "@class.outer", desc = "Next [C]lass start" },
-                        ["]i"] = { query = "@conditional.outer", desc = "Next [I]f start" },
-                        ["]l"] = { query = "@loop.outer", desc = "Next [L]oop start" },
+                        ["]n"] = { query = "@call.outer", desc = "Next function call start" },
+                        ["]m"] = { query = "@function.outer", desc = "Next function start" },
+                        ["]r"] = { query = "@class.outer", desc = "Next class end" },
+                        ["]i"] = { query = "@conditional.outer", desc = "Next conditional start" },
+                        ["]o"] = { query = "@loop.outer", desc = "Next loop start" },
                     },
                     goto_next_end = {
-                        ["]K"] = { query = "@call.outer", desc = "Next function call end" },
-                        ["]M"] = { query = "@function.outer", desc = "Next [F]unction end" },
-                        ["]R"] = { query = "@class.outer", desc = "Next [C]lass end" },
-                        ["]I"] = { query = "@conditional.outer", desc = "Next [I]f end" },
-                        ["]L"] = { query = "@loop.outer", desc = "Next [L]oop end" },
+                        ["]N"] = { query = "@call.outer", desc = "Next function call end" },
+                        ["]M"] = { query = "@function.outer", desc = "Next function end" },
+                        ["]R"] = { query = "@class.outer", desc = "Next class end" },
+                        ["]I"] = { query = "@conditional.outer", desc = "Next conditional end" },
+                        ["]O"] = { query = "@loop.outer", desc = "Next loop end" },
                     },
                     goto_previous_start = {
-                        ["[k"] = { query = "@call.outer", desc = "Prev function call start" },
-                        ["[m"] = { query = "@function.outer", desc = "Prev [F]unction start" },
-                        ["[r"] = { query = "@class.outer", desc = "Prev [C]lass start" },
-                        ["[i"] = { query = "@conditional.outer", desc = "Prev [I]f start" },
-                        ["[l"] = { query = "@loop.outer", desc = "Prev [L]oop start" },
+                        ["[n"] = { query = "@call.outer", desc = "Prev function call start" },
+                        ["[m"] = { query = "@function.outer", desc = "Prev function start" },
+                        ["[r"] = { query = "@class.outer", desc = "Prev class start" },
+                        ["[i"] = { query = "@conditional.outer", desc = "Prev conditional start" },
+                        ["[o"] = { query = "@loop.outer", desc = "Prev loop start" },
                     },
                     goto_previous_end = {
-                        ["[K"] = { query = "@call.outer", desc = "Prev function call end" },
-                        ["[M"] = { query = "@function.outer", desc = "Prev [F]unction end" },
-                        ["[R"] = { query = "@class.outer", desc = "Prev [C]lass end" },
-                        ["[I"] = { query = "@conditional.outer", desc = "Prev [I]f end" },
-                        ["[L"] = { query = "@loop.outer", desc = "Prev [L]oop end" },
+                        ["[N"] = { query = "@call.outer", desc = "Prev function call end" },
+                        ["[M"] = { query = "@function.outer", desc = "Prev function end" },
+                        ["[R"] = { query = "@class.outer", desc = "Prev class end" },
+                        ["[I"] = { query = "@conditional.outer", desc = "Prev conditional end" },
+                        ["[O"] = { query = "@loop.outer", desc = "Prev loop end" },
                     },
                 },
             },
@@ -91,5 +91,11 @@ return {
         vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
         vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
         vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
+
+        -- Register which-key mappings
+        require("which-key").add({
+            { "<leader>;", group = "Swap next" },
+            { "<leader>,", group = "Swap prev" },
+        })
     end,
 }

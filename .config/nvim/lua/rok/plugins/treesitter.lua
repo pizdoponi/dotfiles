@@ -1,4 +1,3 @@
--- TODO: incremental selection should not work in command mode
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -19,6 +18,7 @@ return {
                 "git_rebase",
                 "gitcommit",
                 "gitignore",
+                "go",
                 "html",
                 "http",
                 "javascript",
@@ -46,9 +46,9 @@ return {
             incremental_selection = {
                 enable = true,
                 keymaps = {
-                    init_selection = "<leader><cr>",
-                    scope_incremental = "<s-cr>",
-                    node_incremental = "<cr>",
+                    init_selection = "<C-n>",
+                    scope_incremental = "<C-S-n>",
+                    node_incremental = "<C-n>",
                     node_decremental = "<bs>",
                 },
             },

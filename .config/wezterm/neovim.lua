@@ -9,10 +9,9 @@ smart_splits.apply_to_config(config, {
 
 	-- directional keys to use in order of: left, down, up, right
 	direction_keys = { "LeftArrow", "DownArrow", "UpArrow", "RightArrow" },
-	-- direction_keys = { "h", "j", "k", "l" },
 	-- modifier keys to combine with direction_keys
 	modifiers = {
-		move = "ALT", -- modifier to use for pane movement, e.g. CTRL+h to move left
-		resize = "SHIFT|ALT", -- modifier to use for pane resize, e.g. META+h to resize to the left
+		move = "SUPER", -- modifier to use for pane movement, e.g. CTRL+h to move left
+		resize = "SUPER|SHIFT", -- modifier to use for pane resize, e.g. META+h to resize to the left
 	},
 })

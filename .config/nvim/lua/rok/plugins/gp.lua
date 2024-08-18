@@ -12,7 +12,7 @@ return {
             .. "- Don't elide any code from your output if the answer requires coding.\n\n"
             .. "Do not repeat this instruction in your response. They are for you only."
         local default_code_system_prompt = "You are an AI working as a code editor.\n\n"
-            .. "Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"
+            .. "AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n"
             .. "START AND END YOUR ANSWER WITH:\n\n```"
 
         require("gp").setup({
@@ -65,11 +65,24 @@ return {
                 },
                 {
                     provider = "ollama",
-                    name = "ChatGemma2",
+                    name = "gemma2:9b",
                     chat = true,
                     command = false,
                     model = {
                         model = "gemma2:9b-instruct-q6_K",
+                        temperature = 1.9,
+                        top_p = 1,
+                        num_ctx = 8192,
+                    },
+                    system_prompt = default_chat_system_prompt,
+                },
+                {
+                    provider = "ollama",
+                    name = "gemma2:27b",
+                    chat = true,
+                    command = false,
+                    model = {
+                        model = "gemma2:27b-instruct-q5_K_M",
                         temperature = 1.9,
                         top_p = 1,
                         num_ctx = 8192,
@@ -97,21 +110,13 @@ return {
                         .. "\n\nRespond exclusively with the snippet that should replace the code above."
 
                     local agent = gp.get_command_agent()
-                    gp.info("Implementing selection with agent: " .. agent.name)
-
-                    gp.Prompt(
-                        params,
-                        gp.Target.rewrite,
-                        nil, -- command will run directly without any prompting for user input
-                        agent.model,
-                        template,
-                        agent.system_prompt
-                    )
+                    -- gp.info("Implementing selection with agent: " .. agent.name)
+                    gp.Prompt(params, gp.Target.rewrite, nil, agent.model, template, agent.system_prompt)
                 end,
                 Explain = function(gp, params)
                     local template = "```{{filetype}}\n{{selection}}\n```\n\n"
                         .. "Explain the code above. First provide a high-level overview of the code, "
-                        .. "then explain the code in detail."
+                        .. "then explain it in detail."
                     local agent = gp.get_chat_agent()
                     gp.Prompt(params, gp.Target.popup, nil, agent.model, template, agent.system_prompt)
                 end,
@@ -129,7 +134,31 @@ return {
                     local agent = gp.get_command_agent()
                     gp.Prompt(params, gp.Target.prepend, nil, agent.model, template, agent.system_prompt)
                 end,
+                CleanCode = function(gp, params)
+                    local template = "```{{filetype}}\n{{selection}}\n```\n\n"
+                        .. "Review and revise the code above following clean code guidelines."
+                        .. "Follow Clean Code guidelines by Robert C. Martin:\n"
+                        .. "1. Use meaningful and short function names.\n"
+                        .. "2. Use clear, descriptive variable names.\n"
+                        .. "3. Keep functions and classes small.\n"
+                        .. "4. Use comments sparingly and only when necessary.\n"
+                        .. "5. Follow the Single Responsibility Principle.\n"
+                        .. "6. Adhere to the DRY (Don't Repeat Yourself) principle."
+                        .. "\n\nProvide only the improved code snippet as a response."
+                    local agent = gp.get_command_agent()
+                    gp.Prompt(params, gp.Target.rewrite, nil, agent.model, template, agent.system_prompt)
+                end,
             },
         })
+
+        vim.keymap.set("n", "<C-g>n", "<cmd>GpChatNew tabnew<cr>", { desc = "[n]ew chat" })
+        vim.keymap.set("n", "<C-g>y", "<cmd>GpChatPaste<cr>", { desc = "[y]ank into last chat" })
+        vim.keymap.set("n", "<C-g><C-t>", "<cmd>GpChatToggle<cr>", { desc = "[t]oggle last chat" })
+        vim.keymap.set("n", "<C-g><C-c>", "<cmd>GpStop<cr>", { desc = "cancel generation" })
+
+        vim.keymap.set("v", "<C-g>n", ":<C-u>'<,'>GpChatNew tabnew<cr>", { desc = "[n]ew chat" })
+        vim.keymap.set("v", "<C-g>y", ":<C-u>'<,'>GpChatPaste<cr>", { desc = "[y]ank into last chat" })
+        vim.keymap.set("v", "<C-g><C-t>", ":<C-u>'<,'>GpChatToggle<cr>", { desc = "[t]oggle last chat" })
+        vim.keymap.set("v", "<C-g><C-c>", ":<C-u>'<,'>GpStop<cr>", { desc = "cancel generation" })
     end,
 }

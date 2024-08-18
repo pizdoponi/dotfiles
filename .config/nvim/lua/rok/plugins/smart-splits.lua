@@ -2,8 +2,6 @@ return {
     "mrjones2014/smart-splits.nvim",
     config = function()
         require("smart-splits").setup()
-        -- recommended mappings
-        -- resizing splits
         -- these keymaps will also accept a range,
         -- for example `10<A-h>` will `resize_left` by `(10 * config.default_amount)`
         vim.keymap.set("n", "<S-A-left>", require("smart-splits").resize_left)
@@ -17,9 +15,14 @@ return {
         vim.keymap.set({ "n", "i", "v", "t" }, "<A-right>", require("smart-splits").move_cursor_right)
         vim.keymap.set({ "n", "i", "v", "t" }, "<A-space>", require("smart-splits").move_cursor_previous)
         -- swapping buffers between windows
-        -- vim.keymap.set("n", "<leader><leader>h", require("smart-splits").swap_buf_left)
-        -- vim.keymap.set("n", "<leader><leader>j", require("smart-splits").swap_buf_down)
-        -- vim.keymap.set("n", "<leader><leader>k", require("smart-splits").swap_buf_up)
-        -- vim.keymap.set("n", "<leader><leader>l", require("smart-splits").swap_buf_right)
+        vim.keymap.set("n", "<leader>w<left>", require("smart-splits").swap_buf_left, { desc = "move [w]indow left" })
+        vim.keymap.set("n", "<leader>w<down>", require("smart-splits").swap_buf_down, { desc = "move [w]indow down" })
+        vim.keymap.set("n", "<leader>w<up>", require("smart-splits").swap_buf_up, { desc = "move [w]indow up" })
+        vim.keymap.set(
+            "n",
+            "<leader>w<right>",
+            require("smart-splits").swap_buf_right,
+            { desc = "move [w]indow right" }
+        )
     end,
 }

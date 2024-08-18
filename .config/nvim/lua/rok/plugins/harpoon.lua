@@ -6,6 +6,7 @@ return {
     config = function()
         local harpoon = require("harpoon")
         harpoon:setup({})
+
         vim.keymap.set("n", "<leader>a", function()
             harpoon:list():add()
         end, { desc = "[a]dd to harpoon" })
@@ -27,11 +28,11 @@ return {
         end, { desc = "[G]oto 4th harpoon buffer" })
 
         -- Toggle previous & next buffers stored within Harpoon list
-        vim.keymap.set("n", "<S-left>", function()
-            harpoon:list():prev()
-        end)
-        vim.keymap.set("n", "<S-right>", function()
-            harpoon:list():next()
-        end)
+        -- vim.keymap.set("n", "<S-left>", function()
+        --     harpoon:list():prev()
+        -- end)
+        -- vim.keymap.set("n", "<S-right>", function()
+        --     harpoon:list():next()
+        -- end)
     end,
 }

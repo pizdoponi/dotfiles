@@ -4,6 +4,7 @@ alias e="nvim"
 alias vimdiff="nvim -d"
 
 alias l="ls -lah"
+alias f="fuck"
 
 # git
 alias gs="git status"
@@ -13,7 +14,7 @@ alias gcm="git commit -m"
 
 # services
 alias chat="source ~/packages/open-webui/backend/.venv/bin/activate && bash ~/packages/open-webui/backend/start.sh"
-alias kbd="sudo cd"
+alias kbd="cd ~/packages/kanata && sudo ./kanata_macos_arm64 --cfg main.kbd"
 
 # other
 # alias bsmods="cd /Users/rok/Library/Containers/net.froemling.bombsquad/Data/Library/Application\ Support/BombSquad/mods";

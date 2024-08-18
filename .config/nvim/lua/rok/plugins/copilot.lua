@@ -13,12 +13,12 @@ return {
                 auto_trigger = true,
                 debounce = 100,
                 keymap = {
-                    -- NOTE: confirm mapping is set in keymaps.lua
+                    -- NOTE: confirm and delete mapping is set in keymaps.lua
                     accept = false,
                     accept_word = false,
-                    accept_line = false,
-                    next = "<C-j>",
-                    prev = "<C-k>",
+                    accept_line = "<C-y>",
+                    next = "<C-n>",
+                    prev = "<C-p>",
                     dismiss = false,
                 },
             },

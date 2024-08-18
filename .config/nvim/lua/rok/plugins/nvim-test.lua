@@ -1,12 +1,11 @@
 return {
     "klen/nvim-test",
     keys = {
-        { "<leader>rtf", "<cmd>TestFile<cr>", desc = "test file" },
-        { "<leader>rtn", "<cmd>TestNearest<cr>", desc = "test nearest" },
-        { "<leader>rts", "<cmd>TestSuite<cr>", desc = "test suite" },
-        { "<leader>rtl", "<cmd>TestLast<cr>", desc = "test last" },
+        { "<leader>rtf", "<cmd>TestFile<cr>", desc = "[r]un [t]est [f]ile" },
+        { "<leader>rtn", "<cmd>TestNearest<cr>", desc = "[r]un [t]est [n]earest" },
+        { "<leader>rts", "<cmd>TestSuite<cr>", desc = "[r]un [t]est [s]uite" },
+        { "<leader>rtl", "<cmd>TestLast<cr>", desc = "[r]un [t]est [l]ast" },
     },
-    opts = {},
     config = function()
         require("nvim-test").setup({
             silent = true,

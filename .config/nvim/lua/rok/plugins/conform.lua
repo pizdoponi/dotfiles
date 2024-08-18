@@ -8,6 +8,7 @@ return {
             function()
                 require("conform").format({ async = true, lsp_fallback = true })
             end,
+            desc = "[b]uffer [f]ormat",
         },
     },
     opts = {
@@ -21,6 +22,10 @@ return {
             svelte = { "prettier" },
             html = { "prettier" },
             edn = { "cljfmt" },
+            plaintex = { "latexindent" },
+            latex = { "latexindent" },
+            tex = { "latexindent" },
+            bib = { "bibtex-tidy" },
         },
         format_after_save = {
             async = true,

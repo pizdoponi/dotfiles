@@ -1,23 +1,21 @@
-local o = vim.opt
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.ignorecase = true
 
-o.number = true
-o.relativenumber = true
-o.ignorecase = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
-o.autoindent = true
-o.smartindent = true
-o.tabstop = 4
-o.softtabstop = 4
-o.shiftwidth = 4
-o.expandtab = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.startofline = true
 
-o.splitright = true
-o.splitbelow = true
-o.startofline = true
+vim.opt.cursorline = false
 
-o.cursorline = false
+vim.opt.clipboard = "unnamedplus"
+vim.opt.scrolloff = 4
 
-o.clipboard = "unnamedplus"
-o.scrolloff = 4
-
-o.backspace = "indent,eol,nostop"
+vim.opt.backspace = "indent,eol,nostop"

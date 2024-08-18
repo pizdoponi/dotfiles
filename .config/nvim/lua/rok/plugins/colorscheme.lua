@@ -24,4 +24,8 @@ return {
             vim.cmd("colorscheme catppuccin")
         end,
     },
+    {
+        "scottmckendry/cyberdream.nvim",
+        -- lazy = true,
+    },
 }

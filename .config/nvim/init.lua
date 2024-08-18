@@ -1,7 +1,6 @@
 vim.keymap.set("n", "<space>", "<nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.keymap.set("i", "jk", "<esc>")
 
 require("rok.keymaps")
 require("rok.options")
@@ -9,6 +8,11 @@ require("rok.autocmds")
 
 -- NOTE: dynamically set python path
 vim.g.python3_host_prog = string.gsub(vim.fn.system("which python"), "\n", "")
+
+-- print table, for debugging
+function P(t)
+    print(vim.inspect(t))
+end
 
 -- lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -26,7 +30,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- init lazy
 require("lazy").setup("rok.plugins", {
-
     change_detection = {
         notify = false,
     },

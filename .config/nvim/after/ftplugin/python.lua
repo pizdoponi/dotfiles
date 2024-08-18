@@ -1,0 +1,97 @@
+-- local function setup_jupytext_objects()
+--     -- Define the text objects for a cell
+--     vim.api.nvim_set_keymap(
+--         "x",
+--         "ic",
+--         [[:<C-u>lua Jupyter_select_cell()<CR>]],
+--         { noremap = true, silent = true, desc = "inner jupyter cell" }
+--     )
+--     vim.api.nvim_set_keymap(
+--         "o",
+--         "ic",
+--         [[:<C-u>lua Jupyter_select_cell()<CR>]],
+--         { noremap = true, silent = true, desc = "inner jupyter cell" }
+--     )
+--
+--     vim.api.nvim_set_keymap(
+--         "x",
+--         "ac",
+--         [[:<C-u>lua Jupyter_select_whole_cell()<CR>]],
+--         { noremap = true, silent = true, desc = "outer jupyter cell" }
+--     )
+--     vim.api.nvim_set_keymap(
+--         "o",
+--         "ac",
+--         [[:<C-u>lua Jupyter_select_whole_cell()<CR>]],
+--         { noremap = true, silent = true, desc = "outer jupyter cell" }
+--     )
+--
+--     -- the [c and ]c mappings are only available when not in diff mode
+--     -- so as not to conflict with the diff mappings
+--     if vim.opt.diff:get() then
+--         return
+--     end
+--
+--     vim.api.nvim_set_keymap(
+--         "n",
+--         "]c",
+--         [[:<C-u>lua Jupyter_goto_next_cell_repeat()<CR>]],
+--         { noremap = true, silent = true, desc = "Next jupyter cell" }
+--     )
+--
+--     vim.api.nvim_set_keymap(
+--         "n",
+--         "[c",
+--         [[:<C-u>lua Jupyter_goto_prev_cell_repeat()<CR>]],
+--         { noremap = true, silent = true, desc = "Previous jupyter cell" }
+--     )
+-- end
+--
+-- -- Function to select the current cell
+-- local function Jupyter_select_cell()
+--     local start_line = vim.fn.search("^# %%", "bnW") + 1
+--     local end_line = vim.fn.search("^# %%", "nW") - 1
+--
+--     if end_line == -1 then
+--         end_line = vim.fn.line("$")
+--     end
+--
+--     vim.cmd("normal! " .. start_line .. "GV" .. end_line .. "G")
+-- end
+--
+-- -- Function to select the whole cell including the starting and ending comments
+-- local function Jupyter_select_whole_cell()
+--     local start_line = vim.fn.search("^# %%", "bnW")
+--     local end_line = vim.fn.search("^# %%", "nW")
+--
+--     if end_line == 0 then
+--         end_line = vim.fn.line("$") + 1
+--     end
+--
+--     vim.cmd("normal! " .. start_line .. "GV" .. (end_line - 1) .. "G")
+-- end
+--
+-- -- Function to go to the next cell
+-- local function Jupyter_goto_next_cell()
+--     vim.fn.search("^# %%", "W")
+-- end
+--
+-- -- Function to go to the previous cell
+-- local function Jupyter_goto_prev_cell()
+--     vim.fn.search("^# %%", "bW")
+-- end
+--
+-- -- Function to go to the next cell with repeat support
+-- local function Jupyter_goto_next_cell_repeat()
+--     Jupyter_goto_next_cell()
+--     vim.fn["repeat#set"]("]c")
+-- end
+--
+-- -- Function to go to the previous cell with repeat support
+-- local function Jupyter_goto_prev_cell_repeat()
+--     Jupyter_goto_prev_cell()
+--     vim.fn["repeat#set"]("[c")
+-- end
+--
+-- -- Set up the mappings and text objects when editing Python files
+-- setup_jupytext_objects()

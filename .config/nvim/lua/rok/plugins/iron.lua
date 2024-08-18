@@ -22,18 +22,18 @@ return {
                 end),
             },
             keymaps = {
-                send_motion = "<leader>e",
-                visual_send = "<leader>e",
+                send_motion = "<leader>re",
+                visual_send = "<leader>re",
                 send_file = "<leader>rf",
                 send_line = "<leader>rl",
                 send_until_cursor = "<leader>ru",
                 send_mark = "<leader>rs", -- [r]epl [s]end mark
                 mark_motion = "<leader>rm",
                 mark_visual = "<leader>rm",
-                remove_mark = "<leader>rd",
+                remove_mark = nil,
                 interrupt = "<leader>rh", -- [r]epl [h]alt
-                exit = "<leader>rq",
-                clear = "<leader>rc",
+                exit = "<leader>rd",
+                clear = "<leader>r<C-c>",
             },
             highlight = {
                 italic = true,
@@ -42,22 +42,26 @@ return {
         })
 
         local function iron_insert_mode()
-            local success, result = pcall(function()
+            pcall(function()
                 vim.cmd("IronFocus")
             end)
             -- enter insert mode in the repl in either case
             vim.api.nvim_feedkeys("i", "n", false)
         end
 
-        vim.keymap.set("n", "<leader>rr", "<cmd>IronRepl<cr>", { desc = "[r]epl toggle" })
-        vim.keymap.set("t", "<leader>rr", "<C-\\><C-n><wincmd>w<cmd>IronHide<cr>", { desc = "[r]epl close" })
-        vim.keymap.set("n", "<leader>ri", iron_insert_mode, { desc = "[r]epl [i]nsert" })
-        vim.keymap.set("n", "<leader>i", iron_insert_mode, { desc = "[i]nsert to repl" })
-        vim.keymap.set("n", "<leader>re", function()
-            iron.send_motion()
-        end, { desc = "[r]epl [e]val" })
-        vim.keymap.set("v", "<leader>re", function()
-            iron.send_line()
-        end, { desc = "[r]epl [e]val" })
+        vim.keymap.set("n", "<leader>rr", "<cmd>IronRepl<cr>", { desc = "iron_repl_toggle" })
+        vim.keymap.set("t", "<leader>rr", "<C-\\><C-n><wincmd>w<cmd>IronHide<cr>", { desc = "iron_repl_hide" })
+        vim.keymap.set("n", "<leader>ri", iron_insert_mode, { desc = "iron_repl_insert" })
+        vim.keymap.set("n", "<leader>rG", function()
+            local ft = vim.bo.filetype
+            local cursor_row = vim.api.nvim_win_get_cursor(0)[1]
+            local lines_until_EOF = vim.api.nvim_buf_get_lines(0, cursor_row - 1, -1, false)
+            iron.send(ft, lines_until_EOF)
+        end, { desc = "iron_repl_send_until_EOF" })
+
+        require("which-key").add({
+            { "<leader>r", group = "[r]epl" },
+            -- { "<leader>e", desc = "[e]val in repl", mode = { "n", "v", "x" } },
+        })
     end,
 }

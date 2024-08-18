@@ -8,17 +8,18 @@ return {
     },
     event = "VeryLazy",
     keys = {
-        { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "Search Files" },
-        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-        { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "[S]earch [B]uffers" },
-        { "<leader>sr", "<cmd>Telescope lsp_references<cr>", desc = "[S]earch [R]eferences" },
-        { "<leader>so", "<cmd>Telescope oldfiles<cr>", desc = "[S]earch [O]ldfiles" },
+        { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "[s]earch [f]iles" },
+        { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "workspace /" },
+        { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "[s]earch [b]uffers" },
+        { "<leader>sr", "<cmd>Telescope lsp_references<cr>", desc = "[s]earch [r]eferences" },
+        { "<leader>so", "<cmd>Telescope oldfiles<cr>", desc = "[s]earch [o]ldfiles" },
+        { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "[s]earch [h]elp_tags" },
         {
             "<leader>sw",
             "<cmd>Telescope grep_string<cr>",
-            desc = "[S]earch for a [W]ord under cursor",
+            desc = "[s]earch for [w]ord under cursor",
         },
-        { "<leader>s/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "[S]earch fuzzy in current file" },
+        { "<leader>s/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "[s]earch fuzzy in current file" },
     },
     config = function()
         require("telescope").setup({
@@ -44,8 +45,6 @@ return {
                     i = {
                         ["<C-y>"] = require("telescope.actions").select_default,
                         ["<esc>"] = require("telescope.actions").close,
-                        ["<C-j>"] = require("telescope.actions").move_selection_next,
-                        ["<C-k>"] = require("telescope.actions").move_selection_previous,
                         ["<C-u>"] = require("telescope.actions").preview_scrolling_up,
                         ["<C-d>"] = require("telescope.actions").preview_scrolling_down,
                     },
@@ -53,9 +52,11 @@ return {
             },
         })
 
-        -- require("telescope").load_extension("fzf")
+        require("telescope").load_extension("fzf")
         vim.keymap.set("n", "<leader><space>", function()
             require("telescope").extensions.smart_open.smart_open()
-        end, { noremap = true, silent = true })
+        end, { noremap = true, silent = true, desc = "Smart Search" })
+
+        require("which-key").add({ { "<leader>s", group = "[s]earch" } })
     end,
 }

@@ -1,5 +1,6 @@
 return {
     "rgroli/other.nvim",
+    enabled = false,
     keys = {
         { "go", "<cmd>Other<cr>", desc = "goto other" },
         { "gO", "<cmd>OtherVSplit<cr>", desc = "goto other vsplit" },

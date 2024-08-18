@@ -6,7 +6,7 @@ return {
             function()
                 require("lint").try_lint()
             end,
-            desc = "lint",
+            desc = "[b]uffer [l]int",
         },
     },
     config = function()
