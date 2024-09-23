@@ -8,6 +8,8 @@ vim.keymap.set("n", "<C-c>", function()
     vim.cmd("echo")
     return true
 end, { desc = "house keeping" })
+-- alt delete will delete a  word, like in all other programs and editors
+vim.keymap.set("i", "<A-Bs>", "<C-w>", { desc = "Delete Word" })
 
 -- windows
 vim.keymap.set("n", "<leader>wo", ":only<cr>", { desc = "[w]indow [o]nly" })
@@ -46,8 +48,8 @@ vim.keymap.set("i", "guuid", function()
 end)
 
 -- git
-vim.keymap.set("n", "<leader>gg", "<cmd>tabnew<cr><cmd>G<cr><cmd>only<cr>", { desc = "git" })
-vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<cr>", { desc = "[g]it [d]iff" })
+-- vim.keymap.set("n", "<leader>gg", "<cmd>tabnew<cr><cmd>G<cr><cmd>only<cr>", { desc = "git" })
+-- vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<cr>", { desc = "[g]it [d]iff" })
 
 -- @potocnik ftw
 -- If copilot suggestion is visible and cmp has no selected entry,
@@ -55,7 +57,7 @@ vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<cr>", { desc = "[g]it [d]iff
 --- copilot suggestion and cmp is visible, <CR> will select
 --- the first cmp entry, otherwise <CR> will just do
 --- its default behavior.
-vim.keymap.set("i", "<CR>", function()
+vim.keymap.set("i", "<Tab>", function()
     local copilot_ok, suggestion = pcall(require, "copilot.suggestion")
     local cmp_ok, cmp = pcall(require, "cmp")
     -- if not copilot_ok, and cmp has entry, accept it
@@ -91,7 +93,7 @@ vim.keymap.set("i", "<CR>", function()
         end, 5)
         return true
     end
-    return "<CR>"
+    return "<Tab>"
 end, { expr = true, remap = true })
 
 -- if either cmp or copilot suggestion is visible, close both.

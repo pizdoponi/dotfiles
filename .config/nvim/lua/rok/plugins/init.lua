@@ -1,12 +1,11 @@
 return {
-    "tpope/vim-fugitive",
-    "tpope/vim-rhubarb",
     "tpope/vim-unimpaired",
     "tpope/vim-repeat",
     { "tpope/vim-abolish" },
     {
         "karb94/neoscroll.nvim",
         event = "VeryLazy",
+        opts = { easing = "quadratic" },
         config = true,
     },
     {
