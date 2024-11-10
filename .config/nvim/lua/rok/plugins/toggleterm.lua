@@ -6,8 +6,8 @@ return {
         local width = vim.o.columns
         local height = vim.o.lines
         require("toggleterm").setup({
-            open_mapping = "<C-t>",
-            insert_mappings = true,   -- whether or not the open mapping applies in insert mode
+            open_mapping = "<F7>",
+            insert_mappings = true, -- whether or not the open mapping applies in insert mode
             terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
             size = function(term)
                 if term.direction == "horizontal" then

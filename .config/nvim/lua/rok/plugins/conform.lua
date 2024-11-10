@@ -4,11 +4,11 @@ return {
     cmd = { "ConformInfo" },
     keys = {
         {
-            "<leader>bf",
+            "<F3>",
             function()
-                require("conform").format({ async = true, lsp_fallback = true })
+                require("conform").format({ async = true, lsp_format = "fallback" })
             end,
-            desc = "[b]uffer [f]ormat",
+            desc = "Format buffer",
         },
     },
     opts = {
@@ -29,7 +29,7 @@ return {
         },
         format_after_save = {
             async = true,
-            lsp_fallback = true,
+            lsp_format = "fallback",
         },
     },
 }

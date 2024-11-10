@@ -1,8 +1,7 @@
 return {
-
     "VonHeikemen/lsp-zero.nvim",
     branch = "v3.x",
-    lazy = false,
+    event = "VeryLazy",
     dependencies = {
         {
             "neovim/nvim-lspconfig",
@@ -29,13 +28,7 @@ return {
                 "n",
                 "<F2>",
                 "<cmd>lua vim.lsp.buf.rename()<cr>",
-                { buffer = bufnr, desc = "next diagnostic" }
-            )
-            vim.keymap.set(
-                "n",
-                "gx",
-                "<cmd>lua vim.diagnostic.open_float()<cr>",
-                { buffer = bufnr, desc = "show diagnostic" }
+                { buffer = bufnr, desc = "Rename symbol under cursor" }
             )
         end)
 
@@ -51,14 +44,6 @@ return {
             },
         })
 
-        -- set sign icons
-        lsp_zero.set_sign_icons({
-            error = "󰚌",
-            warn = "󰈸",
-            hint = "󰌵",
-            info = "",
-        })
-
         require("mason").setup({})
         require("mason-lspconfig").setup({
             handlers = {
@@ -69,13 +54,9 @@ return {
                     local lua_opts = lsp_zero.nvim_lua_ls()
                     require("lspconfig").lua_ls.setup(lua_opts)
                 end,
-                ruff_lsp = lsp_zero.noop(),
-                basedpyright = lsp_zero.noop(),
-                pylsp = lsp_zero.noop(),
-                pyre = lsp_zero.noop(),
-                pyright = function()
-                    require("lspconfig").pyright.setup({})
-                end,
+                -- pyright = function()
+                --     require("lspconfig").pyright.setup({})
+                -- end,
             },
         })
     end,

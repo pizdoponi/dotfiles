@@ -10,16 +10,17 @@ return {
     },
 
     keys = {
-        { "<leader>ld", "<cmd>Trouble diagnostics toggle<cr>", desc = "[l]ist [d]iagnostics" },
-        { "<leader>lD", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "[l]ist buffer [d]iagnostics" },
+        { "<leader>ld", "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>", desc = "[l]ist [d]iagnostics" },
+        { "<leader>lD", "<cmd>Trouble diagnostics toggle focus=true<cr>", desc = "[l]ist workspace [D]iagnostics" },
         { "<leader>ls", "<cmd>Trouble symbols toggle focus=false win.position=left<cr>", desc = "[l]ist [s]ymbols" },
         {
-            "<leader>lS",
+            "<leader>lL",
             "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-            desc = "LSP references/definitions/... (Trouble)",
+            desc = "[l]ist [L]SP info",
         },
-        { "<leader>ll", "<cmd>Trouble loclist toggle<cr>", desc = "[l]ist [l]oclist" },
-        { "<leader>lq", "<cmd>Trouble qflist toggle<cr>", desc = "[l]ist [q]flist" },
+        { "<leader>ll", "<cmd>Trouble loclist toggle focus=true<cr>", desc = "[l]ist [l]oclist" },
+        { "<leader>lq", "<cmd>Trouble qflist toggle focus=true<cr>", desc = "[l]ist [q]uickfix" },
+        { "<leader>lc", "<cmd>Trouble todo toggle focus=true<cr>", desc = "[l]ist [c]omments" },
         {
             "[q",
             function()

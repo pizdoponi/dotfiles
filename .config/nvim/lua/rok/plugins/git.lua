@@ -20,6 +20,7 @@ return {
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
         keys = {
             { "<leader>gdd", "<cmd>DiffviewOpen<cr>", desc = "[D]iffview open" },
+            { "<leader>gdo", "<cmd>DiffviewFileHistory %<cr>", desc = "[d]iff against [o]ldfiles" },
         },
     },
     {
@@ -32,7 +33,7 @@ return {
                     change = { text = "~" },
                     delete = { text = "-" },
                     topdelete = { text = "‾" },
-                    changedelete = { text = "%" },
+                    changedelete = { text = "~" },
                     untracked = { text = "┆" },
                 },
                 signs_staged = {
@@ -40,7 +41,7 @@ return {
                     change = { text = "~" },
                     delete = { text = "-" },
                     topdelete = { text = "‾" },
-                    changedelete = { text = "%" },
+                    changedelete = { text = "~" },
                     untracked = { text = "┆" },
                 },
                 signs_staged_enable = true,
@@ -72,8 +73,8 @@ return {
                     border = "single",
                     style = "minimal",
                     relative = "cursor",
-                    row = 0,
-                    col = 1,
+                    row = 1,
+                    col = 0,
                 },
                 on_attach = function(bufnr)
                     local gitsigns = require("gitsigns")
@@ -102,6 +103,8 @@ return {
                     end)
 
                     -- Actions
+
+                    -- stage / unstage / reset / preview
                     map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "[s]tage hunk" })
                     map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "[r]eset hunk" })
                     map("v", "<leader>gs", function()
@@ -114,13 +117,17 @@ return {
                     map("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "[u]ndo stage hunk" })
                     map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "[R]eset buffer" })
                     map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "[p]review hunk" })
-                    map("n", "<leader>gb", function()
-                        gitsigns.blame_line({ full = true })
-                    end)
+
+                    -- blame
+                    map("n", "<leader>gb", gitsigns.blame, { desc = "[b]lame" })
+
+                    -- diff
                     map("n", "<leader>gdi", gitsigns.diffthis, { desc = "[d]iff againts [i]ndex" })
                     map("n", "<leader>gdh", function()
                         gitsigns.diffthis("@")
                     end, { desc = "[d]iff againts [h]ead" })
+
+                    -- toggles
                     map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "[t]oggle [d]eleted" })
                     map("n", "<leader>gtl", gitsigns.toggle_linehl, { desc = "[t]oggle [l]inehl" })
                     map("n", "<leader>gtn", gitsigns.toggle_numhl, { desc = "[t]oggle [n]umhl" })
@@ -131,10 +138,9 @@ return {
                         gitsigns.toggle_numhl()
                         gitsigns.toggle_linehl()
                     end, { desc = "[t]oggle [a]ll" })
-                    map("n", "<leader>gtb", gitsigns.blame, { desc = "[t]oggle [b]lame" })
                     map(
                         "n",
-                        "<leader>gtB",
+                        "<leader>gtb",
                         gitsigns.toggle_current_line_blame,
                         { desc = "[t]oggle current line [B]lame" }
                     )

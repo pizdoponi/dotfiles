@@ -7,6 +7,6 @@ config.disable_default_key_bindings = true
 require("keymaps").apply_to_config(config)
 
 require("yanking").apply_to_config(config)
-require("neovim").apply_to_config(config)
+-- require("neovim").apply_to_config(config)
 
 return config

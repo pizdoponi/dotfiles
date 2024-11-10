@@ -1,5 +1,6 @@
 return {
     "mrjones2014/smart-splits.nvim",
+    event = "VeryLazy",
     config = function()
         require("smart-splits").setup()
         -- these keymaps will also accept a range,

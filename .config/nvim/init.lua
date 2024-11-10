@@ -28,9 +28,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- init lazy
 require("lazy").setup("rok.plugins", {
     change_detection = {
         notify = false,
     },
 })
+
+require("rok/aaaaaaaaaaaa")

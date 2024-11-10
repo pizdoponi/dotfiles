@@ -21,6 +21,16 @@ vim.keymap.set("n", "<leader>bo", "<cmd>bufdo bd<cr>", { desc = "[b]uffer [o]nly
 -- terminal
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { desc = "Terminal Escape" })
 
+-- very magic search
+vim.keymap.set("n", "/", "/\\v", { desc = "Very Magic Search" })
+vim.keymap.set("n", "?", "?\\v", { desc = "Very Magic Search" })
+vim.cmd([[cnoreabbrev s/ s/\v]])
+vim.cmd([[cnoreabbrev %s/ %s/\v]])
+
+-- diagnostics
+-- NOTE: many of the keymaps are set in after/plugin/repeatable_move.lua
+vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "[l]og diagnostic" })
+
 -- better scrolling
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
@@ -46,10 +56,6 @@ vim.keymap.set("i", "guuid", function()
     local uuid = string.gsub(template, "[xy]", replace)
     vim.api.nvim_put({ uuid }, "c", true, true)
 end)
-
--- git
--- vim.keymap.set("n", "<leader>gg", "<cmd>tabnew<cr><cmd>G<cr><cmd>only<cr>", { desc = "git" })
--- vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<cr>", { desc = "[g]it [d]iff" })
 
 -- @potocnik ftw
 -- If copilot suggestion is visible and cmp has no selected entry,

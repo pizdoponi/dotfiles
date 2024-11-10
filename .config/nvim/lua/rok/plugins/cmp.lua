@@ -18,8 +18,9 @@ return {
         "lukas-reineke/cmp-rg",
         -- TODO: make dictionary work (brew install wordnet)
         -- dont forget to uncomment line below, in the sources list and setup at the botton of config on this page
-        "uga-rosa/cmp-dictionary",
+        -- "uga-rosa/cmp-dictionary",
         "lukas-reineke/cmp-under-comparator",
+        "kdheepak/cmp-latex-symbols",
         -- tailwindcss
         {
             "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -44,29 +45,37 @@ return {
                 entries = { name = "custom", selection_order = "near_cursor" },
             },
             sources = {
-                { name = "nvim_lsp_signature_help", group_index = 0 },
-                { name = "path", group_index = 1 },
-                { name = "calc", group_index = 1 },
+                { name = "nvim_lsp_signature_help", group_index = 0, priority = 2 },
+                { name = "path", group_index = 2 },
+                { name = "calc", group_index = 2 },
                 { name = "nvim_lsp", group_index = 1 },
-                { name = "nvim_lua", group_index = 1 },
-                { name = "luasnip", group_index = 1 },
-                { name = "buffer", group_index = 1, max_item_count = 5 },
+                { name = "nvim_lua", group_index = 2 },
+                { name = "luasnip", group_index = 2 },
+                { name = "buffer", group_index = 2, max_item_count = 5 },
                 {
                     name = "rg",
                     keyword_length = 3,
-                    group_index = 1,
+                    group_index = 2,
                     max_item_count = 3,
                 },
+                -- {
+                --     name = "dictionary",
+                --     keyword_length = 3,
+                --     group_index = 1,
+                --     max_item_count = 3,
+                -- },
                 {
-                    name = "dictionary",
-                    keyword_length = 3,
-                    group_index = 1,
-                    max_item_count = 3,
+                    name = "latex_symbols",
+                    option = {
+                        strategy = 0, -- mixed
+                    },
+                    max_item_count = 20,
                 },
             },
             sorting = {
                 priority_weight = 2,
                 comparators = {
+                    ---@diagnostic disable
                     cmp.config.compare.offset,
                     cmp.config.compare.score,
                     cmp.config.compare.recently_used,
@@ -75,6 +84,7 @@ return {
                     require("cmp-under-comparator").under,
                     cmp.config.compare.kind,
                     cmp.config.compare.sort_text,
+                    ---@diagnostic enable
                 },
             },
             window = {
@@ -109,15 +119,16 @@ return {
             },
             -- NOTE: confirm and cancel mappings are set in keymaps.lua
             mapping = cmp.mapping.preset.insert({
+                ["<Up>"] = cmp.mapping.select_prev_item({ behaviour = cmp.SelectBehavior.Insert }),
+                ["<Down>"] = cmp.mapping.select_next_item({ behaviour = cmp.SelectBehavior.Insert }),
+                ["<C-p>"] = cmp.mapping.select_prev_item({ behaviour = cmp.SelectBehavior.Select }),
+                ["<C-n>"] = cmp.mapping.select_next_item({ behaviour = cmp.SelectBehavior.Select }),
                 -- docs scrolling
                 ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-d>"] = cmp.mapping.scroll_docs(4),
                 -- luasnip
                 ["<C-f>"] = cmp_action.luasnip_jump_forward(),
                 ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-                -- supbertab
-                ["<Tab>"] = cmp_action.luasnip_supertab(),
-                ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
             }),
             snippet = {
                 expand = function(args)
@@ -261,16 +272,34 @@ return {
         vim.api.nvim_set_hl(0, "CmpItemKindCalc", { fg = colors.maroon })
         vim.api.nvim_set_hl(0, "CmpItemKindRg", { fg = colors.orange })
 
-        -- setup dictionary
-        require("cmp_dictionary").setup({
-            paths = { "/usr/share/dict/words" },
-            exact_length = 3,
-            max_number_items = 3,
-            first_case_insensitive = true,
-            document = {
-                enable = true,
-                command = { "wn", "${label}", "-over" },
-            },
-        })
+        -- TODO: Setup dictionary
+        -- local dict = {
+        --     ["*"] = { "/usr/share/dict/words" }, -- Default dictionary for all filetypes
+        --     ft = { -- Specific dictionaries for filetypes
+        --         markdown = { "/path/to/markdown.dict" },
+        --         -- Add more filetypes and paths as needed
+        --     },
+        -- }
+        --
+        -- require("cmp_dictionary").setup({
+        --     paths = dict["*"], -- Set default dictionary paths
+        --     exact_length = 2, -- Length of characters for exact match
+        --     first_case_insensitive = true, -- Case-insensitive for the first character
+        --     document = {
+        --         enable = true,
+        --         command = { "wn", "${label}", "-over" }, -- WordNet for word definitions
+        --     },
+        -- })
+        --
+        -- vim.api.nvim_create_autocmd("FileType", {
+        --     pattern = "*",
+        --     callback = function(ev)
+        --         local paths = dict.ft[ev.match] or {}
+        --         vim.list_extend(paths, dict["*"]) -- Extend with the default paths
+        --         require("cmp_dictionary").setup({
+        --             paths = paths,
+        --         })
+        --     end,
+        -- })
     end,
 }

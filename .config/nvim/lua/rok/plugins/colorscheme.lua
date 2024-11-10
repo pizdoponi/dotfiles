@@ -2,7 +2,6 @@ return {
     {
         "folke/tokyonight.nvim",
         lazy = true,
-        -- priority = 1000,
         opts = {
             style = "night",
         },
@@ -23,9 +22,5 @@ return {
             require("catppuccin").setup({})
             vim.cmd("colorscheme catppuccin")
         end,
-    },
-    {
-        "scottmckendry/cyberdream.nvim",
-        -- lazy = true,
     },
 }

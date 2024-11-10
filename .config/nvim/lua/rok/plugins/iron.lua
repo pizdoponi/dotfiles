@@ -1,6 +1,6 @@
 return {
     "Vigemus/iron.nvim",
-    enabled = true,
+    event = "VeryLazy",
     config = function()
         local iron = require("iron.core")
 
@@ -61,7 +61,6 @@ return {
 
         require("which-key").add({
             { "<leader>r", group = "[r]epl" },
-            -- { "<leader>e", desc = "[e]val in repl", mode = { "n", "v", "x" } },
         })
     end,
 }

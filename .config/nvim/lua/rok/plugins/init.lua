@@ -1,7 +1,7 @@
 return {
     "tpope/vim-unimpaired",
     "tpope/vim-repeat",
-    { "tpope/vim-abolish" },
+    "tpope/vim-abolish",
     {
         "karb94/neoscroll.nvim",
         event = "VeryLazy",
@@ -21,23 +21,11 @@ return {
         lazy = false,
     },
     {
-        "norcalli/nvim-colorizer.lua",
-        event = "VeryLazy",
-        config = true,
-    },
-    {
         "nvim-pack/nvim-spectre",
         cmd = "Spectre",
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        config = true,
-    },
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        lazy = true,
-        event = "InsertEnter",
-        main = "ibl",
         config = true,
     },
     {
@@ -51,8 +39,27 @@ return {
     {
         "Wansmer/treesj",
         keys = {
-            { "J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
+            { "<A-j>", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
         },
         opts = { use_default_keymaps = false, max_join_length = 150 },
+    },
+    {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        enabled = false,
+        event = "VeryLazy",
+        config = function()
+            require("lsp_lines").setup()
+            -- Disable virtual_text since it's redundant due to lsp_lines.
+            vim.diagnostic.config({
+                virtual_text = false,
+            })
+
+            vim.keymap.set("n", "=sd", function()
+                vim.diagnostic.config({
+                    virtual_text = true,
+                    virtual_lines = false,
+                })
+            end, { desc = "Toggle lsp_lines" })
+        end,
     },
 }

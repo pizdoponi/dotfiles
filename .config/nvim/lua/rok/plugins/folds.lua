@@ -76,7 +76,6 @@ return {
         config = function(_, opts)
             require("ufo").setup(opts)
 
-            -- TODO: make zr and zm work with ufo
             vim.keymap.set("n", "zR", function()
                 require("ufo").openAllFolds()
             end, { desc = "Open all folds" })

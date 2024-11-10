@@ -3,9 +3,11 @@ return {
     event = "VeryLazy",
     opts = {
         icons = {
-            rules = false,
+            mappings = false,
         },
-        modes = { x = false, t = false, i = false },
+        triggers = {
+            { "<auto>", mode = "nsoc" },
+        },
     },
     keys = {
         {

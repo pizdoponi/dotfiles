@@ -18,20 +18,30 @@ local keys = {
 	{ key = "7", mods = "SUPER", action = wezterm.action.ActivateTab(6) },
 	{ key = "8", mods = "SUPER", action = wezterm.action.ActivateTab(7) },
 	{ key = "9", mods = "SUPER", action = wezterm.action.ActivateTab(8) },
-	{ key = "0", mods = "SUPER", action = wezterm.action.ActivateTab(9) },
 	-- panes
 	{ key = "%", mods = "SUPER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = '"', mods = "SUPER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "LeftArrow", mods = "SUPER", action = wezterm.action.ActivatePaneDirection("Left") },
+	{ key = "RightArrow", mods = "SUPER", action = wezterm.action.ActivatePaneDirection("Right") },
+	{ key = "UpArrow", mods = "SUPER", action = wezterm.action.ActivatePaneDirection("Up") },
+	{ key = "DownArrow", mods = "SUPER", action = wezterm.action.ActivatePaneDirection("Down") },
 	-- copy and paste
 	{ key = "c", mods = "SUPER", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
 	{ key = "v", mods = "SUPER", action = wezterm.action.PasteFrom("Clipboard") },
-	-- { key = "c", mdos = "CTRL|SHIFT", action = wezterm.action.QuickSelect },
 	-- yanking
 	{ key = "y", mods = "SUPER", action = wezterm.action.QuickSelect },
-	-- misc
-	{ key = "p", mods = "SUPER", action = wezterm.action.ActivateCommandPalette },
+	-- font size
 	{ key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
 	{ key = "+", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
+	{ key = "0", mods = "SUPER", action = wezterm.action.ResetFontSize },
+	-- misc
+	{ key = "p", mods = "SUPER", action = wezterm.action.ActivateCommandPalette },
+	{ key = "f", mods = "SUPER", action = wezterm.action.ToggleFullScreen },
+	{ key = "z", mods = "SUPER", action = wezterm.action.TogglePaneZoomState },
+	{ key = "m", mods = "SUPER", action = wezterm.action.Hide },
+	-- proper key emulation
+	{ key = "b", mods = "ALT", action = wezterm.action({ SendString = "\x1bb" }) },
+	{ key = "f", mods = "ALT", action = wezterm.action({ SendString = "\x1bf" }) },
 }
 
 function M.apply_to_config(config)

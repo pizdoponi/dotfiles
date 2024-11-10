@@ -39,7 +39,7 @@ return {
                 return true
             end,
             rm = function(path)
-                return true
+                return false
             end,
         },
     },
