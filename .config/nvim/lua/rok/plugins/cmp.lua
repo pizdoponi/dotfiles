@@ -21,15 +21,6 @@ return {
         -- "uga-rosa/cmp-dictionary",
         "lukas-reineke/cmp-under-comparator",
         "kdheepak/cmp-latex-symbols",
-        -- tailwindcss
-        {
-            "roobert/tailwindcss-colorizer-cmp.nvim",
-            config = function()
-                require("tailwindcss-colorizer-cmp").setup({
-                    color_square_width = 2,
-                })
-            end,
-        },
     },
     config = function()
         local cmp = require("cmp")
@@ -119,10 +110,8 @@ return {
             },
             -- NOTE: confirm and cancel mappings are set in keymaps.lua
             mapping = cmp.mapping.preset.insert({
-                ["<Up>"] = cmp.mapping.select_prev_item({ behaviour = cmp.SelectBehavior.Insert }),
-                ["<Down>"] = cmp.mapping.select_next_item({ behaviour = cmp.SelectBehavior.Insert }),
-                ["<C-p>"] = cmp.mapping.select_prev_item({ behaviour = cmp.SelectBehavior.Select }),
-                ["<C-n>"] = cmp.mapping.select_next_item({ behaviour = cmp.SelectBehavior.Select }),
+                ["<Up>"] = cmp.mapping.select_prev_item({ behaviour = cmp.SelectBehavior.Select }),
+                ["<Down>"] = cmp.mapping.select_next_item({ behaviour = cmp.SelectBehavior.Select }),
                 -- docs scrolling
                 ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -186,8 +175,7 @@ return {
                         item.kind = kind_icon[item.kind] or ""
                     end
 
-                    -- format tailwind
-                    return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+                    return item
                 end,
             },
         })

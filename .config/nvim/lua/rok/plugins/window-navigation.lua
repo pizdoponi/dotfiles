@@ -14,7 +14,6 @@ return {
         vim.keymap.set({ "n", "i", "v", "t" }, "<A-down>", require("smart-splits").move_cursor_down)
         vim.keymap.set({ "n", "i", "v", "t" }, "<A-up>", require("smart-splits").move_cursor_up)
         vim.keymap.set({ "n", "i", "v", "t" }, "<A-right>", require("smart-splits").move_cursor_right)
-        vim.keymap.set({ "n", "i", "v", "t" }, "<A-space>", require("smart-splits").move_cursor_previous)
         -- swapping buffers between windows
         vim.keymap.set("n", "<leader>w<left>", require("smart-splits").swap_buf_left, { desc = "move [w]indow left" })
         vim.keymap.set("n", "<leader>w<down>", require("smart-splits").swap_buf_down, { desc = "move [w]indow down" })

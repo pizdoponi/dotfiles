@@ -28,6 +28,7 @@ return {
             latex = { "latexindent" },
             tex = { "latexindent" },
             bib = { "bibtex-tidy" },
+            fish = { "fish_indent" },
         },
         format_after_save = format_opts,
     },
