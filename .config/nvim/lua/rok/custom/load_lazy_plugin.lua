@@ -32,3 +32,4 @@ function LoadLazyPlugin()
 end
 
 vim.api.nvim_create_user_command("LoadLazyPlugin", LoadLazyPlugin, {})
+vim.keymap.set("n", "<leader>L", LoadLazyPlugin, { desc = "[L]oad lazy plugin" })
