@@ -1,6 +1,4 @@
 return {
-    "tpope/vim-fugitive",
-    "tpope/vim-rhubarb",
     {
         "NeogitOrg/neogit",
         keys = {
@@ -152,4 +150,3 @@ return {
         end,
     },
 }
-
