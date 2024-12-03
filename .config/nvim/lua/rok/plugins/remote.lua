@@ -2,15 +2,23 @@ return {
     {
         "amitds1997/remote-nvim.nvim",
         lazy = true,
-        version = "*", -- Pin to GitHub releases
+        version = "*",
         dependencies = {
-            "nvim-lua/plenary.nvim", -- For standard functions
-            "MunifTanjim/nui.nvim", -- To build the plugin UI
-            "nvim-telescope/telescope.nvim", -- For picking b/w different remote methods
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            "nvim-telescope/telescope.nvim",
         },
         config = function()
-            -- open new wezterm tab with nvim client on connection
+            ---@diagnostic disable-next-line: missing-fields
             require("remote-nvim").setup({
+                copy_dirs = {
+                    data = {
+                        dirs = {
+                            { "lazy" },
+                        },
+                    },
+                },
+                -- open new wezterm tab with nvim client on connection
                 client_callback = function(port, workspace_config)
                     local cmd = ("wezterm cli set-tab-title --pane-id $(wezterm cli spawn nvim --server localhost:%s --remote-ui) %s"):format(
                         port,
@@ -42,11 +50,13 @@ return {
         build = "make",
         dependencies = "nvim-lua/plenary.nvim",
         config = function()
+            ---@diagnostic disable-next-line: missing-fields
             require("rsync").setup({
-                on_exit = function(code, command)
+                sync_on_save = true,
+                on_exit = function(_, _)
                     print("Rsync done")
                 end,
-                on_stderr = function(data, command)
+                on_stderr = function(_, _)
                     print("Rsync failed")
                 end,
             })
