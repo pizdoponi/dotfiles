@@ -8,11 +8,12 @@ return {
                 "cmp_menu",
                 "noice",
                 "flash_prompt",
+                "telescope",
+                "undotree",
                 function(win)
                     -- exclude non-focusable windows
                     return not vim.api.nvim_win_get_config(win).focusable
                 end,
-                "undotree",
             },
         },
         jump = {
@@ -50,6 +51,17 @@ return {
                 require("flash").remote()
             end,
             desc = "Remote Flash",
+        },
+        -- duplicate of "s", but to make it available always in all cases
+        -- because some plugins (especially git plugins) hijack the "s" key
+        -- even in insert mode
+        {
+            "<A-s>",
+            mode = { "n", "x", "i" },
+            function()
+                require("flash").jump()
+            end,
+            desc = "Flash",
         },
     },
 }
