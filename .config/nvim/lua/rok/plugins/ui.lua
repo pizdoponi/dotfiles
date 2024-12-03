@@ -5,6 +5,10 @@ return {
         opts = {},
     },
     {
+        "j-hui/fidget.nvim",
+        opts = {},
+    },
+    {
         "jinh0/eyeliner.nvim",
         event = "VeryLazy",
         config = function()
@@ -23,7 +27,7 @@ return {
         event = "VeryLazy",
         main = "ibl",
         opts = {
-            scope = { enabled = false },
+            scope = { enabled = true },
         },
         config = true,
     },
@@ -36,7 +40,8 @@ return {
                 delay = 100,
                 duration = 100,
                 -- style = { "#89b4fa", "#f38ba8" },
-                style = { "#00ffff", "#f38ba8" },
+                -- style = { "#00ffff", "#f38ba8" },
+                style = { "#ffdf00", "#f38ba8" },
             },
         },
         config = true,
@@ -44,6 +49,25 @@ return {
     {
         "norcalli/nvim-colorizer.lua",
         event = "VeryLazy",
+        opts = {
+            "*", -- attach to all filetypes
+        },
+    },
+    {
+        "karb94/neoscroll.nvim",
+        event = "VeryLazy",
+        opts = { easing = "quadratic" },
         config = true,
+    },
+    {
+        "sphamba/smear-cursor.nvim",
+        -- TODO: enable this once it gets stable. keeps craching atm.
+        enabled = true,
+        opts = {
+            stiffness = 0.7,
+            trailing_stiffness = 0.4,
+            trailing_exponent = 0.1,
+            distance_stop_animating = 0.1,
+        },
     },
 }
