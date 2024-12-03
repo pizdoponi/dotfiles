@@ -7,6 +7,13 @@ return {
     },
     {
         "https://github.com/LudoPinelli/comment-box.nvim.git",
-        event = "VeryLazy",
+        lazy = true,
+        cmd = { "CBlcbox", "CBlcline", "CBllline" },
+    },
+    {
+        "danymat/neogen",
+        cmd = { "Neogen" },
+        version = "*",
+        opts = { snippet_engine = "luasnip" },
     },
 }
