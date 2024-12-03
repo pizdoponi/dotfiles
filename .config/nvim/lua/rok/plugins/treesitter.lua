@@ -3,11 +3,9 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "VeryLazy",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
-        },
         config = function()
             local configs = require("nvim-treesitter.configs")
+            ---@diagnostic disable-next-line: missing-fields
             configs.setup({
                 ensure_installed = {
                     "bash",
@@ -46,7 +44,7 @@ return {
                     keymaps = {
                         init_selection = "<leader>v",
                         scope_incremental = false,
-                        node_incremental = "<cr>",
+                        node_incremental = "<tab>",
                         node_decremental = "<bs>",
                     },
                 },
@@ -56,7 +54,11 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         event = "VeryLazy",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
         config = function()
+            ---@diagnostic disable-next-line: missing-fields
             require("nvim-treesitter.configs").setup({
                 textobjects = {
                     select = {
@@ -125,15 +127,27 @@ return {
             vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 
             -- Register which-key mappings
-            require("which-key").add({
-                { "<leader>;", group = "Swap next" },
-                { "<leader>,", group = "Swap prev" },
-            })
+            pcall(function()
+                require("which-key").add({
+                    { "<leader>;", group = "Swap next" },
+                    { "<leader>,", group = "Swap prev" },
+                })
+            end)
         end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = "VeryLazy",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
     },
     {
         "chrisgrieser/nvim-various-textobjs",
         event = "VeryLazy",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
         opts = { useDefaultKeymaps = true },
     },
 }
