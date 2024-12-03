@@ -52,4 +52,8 @@ return {
             "*", -- attach to all filetypes
         },
     },
+    {
+        "HiPhish/rainbow-delimiters.nvim",
+        event = "VeryLazy",
+    },
 }
