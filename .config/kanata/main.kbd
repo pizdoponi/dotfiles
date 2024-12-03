@@ -1,0 +1,148 @@
+(defcfg
+  process-unmapped-keys no
+)
+
+;; lsgt is non-us backslash
+;; TODO: get the upper row with special keys working
+(defsrc
+    esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+    lsgt 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+    tab  q    w    e    r    t    y    u    i    o    p    [    ]
+    caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+    lsft grv  z    x    c    v    b    n    m    ,    .    /    rsft
+    fn   lctl lalt lmet           spc            rmet ralt
+)
+
+(defvar
+    ;; Note: consider using different time values for your different fingers.
+    ;; For example, your pinkies might be slower to release keys and index fingers faster.
+    tap-time 200
+    hold-time 150
+)
+
+(defalias ;; modifiers
+    spc  (tap-hold $tap-time $hold-time spc  (layer-while-held num_nav)) ;; spc
+    bspc (tap-hold $tap-time $hold-time bspc (layer-while-held sym2)) ;; rmet
+    tab  (tap-hold $tap-time $hold-time tab  (layer-while-held sym1)) ;; ralt
+    cr   (tap-hold $tap-time $hold-time ret  (layer-while-held fn)) ;; lmet
+    esc  (tap-hold $tap-time $hold-time esc  (layer-while-held fn)) ;; lalt
+
+    cw (caps-word 9999)
+)
+
+(defalias ;; home row mods
+    a (tap-hold $tap-time $hold-time a lalt)
+    r (tap-hold $tap-time $hold-time r lctl)
+    s (tap-hold $tap-time $hold-time s lsft)
+    ;; t (tap-hold $tap-time $hold-time t lmet)
+    ;; n (tap-hold $tap-time $hold-time n rmet)
+    t (chord combo_mombo t)
+    n (chord combo_mombo n)
+    e (tap-hold $tap-time $hold-time e rsft)
+    i (tap-hold $tap-time $hold-time i rctl)
+    o (tap-hold $tap-time $hold-time o ralt)
+)
+
+(defchords combo_mombo 50
+    (t  ) (tap-hold $tap-time $hold-time t lmet)
+    (  n) (tap-hold $tap-time $hold-time n rmet)
+    (t n) esc
+)
+
+
+(defalias ;; symbols
+    <    (tap-hold $tap-time $hold-time S-, lalt)
+    !    (tap-hold $tap-time $hold-time S-1 lctl)
+    -    (tap-hold $tap-time $hold-time - lsft)
+    =    (tap-hold $tap-time $hold-time = lmet)
+    obrc (tap-hold $tap-time $hold-time S-9 rmet)
+    cbrc (tap-hold $tap-time $hold-time S-0 rsft)
+    ?    (tap-hold $tap-time $hold-time S-/ rctl)
+    ;    (tap-hold $tap-time $hold-time ; ralt)
+
+    > S-.
+    ^ S-6
+    # S-3
+    * S-8
+    $ S-4
+    & S-7
+    ~ S-grv
+    | S-\
+    % S-5
+    at S-2
+
+    ``` (macro ` ` `)
+)
+
+(defalias ;; numbers, navigation
+    four (tap-hold $tap-time $hold-time 4 rmet)
+    five (tap-hold $tap-time $hold-time 5 rsft)
+    six  (tap-hold $tap-time $hold-time 6 rctl)
+    left (tap-hold $tap-time $hold-time left lctl)
+    down (tap-hold $tap-time $hold-time down lsft)
+    rght (tap-hold $tap-time $hold-time right lmet)
+)
+
+;; map cmd-space to return; i + space = return
+(defoverrides
+    (lmet spc) (ret)
+)
+
+(deflayer base ;; colemak-dh
+    esc   🔅    🔆    ✗     ✗     ✗     ✗     ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
+    grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc
+    tab   q     w     f     p     b     j     l     u     y     ✗     ✗     ✗
+    caps  @a    @r    @s    @t    g     m     @n    @e    @i    @o    ✗     ✗     ret
+    @cw   z     x     c     d     v     ✗     k     h     ,     .     /     rsft
+    fn    lctl  @esc  @tab              @spc              @bspc @cr
+)
+
+;; there are two different symbol layers to enable more thumb keys
+;; the layers are identical except fo the thumb keys
+(deflayer sym1
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     M-1   M-2   M-3   M-4   M-5   M-6   M-7   M-8   M-9   M-0   ✗     ✗     ✗
+    M-tab @^    @#    @*    @$    @at   @```  `     S-[   S-]   @%    ✗     ✗
+    ✗     @<    @!    @-    @=    @>    \     @obrc @cbrc @?    @;    ✗     ✗     ✗
+    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     /     ✗
+    ✗     ✗     ✗     /                 '                 S-;   ✗
+)
+
+(deflayer sym2
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     M-1   M-2   M-3   M-4   M-5   M-6   M-7   M-8   M-9   M-0   ✗     ✗     ✗
+    M-tab @^    @#    @*    @$    @at   @```  `     S-[   S-]   @%    ✗     ✗
+    ✗     @<    @!    @-    @=    @>    \     @obrc @cbrc @?    @;    ✗     ✗     ✗
+    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     /     ✗
+    ✗     ✗     ✗     /                 S--               S-;   ✗
+)
+
+(deflayer num_nav
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     ✗     up    ✗     ✗     ✗     7     8     9     S-;   ✗     ✗
+    ✗     lalt  @left @down @rght ✗     ✗     @four @five @six  ralt  .     ✗     ✗
+    ✗     ✗     left  down  right ✗     ✗     ✗     1     2     3     ,     ✗
+    ✗     ✗     ✗     ✗                 ✗                 0     ✗
+)
+
+;; TODO: rearange keys on the left side and use the correct fn keys (f10-f24),
+;;       and also add home row mods (for shit like <S-F5>)
+(deflayer fn
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     f7    f8    f9    f12   ✗     ✗
+    ✗     f1    f2    f3    f4    f5    ✗     f4    f5    f6    f11   ✗     ✗     ✗
+    ✗     f11   f12   f13   f14   f15   ✗     ✗     f1    f2    f3    f10   ✗
+    ✗     ✗     ✗     ✗                 ✗                 ✗     ✗
+)
+
+;; legacy fn layer
+;; (deflayer fn
+;;     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+;;     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+;;     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+;;     ✗     f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   ✗     ✗     ✗
+;;     ✗     f11   f12   f13   f14   f15   f16   f17   f18   f19   f20   ✗     ✗
+;;     ✗     ✗     ✗     ✗                 ✗                 ✗     ✗
+;; )
