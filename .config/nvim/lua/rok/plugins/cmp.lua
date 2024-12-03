@@ -10,15 +10,13 @@ return {
         },
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-calc",
         "lukas-reineke/cmp-rg",
-        -- TODO: make dictionary work (brew install wordnet)
-        -- dont forget to uncomment line below, in the sources list and setup at the botton of config on this page
-        -- "uga-rosa/cmp-dictionary",
         "lukas-reineke/cmp-under-comparator",
         "kdheepak/cmp-latex-symbols",
     },
@@ -49,12 +47,6 @@ return {
                     group_index = 2,
                     max_item_count = 3,
                 },
-                -- {
-                --     name = "dictionary",
-                --     keyword_length = 3,
-                --     group_index = 1,
-                --     max_item_count = 3,
-                -- },
                 {
                     name = "latex_symbols",
                     option = {
@@ -66,45 +58,28 @@ return {
             sorting = {
                 priority_weight = 2,
                 comparators = {
-                    ---@diagnostic disable
-                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
                     cmp.config.compare.score,
+                    cmp.config.compare.kind,
                     cmp.config.compare.recently_used,
                     cmp.config.compare.scopes,
-                    cmp.config.compare.exact,
+                    cmp.config.compare.locality,
+                    cmp.config.compare.offset,
                     require("cmp-under-comparator").under,
-                    cmp.config.compare.kind,
+                    cmp.config.compare.length,
                     cmp.config.compare.sort_text,
-                    ---@diagnostic enable
+                    cmp.config.compare.order,
                 },
             },
             window = {
                 completion = {
-                    border = {
-                        { "󱐋", "WarningMsg" },
-                        { "─", "Comment" },
-                        { "╮", "Comment" },
-                        { "│", "Comment" },
-                        { "╯", "Comment" },
-                        { "─", "Comment" },
-                        { "╰", "Comment" },
-                        { "│", "Comment" },
-                    },
+                    border = "single",
                     scrollbar = false,
                     col_offset = -3,
                     winhighlight = "Normal:Normal",
                 },
                 documentation = {
-                    border = {
-                        { "", "DiagnosticHint" },
-                        { "─", "Comment" },
-                        { "╮", "Comment" },
-                        { "│", "Comment" },
-                        { "╯", "Comment" },
-                        { "─", "Comment" },
-                        { "╰", "Comment" },
-                        { "│", "Comment" },
-                    },
+                    border = "single",
                     scrollbar = false,
                 },
             },
@@ -112,6 +87,11 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ["<Up>"] = cmp.mapping.select_prev_item({ behaviour = cmp.SelectBehavior.Select }),
                 ["<Down>"] = cmp.mapping.select_next_item({ behaviour = cmp.SelectBehavior.Select }),
+                -- accept the first item
+                ["<C-y>"] = cmp.mapping.confirm({ behaviour = cmp.ConfirmBehavior.Insert, select = true }),
+                -- close / open the completion menu
+                ["<C-e>"] = cmp.mapping.close(),
+                ["<C-z>"] = cmp.mapping.complete(),
                 -- docs scrolling
                 ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-d>"] = cmp.mapping.scroll_docs(4),
@@ -126,32 +106,33 @@ return {
             },
             preselect = cmp.PreselectMode.None,
             formatting = {
+                expandable_indicator = true,
                 -- changing the order of fields so the icon is the first
                 fields = { "kind", "abbr" },
                 -- uncomment the line below to include source name in the completion menu
                 -- fields = { "kind", "abbr", "menu" },
                 format = function(entry, item)
                     local kind_icon = {
-                        Text = "󰦨",
-                        Class = "󱗃",
+                        Text = "",
+                        Class = "󱗂",
+                        Interface = "󱖿",
                         Constructor = "",
                         Method = "󰊕",
                         Function = "󰊕",
-                        Field = "󱂑",
-                        Variable = "󱂑",
-                        Property = "󱂑",
-                        Interface = "󱗁",
+                        Field = "",
+                        Variable = "",
+                        Property = "",
                         Module = "󰅩",
                         Unit = "󰬺",
-                        Value = "󱂍",
+                        Value = "󰎠",
                         Enum = "󱅉",
+                        EnumMember = "󱅈",
                         Keyword = "󰌋",
-                        Snippet = "",
+                        Snippet = "",
                         Color = "󰏘",
                         File = "󰈙",
                         Reference = "",
                         Folder = "󰉋",
-                        EnumMember = "󱅈",
                         Constant = "󰏿",
                         Struct = "󰚄",
                         Event = "",
@@ -169,8 +150,6 @@ return {
                         item.kind_hl_group = "CmpItemKindRg"
                     elseif entry.source.name == "buffer" then
                         item.kind = "󰦨"
-                    elseif entry.source.name == "dictionary" then
-                        item.kind = ""
                     else
                         item.kind = kind_icon[item.kind] or ""
                     end
@@ -178,6 +157,26 @@ return {
                     return item
                 end,
             },
+        })
+
+        -- `/` cmdline setup.
+        cmp.setup.cmdline("/", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = "buffer" },
+            },
+        })
+
+        -- `:` cmdline setup.
+        cmp.setup.cmdline(":", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = "path" },
+            }, {
+                { name = "cmdline" },
+            }),
+            ---@diagnostic disable-next-line: missing-fields
+            matching = { disallow_symbol_nonprefix_matching = false },
         })
 
         local colors = {
@@ -231,22 +230,31 @@ return {
         vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
         -- highlight the kind of the item
         -- lsp icons
+        --
+        -- classes are red
+        -- vars are bleu
+        -- be green if a function is you
         vim.api.nvim_set_hl(0, "CmpItemKindText", { bg = "NONE", link = "Normal" })
+        -- classes are red
         vim.api.nvim_set_hl(0, "CmpItemKindClass", { fg = colors.red })
-        vim.api.nvim_set_hl(0, "CmpItemKindConstructor", { fg = colors.lime })
-        vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = colors.lime }) -- Also for Function
-        vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = colors.lime }) -- Also for Method
-        vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = colors.cyan }) -- Also for Variable, Property
-        vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = colors.cyan }) -- Also for Field, Property
-        vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = colors.cyan }) -- Also for Variable, Field
         vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = colors.crimson })
-        vim.api.nvim_set_hl(0, "CmpItemKindModule", { fg = colors.lavender })
-        vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = colors.lavender })
-        vim.api.nvim_set_hl(0, "CmpItemKindValue", { fg = colors.lavender })
-        vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = colors.hotpink }) -- Also for EnumMember
-        vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = colors.hotpink }) -- Also for Enum
+        -- vars are bleu
+        vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = colors.sky }) -- Also for Field, Property
+        vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = colors.sky }) -- Also for Variable, Property
+        vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = colors.sky }) -- Also for Variable, Field
+        -- be green if a function is you
+        vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = colors.lime }) -- Also for Method
+        vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = colors.lime }) -- Also for Function
+        vim.api.nvim_set_hl(0, "CmpItemKindConstructor", { fg = colors.lime })
+        -- the rest of the lsp kinds are sporting some kind of pink color
         vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = colors.magenta })
         vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = colors.violet })
+        vim.api.nvim_set_hl(0, "CmpItemKindModule", { fg = colors.lavender })
+        vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = colors.hotpink }) -- Also for EnumMember
+        vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = colors.hotpink }) -- Also for Enum
+        -- other exotic lsp kind animals
+        vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = colors.lavender })
+        vim.api.nvim_set_hl(0, "CmpItemKindValue", { fg = colors.lavender })
         vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = colors.lavender })
         vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = colors.teal })
         vim.api.nvim_set_hl(0, "CmpItemKindReference", { fg = colors.green })
@@ -259,35 +267,5 @@ return {
         -- other sources
         vim.api.nvim_set_hl(0, "CmpItemKindCalc", { fg = colors.maroon })
         vim.api.nvim_set_hl(0, "CmpItemKindRg", { fg = colors.orange })
-
-        -- TODO: Setup dictionary
-        -- local dict = {
-        --     ["*"] = { "/usr/share/dict/words" }, -- Default dictionary for all filetypes
-        --     ft = { -- Specific dictionaries for filetypes
-        --         markdown = { "/path/to/markdown.dict" },
-        --         -- Add more filetypes and paths as needed
-        --     },
-        -- }
-        --
-        -- require("cmp_dictionary").setup({
-        --     paths = dict["*"], -- Set default dictionary paths
-        --     exact_length = 2, -- Length of characters for exact match
-        --     first_case_insensitive = true, -- Case-insensitive for the first character
-        --     document = {
-        --         enable = true,
-        --         command = { "wn", "${label}", "-over" }, -- WordNet for word definitions
-        --     },
-        -- })
-        --
-        -- vim.api.nvim_create_autocmd("FileType", {
-        --     pattern = "*",
-        --     callback = function(ev)
-        --         local paths = dict.ft[ev.match] or {}
-        --         vim.list_extend(paths, dict["*"]) -- Extend with the default paths
-        --         require("cmp_dictionary").setup({
-        --             paths = paths,
-        --         })
-        --     end,
-        -- })
     end,
 }
