@@ -4,7 +4,8 @@ return {
     config = function()
         local lint = require("lint")
         lint.linters_by_ft = {
-            python = { "pylint" },
+            python = { "pylint", "pydocstyle" },
+            lua = { "selene" },
             typescript = { "eslint_d" },
             javascript = { "eslint_d" },
         }
