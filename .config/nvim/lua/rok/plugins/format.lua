@@ -6,11 +6,11 @@ return {
     cmd = { "ConformInfo" },
     keys = {
         {
-            "<F3>",
+            "<leader>bf",
             function()
                 require("conform").format(format_opts)
             end,
-            desc = "Format buffer",
+            desc = "[b]uffer [f]ormat",
         },
     },
     opts = {
@@ -18,12 +18,12 @@ return {
             -- For not specified filetypes, use this default
             ["_"] = { "trim_whitespace", "trim_newlines" },
             lua = { "stylua" },
-            python = { "isort", "black" },
+            python = { "isort", "black", "docformatter" },
+            -- python = { "ruff_format", "docformatter" },
             javascript = { "prettier" },
             typescript = { "prettier" },
             svelte = { "prettier" },
             html = { "prettier" },
-            edn = { "cljfmt" },
             plaintex = { "latexindent" },
             latex = { "latexindent" },
             tex = { "latexindent" },
@@ -37,7 +37,7 @@ return {
 
         -- Command to toggle format on save
         local format_on_save = true
-        vim.api.nvim_create_user_command("ConformToggleFormatOnSave", function()
+        vim.api.nvim_create_user_command("ToggleConformFormatOnSave", function()
             if format_on_save then
                 format_on_save = false
                 require("conform").setup({ format_after_save = false })
