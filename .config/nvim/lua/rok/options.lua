@@ -14,7 +14,12 @@ vim.opt.splitright = true
 vim.opt.splitbelow = false
 vim.opt.startofline = true
 
-vim.opt.cursorline = false
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.showbreak = "++"
+
+vim.opt.cursorline = true
+vim.opt.signcolumn = "yes"
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.scrolloff = 4
