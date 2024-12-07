@@ -1,13 +1,5 @@
--- general
-vim.keymap.set("n", "<C-c>", function()
-    -- local notify_ok, notify = pcall(require, "notify")
-    -- if notify_ok then
-    --     notify.dismiss()
-    -- end
-    vim.cmd("nohl")
-    vim.cmd("echo")
-    return true
-end, { desc = "house keeping" })
+vim.keymap.set("n", "yc", "yygccp", { desc = "Yank and Comment" })
+
 -- alt delete will delete a  word, like in all other programs and editors
 vim.keymap.set("i", "<A-Bs>", "<C-w>", { desc = "Delete Word" })
 
@@ -30,10 +22,6 @@ vim.cmd([[cnoreabbrev %s/ %s/\v]])
 -- diagnostics
 -- NOTE: many of the keymaps are set in after/plugin/repeatable_move.lua
 vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "[l]og diagnostic" })
-
--- better scrolling
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
 
 -- better indenting
 vim.keymap.set("v", "<", "<gv", { desc = "Indent Left" })
@@ -86,6 +74,7 @@ vim.keymap.set("i", "<Tab>", function()
         end, 5)
         return true
     end
+    -- if copilot suggestion is available, prefer that over cmp
     if copilot_ok and suggestion and suggestion.is_visible() then
         -- if the cmp item is not selected, but the user accepts copilot suggestion
         -- close cmp and accept copilot suggestion
@@ -107,18 +96,26 @@ end, { expr = true, remap = true })
 vim.keymap.set("i", "<C-c>", function()
     local cmp_ok, cmp = pcall(require, "cmp")
     local copilot_ok, suggestion = pcall(require, "copilot.suggestion")
-    if cmp_ok or copilot_ok then
-        if cmp.visible() then
-            vim.schedule(function()
-                cmp.close()
-            end)
-        end
-        if suggestion.is_visible() then
-            vim.schedule(function()
-                suggestion.dismiss()
-            end)
-        end
+
+    local closed_something = false
+
+    if cmp_ok and cmp.visible() then
+        vim.schedule(function()
+            cmp.close()
+        end)
+        closed_something = true
+    end
+
+    if copilot_ok and suggestion.is_visible() then
+        vim.schedule(function()
+            suggestion.dismiss()
+        end)
+        closed_something = true
+    end
+
+    if not closed_something then
+        return "<C-c>"
+    else
         return true
     end
-    return "<C-c>"
 end, { expr = true, remap = true })
