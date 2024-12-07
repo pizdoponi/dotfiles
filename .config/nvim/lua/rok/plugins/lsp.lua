@@ -15,6 +15,7 @@ return {
         },
         config = function()
             local lsp_zero = require("lsp-zero")
+            vim.g.lsp_zero_extend_cmp = 0
             lsp_zero.extend_lspconfig()
 
             -- NOTE: hover on K is set in folds.lua
@@ -34,8 +35,16 @@ return {
                     "n",
                     "<F2>",
                     "<cmd>lua vim.lsp.buf.rename()<cr>",
-                    { buffer = bufnr, desc = "Rename symbol under cursor" }
+                    { buffer = bufnr, desc = "rename symbol under cursor" }
                 )
+                vim.keymap.set("n", "gd", function()
+                    local is_using_trouble, _ = pcall(require, "trouble")
+                    if is_using_trouble then
+                        vim.cmd("Trouble lsp_definitions focus=true")
+                    else
+                        vim.lsp.buf.definition()
+                    end
+                end, { buffer = bufnr, desc = "go to definition" })
                 vim.keymap.set("n", "gr", function()
                     local is_using_trouble, _ = pcall(require, "trouble")
                     if is_using_trouble then
@@ -43,7 +52,13 @@ return {
                     else
                         vim.lsp.buf.references()
                     end
-                end)
+                end, { buffer = bufnr, desc = "show references" })
+                vim.keymap.set(
+                    "n",
+                    "<leader>.",
+                    "<cmd>lua vim.lsp.buf.code_action()<cr>",
+                    { buffer = bufnr, desc = "code actions" }
+                )
             end)
 
             lsp_zero.set_server_config({
