@@ -1,11 +1,11 @@
 return {
+    { "vim-scripts/restore_view.vim" },
     {
         "chrisgrieser/nvim-origami",
-        lazy = true,
         event = "BufReadPost", -- later or on keypress would prevent saving folds
         opts = {
             keepFoldsAcrossSessions = true,
-            setupFoldKeymaps = true,
+            setupFoldKeymaps = false,
         },
         config = function(_, opts)
             require("origami").setup(opts)
@@ -24,7 +24,6 @@ return {
         dependencies = {
             "kevinhwang91/promise-async",
             "chrisgrieser/nvim-origami",
-            "vim-scripts/restore_view.vim",
         },
         init = function()
             -- "0" means that fold level is not shown in the sidebar
@@ -45,6 +44,7 @@ return {
                 return { "lsp", "indent" }
             end,
             open_fold_hl_timeout = 800,
+            -- format function copied from ufo's docs
             fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
                 local newVirtText = {}
                 local suffix = (" 󰁂 %d "):format(endLnum - lnum)
@@ -82,12 +82,13 @@ return {
             vim.keymap.set("n", "zM", function()
                 require("ufo").closeAllFolds()
             end, { desc = "Close all folds" })
+            -- NOTE: here is the hover on K
             vim.keymap.set("n", "K", function()
                 local winid = require("ufo").peekFoldedLinesUnderCursor()
                 if not winid then
                     vim.lsp.buf.hover()
                 end
-            end, { desc = "Peek fold" })
+            end, { desc = "Hover / peek fold" })
             vim.keymap.set("n", "z<cr>", function()
                 require("ufo.action").closeFolds(vim.v.count)
             end, { desc = "Close folds with v:count" })
