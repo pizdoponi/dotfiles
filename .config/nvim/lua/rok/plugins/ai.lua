@@ -14,13 +14,15 @@ return {
                     auto_trigger = true,
                     debounce = 100,
                     keymap = {
-                        -- NOTE: confirm and delete mapping is set in keymaps.lua
+                        -- NOTE: accept and dismiss mapping is set in keymaps.lua
+                        -- to integrate with nvim-cmp
                         accept = false,
                         accept_word = false,
                         accept_line = "<C-l>",
-                        next = false,
-                        prev = false,
-                        dismiss = "<C-c>",
+                        -- TODO: make the two mappings below work (conflict with nvim-cmp?)
+                        next = "<C-n>",
+                        prev = "<C-p>",
+                        dismiss = false,
                     },
                 },
                 filetypes = {
@@ -29,10 +31,9 @@ return {
                     help = false,
                     gitcommit = false,
                     gitrebase = false,
-                    hgcommit = false,
-                    svn = false,
                     cvs = false,
                     env = false,
+                    dot = false,
                     ["."] = false,
                 },
                 copilot_node_command = "node", -- Node.js version must be > 18.x
@@ -42,7 +43,7 @@ return {
     },
     {
         "olimorris/codecompanion.nvim",
-        lazy = false,
+        lazy = true,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
