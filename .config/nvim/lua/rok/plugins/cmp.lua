@@ -23,7 +23,6 @@ return {
     config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
-        local cmp_action = require("lsp-zero").cmp_action()
 
         -- load the snippets
         require("luasnip.loaders.from_vscode").lazy_load()
@@ -35,9 +34,9 @@ return {
             },
             sources = {
                 { name = "nvim_lsp_signature_help", group_index = 0, priority = 2 },
+                { name = "nvim_lsp", group_index = 1 },
                 { name = "path", group_index = 2 },
                 { name = "calc", group_index = 2 },
-                { name = "nvim_lsp", group_index = 1 },
                 { name = "nvim_lua", group_index = 2 },
                 { name = "luasnip", group_index = 2 },
                 { name = "buffer", group_index = 2, max_item_count = 5 },
@@ -45,7 +44,7 @@ return {
                     name = "rg",
                     keyword_length = 3,
                     group_index = 2,
-                    max_item_count = 3,
+                    max_item_count = 5,
                 },
                 {
                     name = "latex_symbols",
@@ -96,8 +95,20 @@ return {
                 ["<C-u>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-d>"] = cmp.mapping.scroll_docs(4),
                 -- luasnip
-                ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-                ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+                ["<C-f>"] = cmp.mapping(function(fallback)
+                    if luasnip.locally_jumpable(1) then
+                        luasnip.jump(1)
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+                ["<C-b>"] = cmp.mapping(function(fallback)
+                    if luasnip.locally_jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
             }),
             snippet = {
                 expand = function(args)
