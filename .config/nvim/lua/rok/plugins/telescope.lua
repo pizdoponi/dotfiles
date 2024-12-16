@@ -7,8 +7,10 @@ return {
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
         keys = {
+            { "<leader>ss", "<cmd>Telescope<cr>", desc = "Telescope" },
             { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "[s]earch [f]iles" },
-            { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "workspace /" },
+            { "<leader>sF", "<cmd>Telescope find_files hidden=true<cr>", desc = "[s]earch s'more [F]iles" },
+            { "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "live grep" },
             { "<leader>sb", "<cmd>Telescope buffers<cr>", desc = "[s]earch [b]uffers" },
             { "<leader>sr", "<cmd>Telescope lsp_references<cr>", desc = "[s]earch [r]eferences" },
             { "<leader>so", "<cmd>Telescope oldfiles<cr>", desc = "[s]earch [o]ldfiles" },
@@ -20,6 +22,16 @@ return {
             },
             { "<leader>s/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "[s]earch fuzzy in current file" },
             { "<leader>:", "<cmd>Telescope commands<cr>", desc = "cmd" },
+            {
+                "<leader>snf",
+                "<cmd>Telescope find_files cwd=~/.config/nvim<cr>",
+                desc = "[s]earch [n]eovim config [f]iles",
+            },
+            {
+                "<leader>snp",
+                "<cmd>Telescope find_files cwd=~/.local/share/nvim/lazy<cr>",
+                desc = "[s]earch [n]eovim [p]lugins",
+            },
         },
         config = function()
             require("telescope").setup({
@@ -47,10 +59,32 @@ return {
                         },
                     },
                 },
+
+                pickers = {
+                    help_tags = {
+                        mappings = {
+                            i = {
+                                ["<CR>"] = require("telescope.actions").select_vertical,
+                            },
+                            n = {
+                                ["<CR>"] = require("telescope.actions").select_vertical,
+                            },
+                        },
+                    },
+                    man_pages = {
+                        mappings = {
+                            i = {
+                                ["<CR>"] = require("telescope.actions").select_vertical,
+                            },
+                            n = {
+                                ["<CR>"] = require("telescope.actions").select_vertical,
+                            },
+                        },
+                    },
+                },
             })
 
             require("telescope").load_extension("fzf")
-            require("which-key").add({ { "<leader>s", group = "[s]earch" } })
         end,
     },
     {
