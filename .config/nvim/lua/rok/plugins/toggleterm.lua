@@ -1,14 +1,17 @@
 return {
     "akinsho/toggleterm.nvim",
     version = "*",
-    event = "VeryLazy",
+    keys = {
+        { "<A-t>", "<cmd>ToggleTerm<cr>", { desc = "[t]oggle terminal" } },
+    },
     config = function()
         local width = vim.o.columns
         local height = vim.o.lines
         require("toggleterm").setup({
-            open_mapping = "<F7>",
+            open_mapping = "<A-t>",
             insert_mappings = true, -- whether or not the open mapping applies in insert mode
             terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+            hide_numbers = false,
             size = function(term)
                 if term.direction == "horizontal" then
                     return height * 0.5
@@ -16,16 +19,8 @@ return {
                     return width * 0.5
                 end
             end,
-            direction = "float",
-            float_opts = {
-                border = "curved",
-                width = math.floor(width * 0.9),
-                height = math.floor(height * 0.9),
-                title_pos = "left",
-            },
+            direction = "vertical",
         })
-
-        vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "exit terminal mode" })
 
         vim.keymap.set("n", "<leader>t<down>", function()
             local count = vim.v.count
@@ -43,7 +38,5 @@ return {
         end, { desc = "[t]erminal right" })
 
         vim.keymap.set("n", "<leader>ts", "<cmd>TermSelect<cr>", { desc = "[t]erminal [s]elect" })
-
-        require("which-key").add({ { "<leader>t", group = "[t]erminal" } })
     end,
 }
