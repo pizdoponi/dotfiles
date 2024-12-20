@@ -43,7 +43,7 @@
     o (tap-hold $tap-time $hold-time o ralt)
 )
 
-(defchords combo_mombo 50
+(defchords combo_mombo 30
     (t  ) (tap-hold $tap-time $hold-time t lmet)
     (  n) (tap-hold $tap-time $hold-time n rmet)
     (t n) esc
@@ -81,6 +81,7 @@
     left (tap-hold $tap-time $hold-time left lctl)
     down (tap-hold $tap-time $hold-time down lsft)
     rght (tap-hold $tap-time $hold-time right lmet)
+    .    (tap-hold $tap-time $hold-time . ralt)
 )
 
 ;; map cmd-space to return; i + space = return
@@ -121,8 +122,8 @@
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     up    ✗     ✗     ✗     7     8     9     S-;   ✗     ✗
-    ✗     lalt  @left @down @rght ✗     ✗     @four @five @six  ralt  .     ✗     ✗
-    ✗     ✗     left  down  right ✗     ✗     ✗     1     2     3     ,     ✗
+    ✗     lalt  @left @down @rght ✗     ✗     @four @five @six  @.    ✗     ✗     ✗
+    ✗     ✗   S-left down S-right ✗     ✗     ✗     1     2     3     ,     ✗
     ✗     ✗     ✗     ✗                 ✗                 0     ✗
 )
 
