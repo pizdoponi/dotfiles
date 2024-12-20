@@ -3,7 +3,9 @@ local M = {}
 
 M.apply_to_config = function(config)
 	config.color_scheme = "Catppuccin Mocha"
-	config.font = wezterm.font("Hack Nerd Font Mono")
+	-- config.font = wezterm.font("Hack Nerd Font Mono")
+	-- config.font = wezterm.font("MesloLGL Nerd Font Mono")
+	config.font = wezterm.font("JetBrainsMono Nerd Font")
 	config.font_size = 14.0
 
 	config.enable_tab_bar = true
