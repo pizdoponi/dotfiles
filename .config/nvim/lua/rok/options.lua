@@ -25,3 +25,6 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.scrolloff = 4
 
 vim.opt.backspace = "indent,eol,nostop"
+
+vim.opt.exrc = true
+vim.opt.grepprg = "rg --vimgrep --smart-case -uu --"
