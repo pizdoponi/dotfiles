@@ -29,6 +29,11 @@ return {
         config = true,
     },
     {
+        "MagicDuck/grug-far.nvim",
+        cmd = "GrugFar",
+        config = true,
+    },
+    {
         "kylechui/nvim-surround",
         version = "*",
         event = "VeryLazy",
@@ -44,22 +49,53 @@ return {
         opts = { use_default_keymaps = false, max_join_length = 150 },
     },
     {
+        "marcussimonsen/let-it-snow.nvim",
+        cmd = "LetItSnow", -- Wait with loading until command is run
+        opts = {},
+    },
+    {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        enabled = false,
-        event = "VeryLazy",
+        lazy = true,
         config = function()
             require("lsp_lines").setup()
             -- Disable virtual_text since it's redundant due to lsp_lines.
             vim.diagnostic.config({
                 virtual_text = false,
+                virtual_lines = true,
             })
-
-            vim.keymap.set("n", "=sd", function()
-                vim.diagnostic.config({
-                    virtual_text = true,
-                    virtual_lines = false,
-                })
-            end, { desc = "Toggle lsp_lines" })
+        end,
+    },
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        -- event = "VeryLazy", -- Or `LspAttach`
+        enabled = true,
+        priority = 900, -- needs to be loaded in first
+        config = function()
+            -- remove virtual text
+            vim.diagnostic.config({ virtual_text = false, severity_sort = true })
+            require("tiny-inline-diagnostic").setup({
+                preset = "classic",
+                options = {
+                    show_source = false,
+                    multilines = false,
+                },
+                hi = {
+                    background = "Normal",
+                },
+            })
+        end,
+    },
+    {
+        "rgroli/other.nvim",
+        keys = {
+            { "go", "<cmd>Other<cr>", desc = "Go to Other file" },
+        },
+        config = function()
+            require("other-nvim").setup({
+                mappings = {
+                    "python",
+                },
+            })
         end,
     },
 }
