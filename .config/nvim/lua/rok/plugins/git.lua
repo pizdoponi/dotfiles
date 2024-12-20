@@ -1,6 +1,8 @@
 return {
+    "tpope/vim-fugitive",
     {
         "NeogitOrg/neogit",
+        version = "*",
         keys = {
             { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
         },
@@ -10,7 +12,11 @@ return {
             "sindrets/diffview.nvim",
             "nvim-telescope/telescope.nvim",
         },
-        config = true,
+        opts = {
+            commit_editor = {
+                staged_diff_split_kind = "vsplit",
+            },
+        },
     },
     {
         "sindrets/diffview.nvim",
@@ -90,7 +96,7 @@ return {
                         else
                             gitsigns.nav_hunk("next")
                         end
-                    end)
+                    end, { desc = "Next change" })
 
                     map("n", "[c", function()
                         if vim.wo.diff then
@@ -98,7 +104,7 @@ return {
                         else
                             gitsigns.nav_hunk("prev")
                         end
-                    end)
+                    end, { desc = "Previous change" })
 
                     -- Actions
 
