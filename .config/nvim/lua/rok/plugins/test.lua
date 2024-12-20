@@ -1,20 +1,33 @@
 return {
-    "klen/nvim-test",
-    keys = {
-        { "<leader>rtf", "<cmd>TestFile<cr>", desc = "[r]un [t]est [f]ile" },
-        { "<leader>rtn", "<cmd>TestNearest<cr>", desc = "[r]un [t]est [n]earest" },
-        { "<leader>rts", "<cmd>TestSuite<cr>", desc = "[r]un [t]est [s]uite" },
-        { "<leader>rtl", "<cmd>TestLast<cr>", desc = "[r]un [t]est [l]ast" },
+    "nvim-neotest/neotest",
+    lazy = true,
+    dependencies = {
+        "nvim-neotest/nvim-nio",
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-neotest/neotest-python",
     },
+    event = { "BufEnter */test_*.py" },
     config = function()
-        require("nvim-test").setup({
-            silent = true,
-            term = "toggleterm",
-            termOpts = {
-                direction = "vertical",
-                go_back = false,
-                -- width = 80,
+        require("neotest").setup({
+            adapters = {
+                require("neotest-python")({
+                    dap = { justMyCode = false },
+                }),
             },
         })
+
+        vim.keymap.set("n", "<leader>tO", require("neotest").summary.toggle, { desc = "[t]est [O]utline" })
+        vim.keymap.set("n", "<leader>to", function()
+            require("neotest").output.open({ enter = true, quiet = true, auto_close = true })
+        end, { desc = "[t]est [o]utput" })
+        vim.keymap.set("n", "<leader>tn", require("neotest").run.run, { desc = "[t]est [n]earest" })
+        vim.keymap.set("n", "<leader>tl", require("neotest").run.run_last, { desc = "[t]est [l]ast" })
+        vim.keymap.set("n", "<leader>tf", function()
+            require("neotest").run.run(vim.fn.expand("%"))
+        end, { desc = "[t]est [f]ile" })
+        vim.keymap.set("n", "<leader>td", function()
+            require("neotest").run.run({ strategy = "dap" })
+        end, { desc = "[t]est [d]ebug" })
     end,
 }
