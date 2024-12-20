@@ -63,6 +63,8 @@ return {
                 },
             },
         },
-        config = true,
+        config = function()
+            vim.cmd([[cnoreabbrev cc CodeCompanion]])
+        end,
     },
 }
