@@ -15,7 +15,7 @@ return {
     cmd = { "Outline" },
     opts = {
         outline_window = {
-            position = "left",
+            position = "right",
             hide_cursor = false,
         },
         keymaps = {
