@@ -25,12 +25,13 @@ return {
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end
 
-                vim.keymap.set(
-                    { "n", "i" },
-                    "<C-s>",
-                    "<cmd>lua vim.lsp.buf.signature_help()<cr>",
-                    { buffer = bufnr, desc = "show signature" }
-                )
+                vim.keymap.set({ "n", "i" }, "<C-s>", function()
+                    local cmp_ok, cmp = pcall(require, "cmp")
+                    if cmp_ok and cmp.visible() then
+                        cmp.close()
+                    end
+                    vim.cmd([[lua vim.lsp.buf.signature_help()]])
+                end, { buffer = bufnr, desc = "show signature" })
                 vim.keymap.set(
                     "n",
                     "<F2>",
