@@ -22,23 +22,25 @@ return {
         },
         use_default_keymaps = false,
         lsp_file_methods = {
+            enabled = true,
             timeout_ms = 3000,
             autosave_changes = true,
         },
         view_options = {
-            show_hidden = false,
+            show_hidden = true,
+            case_insensitive = true,
         },
         experimental_watch_for_changes = true,
         skip_confirm_for_simple_edits = true,
         git = {
-            -- Return true to automatically git add/mv/rm files
-            add = function(path)
+            add = function(_)
                 return false
             end,
-            mv = function(src_path, dest_path)
+            -- automatically stage file renames
+            mv = function(_, _)
                 return true
             end,
-            rm = function(path)
+            rm = function(_)
                 return false
             end,
         },
