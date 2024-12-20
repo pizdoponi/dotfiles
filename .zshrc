@@ -107,7 +107,7 @@ alias vi="nvim"
 alias vimdiff="nvim -d"
 # ls
 alias l="eza"
-alias ll="l -lah"
+alias ll="eza -lah --icons --color=always --group-directories-first"
 # services
 alias chat="source ~/packages/open-webui/backend/.venv/bin/activate && bash ~/packages/open-webui/backend/start.sh"
 alias kbd="cd ~/packages/kanata && sudo ./kanata_macos_arm64 --cfg main.kbd"
@@ -171,19 +171,11 @@ function e() {
 	rm -f -- "$tmp"
 }
 
-# broot
-function br {
-    local cmd cmd_file code
-    cmd_file=$(mktemp)
-    if broot --outcmd "$cmd_file" "$@"; then
-        cmd=$(<"$cmd_file")
-        command rm -f "$cmd_file"
-        eval "$cmd"
-    else
-        code=$?
-        command rm -f "$cmd_file"
-        return "$code"
-    fi
+# ╭──────────────────────────────────────────────────────────╮
+# │                        functions                         │
+# ╰──────────────────────────────────────────────────────────╯
+function fkill() {
+    ps aux | fzf -m | awk '{print $2}' | xargs kill
 }
 
 # ──────────────────────────────────────────────────────────────────────
