@@ -7,7 +7,6 @@ return {
     },
     {
         "https://github.com/LudoPinelli/comment-box.nvim.git",
-        lazy = true,
         cmd = { "CBlcbox", "CBlcline", "CBllline" },
     },
     {

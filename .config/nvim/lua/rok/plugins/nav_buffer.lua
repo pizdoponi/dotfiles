@@ -1,7 +1,6 @@
 return {
     {
         "kwkarlwang/bufjump.nvim",
-        event = "VeryLazy",
         keys = {
             {
                 "<A-i>",

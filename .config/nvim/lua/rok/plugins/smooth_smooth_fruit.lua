@@ -7,7 +7,7 @@ return {
     },
     {
         "sphamba/smear-cursor.nvim",
-        -- TODO: enable this once it gets stable. keeps craching atm.
+        event = "VeryLazy",
         enabled = true,
         opts = {
             stiffness = 0.8, -- 0.6      [0, 1]

@@ -20,7 +20,6 @@ return {
     },
     {
         "sindrets/diffview.nvim",
-        lazy = true,
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
         keys = {
             { "<leader>gdd", "<cmd>DiffviewOpen<cr>", desc = "[D]iffview open" },

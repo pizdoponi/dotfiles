@@ -1,7 +1,6 @@
 return {
     {
         "zbirenbaum/copilot.lua",
-        lazy = true,
         enabled = true,
         event = "InsertEnter",
         config = function()
