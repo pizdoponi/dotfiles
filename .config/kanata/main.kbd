@@ -75,9 +75,9 @@
 )
 
 (defalias ;; numbers, navigation
-    four (tap-hold $tap-time $hold-time 4 rmet)
-    five (tap-hold $tap-time $hold-time 5 rsft)
-    six  (tap-hold $tap-time $hold-time 6 rctl)
+    4 (tap-hold $tap-time $hold-time 4 rmet)
+    5 (tap-hold $tap-time $hold-time 5 rsft)
+    6 (tap-hold $tap-time $hold-time 6 rctl)
     left (tap-hold $tap-time $hold-time left lctl)
     down (tap-hold $tap-time $hold-time down lsft)
     rght (tap-hold $tap-time $hold-time right lmet)
@@ -121,8 +121,8 @@
 (deflayer num_nav
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-    ✗     ✗     ✗     up    ✗     ✗     ✗     7     8     9     S-;   ✗     ✗
-    ✗     lalt  @left @down @rght ✗     ✗     @four @five @six  @.    ✗     ✗     ✗
+    ✗     ✗     pgdn  up    pgup  ✗     ✗     7     8     9     S-;   ✗     ✗
+    ✗     lalt  @left @down @rght ✗     ✗     @4    @5    @6    @.    ✗     ✗     ✗
     ✗     ✗   S-left down S-right ✗     ✗     ✗     1     2     3     ,     ✗
     ✗     ✗     ✗     ✗                 ✗                 0     ✗
 )
