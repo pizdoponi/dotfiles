@@ -78,10 +78,23 @@
     4 (tap-hold $tap-time $hold-time 4 rmet)
     5 (tap-hold $tap-time $hold-time 5 rsft)
     6 (tap-hold $tap-time $hold-time 6 rctl)
+    8 (tap-hold $tap-time $hold-time 8 (layer-while-held mouse))
     left (tap-hold $tap-time $hold-time left lctl)
     down (tap-hold $tap-time $hold-time down lsft)
     rght (tap-hold $tap-time $hold-time right lmet)
     .    (tap-hold $tap-time $hold-time . ralt)
+)
+
+(defalias ;; mouse
+    ms↑ (movemouse-up    10 1)
+    ms← (movemouse-left  10 1)
+    ms↓ (movemouse-down  10 1)
+    ms→ (movemouse-right 10 1)
+
+    ;; ma↑ (movemouse-accel-up 1 1000 1 5)
+    ;; ma← (movemouse-accel-left 1 1000 1 5)
+    ;; ma↓ (movemouse-accel-down 1 1000 1 5)
+    ;; ma→ (movemouse-accel-right 1 1000 1 5)
 )
 
 ;; map cmd-space to return; i + space = return
@@ -121,7 +134,7 @@
 (deflayer num_nav
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-    ✗     ✗     pgdn  up    pgup  ✗     ✗     7     8     9     S-;   ✗     ✗
+    ✗     ✗     pgdn  up    pgup  ✗     ✗     7     @8    9     S-;   ✗     ✗
     ✗     lalt  @left @down @rght ✗     ✗     @4    @5    @6    @.    ✗     ✗     ✗
     ✗     ✗   S-left down S-right ✗     ✗     ✗     1     2     3     ,     ✗
     ✗     ✗     ✗     ✗                 ✗                 0     ✗
@@ -136,6 +149,15 @@
     ✗     f21   f14   f15   f16   ✗     ✗     f4    f5    f6    f11   ✗     ✗     ✗
     ✗     f20   f11   f12   f13   ✗     ✗     ✗     f1    f2    f3    f10   ✗
     ✗     ✗     ✗     ✗                 ✗                 f10   ✗
+)
+
+(deflayer mouse
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     mrtp  @ms↑  mltp  ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     @ms←  @ms↓  @ms→  ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     ✗     ✗     ✗                 ✗                 ✗     ✗
 )
 
 ;; legacy fn layer
