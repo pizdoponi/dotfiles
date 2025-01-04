@@ -83,18 +83,14 @@ return {
                 },
             },
             -- NOTE: confirm and cancel mappings are set in keymaps.lua
-            mapping = cmp.mapping.preset.insert({
-                ["<Up>"] = cmp.mapping.select_prev_item({ behaviour = cmp.SelectBehavior.Select }),
-                ["<Down>"] = cmp.mapping.select_next_item({ behaviour = cmp.SelectBehavior.Select }),
-                -- accept the first item
-                ["<C-y>"] = cmp.mapping.confirm({ behaviour = cmp.ConfirmBehavior.Insert, select = true }),
-                -- close / open the completion menu
-                ["<C-e>"] = cmp.mapping.close(),
-                ["<C-z>"] = cmp.mapping.complete(),
-                -- docs scrolling
-                ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                -- luasnip
+            mapping = {
+                ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+                ["<C-e>"] = cmp.mapping(cmp.mapping.close(), { "i", "c" }),
+                ["<C-z>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+                ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
+                ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
                 ["<C-f>"] = cmp.mapping(function(fallback)
                     if luasnip.locally_jumpable(1) then
                         luasnip.jump(1)
@@ -109,7 +105,7 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-            }),
+            },
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -189,6 +185,77 @@ return {
             ---@diagnostic disable-next-line: missing-fields
             matching = { disallow_symbol_nonprefix_matching = false },
         })
+
+        -- @potocnik ftw
+        -- If copilot suggestion is visible and cmp has no selected entry,
+        --- <CR> will accept suggestion, otherwise if there is no
+        --- copilot suggestion and cmp is visible, <CR> will select
+        --- the first cmp entry, otherwise <CR> will just do
+        --- its default behavior.
+        vim.keymap.set("i", "<Tab>", function()
+            local copilot_ok, suggestion = pcall(require, "copilot.suggestion")
+            -- if not copilot_ok, and cmp has entry, accept it
+            -- this is so that cmp can work when copilot does not (=no internet connection)
+            if not copilot_ok and cmp.visible() and cmp.get_selected_entry() ~= nil then
+                vim.defer_fn(function()
+                    cmp.confirm({ select = true })
+                end, 5)
+                return true
+            end
+            if
+
+                cmp.visible() and cmp.get_selected_entry() ~= nil
+                or cmp.visible() and (not suggestion or not suggestion.is_visible())
+            then
+                vim.defer_fn(function()
+                    cmp.confirm({ select = true })
+                end, 5)
+                return true
+            end
+            -- if copilot suggestion is available, prefer that over cmp
+            if copilot_ok and suggestion and suggestion.is_visible() then
+                -- if the cmp item is not selected, but the user accepts copilot suggestion
+                -- close cmp and accept copilot suggestion
+                if cmp.visible() then
+                    vim.defer_fn(function()
+                        cmp.close()
+                    end, 5)
+                end
+                vim.defer_fn(function()
+                    suggestion.accept()
+                end, 5)
+                return true
+            end
+            return "<Tab>"
+        end, { expr = true, remap = true })
+
+        -- if either cmp or copilot suggestion is visible, close both.
+        -- if neither is visible, just do the default behavior
+        vim.keymap.set("i", "<C-c>", function()
+            local copilot_ok, suggestion = pcall(require, "copilot.suggestion")
+
+            local closed_something = false
+
+            if cmp.visible() then
+                vim.schedule(function()
+                    cmp.close()
+                end)
+                closed_something = true
+            end
+
+            if copilot_ok and suggestion.is_visible() then
+                vim.schedule(function()
+                    suggestion.dismiss()
+                end)
+                closed_something = true
+            end
+
+            if not closed_something then
+                return "<C-c>"
+            else
+                return true
+            end
+        end, { expr = true, remap = true })
 
         local colors = {
             -- reds

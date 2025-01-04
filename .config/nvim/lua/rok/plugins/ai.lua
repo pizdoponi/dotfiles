@@ -13,12 +13,10 @@ return {
                     auto_trigger = true,
                     debounce = 100,
                     keymap = {
-                        -- NOTE: accept and dismiss mapping is set in keymaps.lua
-                        -- to integrate with nvim-cmp
+                        -- NOTE: accept and dismiss mapping is set in cmp.lua to integrate with nvim-cmp
                         accept = false,
                         accept_word = false,
                         accept_line = "<C-l>",
-                        -- TODO: make the two mappings below work (conflict with nvim-cmp?)
                         next = "<C-n>",
                         prev = "<C-p>",
                         dismiss = false,
