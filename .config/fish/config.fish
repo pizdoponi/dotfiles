@@ -39,11 +39,10 @@ if status is-interactive
     alias vi nvim
     alias vimdiff "nvim -d"
     alias ls eza
-    alias cat bat
     alias ipy ipython
     alias ll "eza -lah --icons --color=always --group-directories-first"
     alias chat "source ~/packages/open-webui/backend/.venv/bin/activate; bash ~/packages/open-webui/backend/start.sh"
-    alias kbd "cd ~/packages/kanata; sudo ./kanata_macos_arm64 --cfg main.kbd"
+    alias kbd "cd ~/.config/kanata; sudo ./kanata_macos_arm64 --cfg main.kbd"
     alias tre "eza --tree --color=always --icons"
 
     if test -x /opt/homebrew/bin/pinentry-mac
