@@ -13,9 +13,11 @@ return {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
         },
+        init = function()
+            vim.g.lsp_zero_extend_cmp = false
+        end,
         config = function()
             local lsp_zero = require("lsp-zero")
-            vim.g.lsp_zero_extend_cmp = 0
             lsp_zero.extend_lspconfig()
 
             -- NOTE: hover on K is set in folds.lua
@@ -54,6 +56,12 @@ return {
                         vim.lsp.buf.references()
                     end
                 end, { buffer = bufnr, desc = "show references" })
+                vim.keymap.set(
+                    "n",
+                    "gy",
+                    vim.lsp.buf.type_definition,
+                    { buffer = bufnr, desc = "go to type definition" }
+                )
                 vim.keymap.set(
                     "n",
                     "<leader>.",
