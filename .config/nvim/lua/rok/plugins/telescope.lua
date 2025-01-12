@@ -6,6 +6,7 @@ return {
             "nvim-lua/plenary.nvim",
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
+        cmd = "Telescope",
         keys = {
             { "<leader>ss", "<cmd>Telescope<cr>", desc = "Telescope" },
             { "<leader>sf", "<cmd>Telescope find_files<cr>", desc = "[s]earch [f]iles" },
@@ -31,6 +32,11 @@ return {
                 "<leader>snp",
                 "<cmd>Telescope find_files cwd=~/.local/share/nvim/lazy<cr>",
                 desc = "[s]earch [n]eovim [p]lugins",
+            },
+            {
+                "<leader>sn/",
+                "<cmd>Telescope live_grep cwd=~/.config/nvim<cr>",
+                desc = "[s]earch [n]eovim live_grep",
             },
         },
         config = function()
