@@ -3,7 +3,14 @@ return {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         event = "VeryLazy",
-        opts = {},
+        opts = {
+            keywords = {
+                FIX = { icon = "E" },
+                TODO = { icon = "T" },
+                WARN = { icon = "W" },
+                NOTE = { icon = "I" },
+            },
+        },
     },
     {
         "https://github.com/LudoPinelli/comment-box.nvim.git",
