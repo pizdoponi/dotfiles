@@ -47,6 +47,9 @@ return {
             "hrsh7th/nvim-cmp",
             "nvim-telescope/telescope.nvim",
         },
+        init = function()
+            vim.cmd([[cnoreabbrev cc CodeCompanion]])
+        end,
         opts = {
             strategies = {
                 chat = {
@@ -60,8 +63,5 @@ return {
                 },
             },
         },
-        config = function()
-            vim.cmd([[cnoreabbrev cc CodeCompanion]])
-        end,
     },
 }
