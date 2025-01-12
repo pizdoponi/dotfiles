@@ -4,7 +4,25 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
         require("lualine").setup({
-            extensions = { "oil", "fugitive", "quickfix", "nvim-dap-ui", "trouble" },
+            sections = {
+                lualine_c = {
+                    {
+                        "filename",
+                        path = 1,
+                    },
+                },
+            },
+            extensions = {
+                "oil",
+                "fugitive",
+                "quickfix",
+                "nvim-dap-ui",
+                "trouble",
+                "man",
+                "symbols-outline",
+                "toggleterm",
+                "mason",
+            },
         })
     end,
 }
