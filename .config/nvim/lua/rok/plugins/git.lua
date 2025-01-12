@@ -1,3 +1,29 @@
+function _G.goto_next_hunk()
+    if vim.wo.diff then
+        vim.cmd("normal! ]c")
+    else
+        local ok, _ = pcall(function()
+            require("gitsigns").nav_hunk("next")
+        end)
+        if not ok then
+            vim.notify("Can't move to next hunk", vim.log.levels.INFO)
+        end
+    end
+end
+
+function _G.goto_prev_hunk()
+    if vim.wo.diff then
+        vim.cmd("normal! [c")
+    else
+        local ok, _ = pcall(function()
+            require("gitsigns").nav_hunk("prev")
+        end)
+        if not ok then
+            vim.notify("Can't move to previous hunk", vim.log.levels.INFO)
+        end
+    end
+end
+
 return {
     "tpope/vim-fugitive",
     {
@@ -89,21 +115,8 @@ return {
                     end
 
                     -- Navigation
-                    map("n", "]c", function()
-                        if vim.wo.diff then
-                            vim.cmd.normal({ "]c", bang = true })
-                        else
-                            gitsigns.nav_hunk("next")
-                        end
-                    end, { desc = "Next change" })
-
-                    map("n", "[c", function()
-                        if vim.wo.diff then
-                            vim.cmd.normal({ "[c", bang = true })
-                        else
-                            gitsigns.nav_hunk("prev")
-                        end
-                    end, { desc = "Previous change" })
+                    map("n", "]c", _G.goto_next_hunk, { desc = "Next change" })
+                    map("n", "[c", _G.goto_prev_hunk, { desc = "Previous change" })
 
                     -- Actions
 
