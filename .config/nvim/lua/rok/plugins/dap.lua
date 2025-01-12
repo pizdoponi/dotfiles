@@ -6,7 +6,6 @@ return {
             { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
             "theHamsta/nvim-dap-virtual-text",
             "mfussenegger/nvim-dap-python",
-            -- "leoluz/nvim-dap-go",
         },
         config = function()
             local dap, dapui = require("dap"), require("dapui")
@@ -16,36 +15,16 @@ return {
                 mappings = {
                     expand = { "<CR>", "<Tab>" },
                 },
-                layouts = {
-                    {
-                        elements = {
-                            {
-                                id = "stacks",
-                                size = 0.20,
-                            },
-                            {
-                                id = "scopes",
-                                size = 0.30,
-                            },
-                            {
-                                id = "watches",
-                                size = 0.50,
-                            },
-                        },
-                        position = "left",
-                        size = 40,
-                    },
-                },
             })
 
-            require("nvim-dap-virtual-text").setup()
+            require("nvim-dap-virtual-text").setup({})
 
-            dap.listeners.before.attach.dapui_config = function()
-                dapui.open()
-            end
-            dap.listeners.before.launch.dapui_config = function()
-                dapui.open()
-            end
+            -- dap.listeners.before.attach.dapui_config = function()
+            --     dapui.open()
+            -- end
+            -- dap.listeners.before.launch.dapui_config = function()
+            --     dapui.open()
+            -- end
             dap.listeners.before.event_terminated.dapui_config = function()
                 dapui.close()
             end
@@ -56,36 +35,52 @@ return {
             require("dap-python").setup("python")
             require("dap-python").test_runner = "pytest"
 
-            -- require("dap-go").setup()
+            vim.keymap.set("n", "<F12>", dap.continue)
+            vim.keymap.set("n", "<F15>", dap.step_over)
+            vim.keymap.set("n", "<F16>", dap.step_into)
+            vim.keymap.set("n", "<F14>", dap.step_out)
+            vim.keymap.set("n", "<F18>", dap.step_back)
 
-            require("which-key").add({ { "<leader>d", group = "[d]ebug" } })
-
-            vim.keymap.set("n", "<F5>", dap.continue)
-            vim.keymap.set("n", "<F4>", dap.step_over)
-            vim.keymap.set("n", "<F6>", dap.step_into)
-            vim.keymap.set("n", "<F11>", dap.step_out)
-
-            vim.keymap.set("n", "<leader>di", function()
+            vim.keymap.set("n", "<leader>d?", function()
                 dapui.eval(nil, { enter = true })
-            end, { desc = "[i]nspect object under cursor" })
+            end, { desc = "inspect object under cursor" })
             vim.keymap.set("v", "<leader>de", function()
                 dapui.eval(nil, { enter = true })
             end, { desc = "[e]val visual selection" })
 
-            vim.keymap.set("n", "<leader>dlb", function()
-                dapui.float_element("breakpoints", { enter = true, position = "center" })
-            end, { desc = "[l]ist [b]reakpoints" })
+            -- vim.keymap.set("n", "<leader>dlb", function()
+            --     dapui.float_element("breakpoints", { enter = true, position = "center" })
+            -- end, { desc = "[l]ist [b]reakpoints" })
 
+            -- ── :DapEval enhancements ───────────────────────────────────────────
+            local is_dap_eval_open = false
             vim.keymap.set("n", "<leader>de", function()
-                vim.cmd("DapEval")
-                dap.repl.open()
-                vim.cmd("wincmd k")
-                vim.cmd("wincmd H")
-                vim.cmd("wincmd l")
-            end, { desc = "[e]val" })
+                local function close_dap_eval_buffer()
+                    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                        local buf_name = vim.api.nvim_buf_get_name(buf)
+                        if buf_name:match("^dap%-eval://") then
+                            vim.api.nvim_buf_delete(buf, { force = true })
+                        end
+                    end
+                end
 
-            vim.keymap.set("n", "<leader>da", dap.restart, { desc = "restart debug session [a]gain" })
-            vim.keymap.set("n", "<leader>dh", dap.terminate, { desc = "[h]alt debug session" })
+                if is_dap_eval_open then
+                    -- close dap eval
+                    dap.repl.close()
+                    close_dap_eval_buffer()
+                else
+                    -- open dap eval
+                    -- and close dapui, if open
+                    pcall(dapui.close)
+                    vim.cmd("DapEval")
+                    vim.cmd("wincmd L")
+                    dap.repl.open()
+                end
+
+                is_dap_eval_open = not is_dap_eval_open
+            end, { desc = "[e]val" })
+            -- ──────────────────────────────────────────────────────────────────────
+
             vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "toggle [b]reakpoint" })
             vim.keymap.set("n", "<leader>dB", function()
                 dap.toggle_breakpoint(vim.fn.input("Breakpoint condition: "))
@@ -95,8 +90,37 @@ return {
                 dapui.toggle()
             end, { desc = "[o]pen (or close) dapui" })
 
-            vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "ErrorMsg", linehl = "", numhl = "ErrorMsg" })
+            vim.fn.sign_define("DapBreakpoint", { text = "B", texthl = "ErrorMsg", linehl = "", numhl = "" })
+            vim.fn.sign_define("DapBreakpointCondition", { text = "C", texthl = "ErrorMsg", linehl = "", numhl = "" })
             vim.fn.sign_define("DapStopped", { text = "", texthl = "IncSearch", linehl = "", numhl = "IncSearch" })
         end,
+    },
+    {
+        "Goose97/timber.nvim",
+        lazy = true,
+        opts = {
+            defualt_keymaps_enabled = false,
+            log_templates = {
+                default = {
+                    python = [[print('[LOGZILLA]::%filename::%line_number::%log_target', %log_target)]],
+                },
+                plain = {
+                    python = [[print('[LOGZILLA]::%filename::%line_number %insert_cursor')]],
+                },
+            },
+            keymaps = {
+                insert_log_below = "<leader>p<down>",
+                insert_log_above = "<leader>p<up>",
+                insert_plain_log_below = "<leader>po",
+                insert_plain_log_above = "<leader>p<S-o>",
+                insert_batch_log = "<leader>pb",
+                add_log_targets_to_batch = "<leader>pa",
+                insert_log_below_operator = "<leader>p<S-l><down>",
+                insert_log_above_operator = "<leader>p<S-l><up>",
+                insert_batch_log_operator = "<leader>p<S-l>b",
+                add_log_targets_to_batch_operator = "<leader>p<S-l>a",
+            },
+        },
+        config = true,
     },
 }
