@@ -16,21 +16,10 @@ local goto_prev_spell = function()
 end
 
 local goto_next_qflist = function()
-    local trouble_ok, trouble = pcall(require("trouble"))
-    if trouble_ok and trouble.is_open() then
-        trouble.next({ skip_groups = true, jump = true })
-    else
-        vim.cmd("cnext")
-    end
+    vim.cmd("cnext")
 end
-
 local goto_prev_qflist = function()
-    local trouble_ok, trouble = pcall(require("trouble"))
-    if trouble_ok and trouble.is_open() then
-        trouble.prev({ skip_groups = true, jump = true })
-    else
-        vim.cmd("cprev")
-    end
+    vim.cmd("cprev")
 end
 
 local repeat_goto_next_diagnostic, repeat_goto_prev_diagnostic =
@@ -38,6 +27,7 @@ local repeat_goto_next_diagnostic, repeat_goto_prev_diagnostic =
 local repeat_goto_next_error, repeat_goto_prev_error = repeatable_move(goto_next_error, goto_prev_error)
 local repeat_goto_next_spell, repeat_goto_prev_spell = repeatable_move(goto_next_spell, goto_prev_spell)
 local repeat_goto_next_qflist, repeat_goto_prev_qflist = repeatable_move(goto_next_qflist, goto_prev_qflist)
+local repeat_goto_next_trouble, repeat_goto_prev_trouble = repeatable_move(_G.goto_next_trouble, _G.goto_prev_trouble)
 
 vim.keymap.set({ "n", "x", "o" }, "]d", repeat_goto_next_diagnostic, { desc = "Next diagnostic" })
 vim.keymap.set({ "n", "x", "o" }, "[d", repeat_goto_prev_diagnostic, { desc = "Prev diagnostic" })
@@ -49,3 +39,6 @@ vim.keymap.set({ "n", "x", "o" }, "[q", repeat_goto_prev_qflist, { desc = "Prev 
 
 vim.keymap.set({ "n", "x", "o" }, "]s", repeat_goto_next_spell, { desc = "Next spell" })
 vim.keymap.set({ "n", "x", "o" }, "[s", repeat_goto_prev_spell, { desc = "Prev spell" })
+
+vim.keymap.set({ "n", "x", "o" }, "]l", repeat_goto_next_trouble, { desc = "Next trouble" })
+vim.keymap.set({ "n", "x", "o" }, "[l", repeat_goto_prev_trouble, { desc = "Prev trouble" })
