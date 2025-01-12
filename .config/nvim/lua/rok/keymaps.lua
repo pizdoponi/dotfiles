@@ -16,11 +16,8 @@ vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { desc = "Terminal Escape" })
 -- very magic search
 vim.keymap.set("n", "/", "/\\v", { desc = "Very Magic Search" })
 vim.keymap.set("n", "?", "?\\v", { desc = "Very Magic Search" })
-vim.cmd([[cnoreabbrev s/ s/\v]])
-vim.cmd([[cnoreabbrev %s/ %s/\v]])
 
 -- diagnostics
--- NOTE: many of the keymaps are set in after/plugin/repeatable_move.lua
 vim.keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "[l]og diagnostic" })
 
 -- better indenting
