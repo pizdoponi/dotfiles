@@ -65,9 +65,6 @@ return {
                         enable = true,
                         lookahead = true,
                         keymaps = {
-                            ["al"] = { query = "@loop.outer", desc = "outer loop" },
-                            ["il"] = { query = "@loop.inner", desc = "inner loop" },
-
                             ["af"] = { query = "@function.outer", desc = "outer function" },
                             ["if"] = { query = "@function.inner", desc = "inner function" },
 
@@ -94,22 +91,18 @@ return {
                         goto_next_start = {
                             ["]f"] = { query = "@function.outer", desc = "Next function start" },
                             ["]r"] = { query = "@class.outer", desc = "Next class end" },
-                            ["]l"] = { query = "@loop.outer", desc = "Next loop start" },
                         },
                         goto_next_end = {
                             ["]F"] = { query = "@function.outer", desc = "Next function end" },
                             ["]R"] = { query = "@class.outer", desc = "Next class end" },
-                            ["]L"] = { query = "@loop.outer", desc = "Next loop end" },
                         },
                         goto_previous_start = {
                             ["[f"] = { query = "@function.outer", desc = "Prev function start" },
                             ["[r"] = { query = "@class.outer", desc = "Prev class start" },
-                            ["[l"] = { query = "@loop.outer", desc = "Prev loop start" },
                         },
                         goto_previous_end = {
                             ["[F"] = { query = "@function.outer", desc = "Prev function end" },
                             ["[R"] = { query = "@class.outer", desc = "Prev class end" },
-                            ["[L"] = { query = "@loop.outer", desc = "Prev loop end" },
                         },
                     },
                 },
@@ -140,7 +133,7 @@ return {
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
         },
-        opts = { useDefaultKeymaps = true },
+        opts = { keymaps = { useDefaults = true } },
     },
     {
         "aaronik/treewalker.nvim",
