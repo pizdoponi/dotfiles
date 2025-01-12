@@ -47,38 +47,6 @@ return {
         opts = {},
     },
     {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        lazy = true,
-        config = function()
-            require("lsp_lines").setup()
-            -- Disable virtual_text since it's redundant due to lsp_lines.
-            vim.diagnostic.config({
-                virtual_text = false,
-                virtual_lines = true,
-            })
-        end,
-    },
-    {
-        "rachartier/tiny-inline-diagnostic.nvim",
-        -- event = "VeryLazy", -- Or `LspAttach`
-        enabled = true,
-        priority = 900, -- needs to be loaded in first
-        config = function()
-            -- remove virtual text
-            vim.diagnostic.config({ virtual_text = false, severity_sort = true })
-            require("tiny-inline-diagnostic").setup({
-                preset = "classic",
-                options = {
-                    show_source = false,
-                    multilines = false,
-                },
-                hi = {
-                    background = "Normal",
-                },
-            })
-        end,
-    },
-    {
         "rgroli/other.nvim",
         keys = {
             { "go", "<cmd>Other<cr>", desc = "Go to Other file" },
