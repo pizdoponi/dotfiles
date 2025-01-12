@@ -1,5 +1,4 @@
 return {
-    { "vim-scripts/restore_view.vim" },
     {
         "chrisgrieser/nvim-origami",
         event = "BufReadPost", -- later or on keypress would prevent saving folds
@@ -23,28 +22,28 @@ return {
         event = "VeryLazy",
         dependencies = {
             "kevinhwang91/promise-async",
-            "chrisgrieser/nvim-origami",
         },
         init = function()
-            -- "0" means that fold level is not shown in the sidebar
+            vim.o.foldenable = true
+            vim.o.foldmethod = "manual"
             vim.o.foldcolumn = "0"
             vim.o.foldlevel = 99
             vim.o.foldlevelstart = 99
-            vim.o.foldenable = true
+            vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+            vim.cmd("highlight Folded guifg=NONE guibg=NONE")
         end,
         opts = {
             provider_selector = function(_, filetype, _)
-                -- INFO some filetypes only allow indent, some only LSP, some only
-                -- treesitter. However, ufo only accepts two kinds as priority,
-                -- therefore making this function necessary :/
                 local lspWithOutFolding = { "markdown", "sh", "css", "html", "python" }
                 if vim.tbl_contains(lspWithOutFolding, filetype) then
                     return { "treesitter", "indent" }
                 end
                 return { "lsp", "indent" }
             end,
-            open_fold_hl_timeout = 800,
-            -- format function copied from ufo's docs
+            close_fold_kinds_for_ft = {
+                python = { "imports" },
+            },
+            open_fold_hl_timeout = 0,
             fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
                 local newVirtText = {}
                 local suffix = (" 󰁂 %d "):format(endLnum - lnum)
@@ -74,24 +73,20 @@ return {
             end,
         },
         config = function(_, opts)
-            require("ufo").setup(opts)
+            local ufo = require("ufo")
+            ufo.setup(opts)
 
-            vim.keymap.set("n", "zR", function()
-                require("ufo").openAllFolds()
-            end, { desc = "Open all folds" })
-            vim.keymap.set("n", "zM", function()
-                require("ufo").closeAllFolds()
-            end, { desc = "Close all folds" })
-            -- NOTE: here is the hover on K
+            vim.keymap.set("n", "zR", ufo.openAllFolds, { desc = "Open all folds" })
+            vim.keymap.set("n", "zM", ufo.closeAllFolds, { desc = "Close all folds" })
+            vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds, { desc = "Open folds" })
+            vim.keymap.set("n", "zm", ufo.closeFoldsWith, { desc = "Close folds" })
+
             vim.keymap.set("n", "K", function()
                 local winid = require("ufo").peekFoldedLinesUnderCursor()
                 if not winid then
                     vim.lsp.buf.hover()
                 end
-            end, { desc = "Hover / peek fold" })
-            vim.keymap.set("n", "z<cr>", function()
-                require("ufo.action").closeFolds(vim.v.count)
-            end, { desc = "Close folds with v:count" })
+            end, { desc = "LSP hover / peek fold" })
         end,
     },
 }
