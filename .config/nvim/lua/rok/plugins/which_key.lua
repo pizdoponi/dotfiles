@@ -32,9 +32,9 @@ return {
             { "<leader>s", group = "[s]earch" },
             { "<leader>sn", group = "[s]earch [n]eovim" },
             { "<leader>d", group = "[d]ebug" },
-            { "<leader>dl", group = "[d]ebug [l]og" },
+            { "<leader>p", group = "[p]rint" },
             { "<leader>r", group = "[r]epl" },
-            { "<leader>T", group = "[T]reewalker" },
+            { "<leader>W", group = "Tree[W]alker" },
             { "<leader>;", group = "Swap next" },
             { "<leader>,", group = "Swap prev" },
         })

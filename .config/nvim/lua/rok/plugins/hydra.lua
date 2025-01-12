@@ -19,7 +19,7 @@ return {
         Hydra({
             name = "Treewalker",
             mode = "n",
-            body = "<leader>T",
+            body = "<leader>W",
             heads = {
                 { "<down>", "<cmd>Treewalker Down<cr>", { desc = "Move Down" } },
                 { "<up>", "<cmd>Treewalker Up<cr>", { desc = "Move Up" } },
