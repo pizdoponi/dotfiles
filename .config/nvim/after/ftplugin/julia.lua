@@ -1,8 +1,8 @@
 vim.keymap.set("n", "<localleader>rr", function()
     local count = vim.v.count1
-    vim.cmd(count .. "REPLStart ipython")
+    vim.cmd(count .. "REPLStart julia")
     vim.cmd("wincmd w")
-end, { desc = "Start ipython REPL" })
+end, { desc = "Start julia REPL" })
 
 vim.schedule(function()
     local tbl = vim.lsp.get_clients({ bufnr = 0 })
@@ -10,9 +10,9 @@ vim.schedule(function()
 
     if tbl_is_empty then
         require("lspconfig")
-        vim.notify("Starting basedpyright and ruff")
+        vim.notify("Starting julials")
         vim.defer_fn(function()
-            vim.cmd("LspStart basedpyright ruff")
+            vim.cmd("LspStart julials")
         end, 100)
     end
 end)
