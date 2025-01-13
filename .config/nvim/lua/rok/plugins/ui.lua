@@ -53,6 +53,6 @@ return {
     },
     {
         "HiPhish/rainbow-delimiters.nvim",
-        event = "VeryLazy",
+        -- VeryLazy or lazy loading does not work; the first opened buffer will not have rainbow delimiters
     },
 }

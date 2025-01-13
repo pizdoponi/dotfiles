@@ -27,9 +27,10 @@ require("lazy").setup("rok.plugins", {
     },
 })
 
+vim.cmd("cnoreabbrev ll Lazy load")
+
 -- config
 require("rok.keymaps")
 require("rok.options")
 require("rok.autocmds")
 require("rok.repeatable_move")
-require("rok.custom.load_lazy_plugin")
