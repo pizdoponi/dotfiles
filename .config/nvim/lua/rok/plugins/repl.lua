@@ -1,13 +1,27 @@
+local ft_to_repl = {
+    python = "ipython",
+    julia = "julia",
+    lua = "lua",
+    racket = "racket",
+}
+local fts = vim.tbl_keys(ft_to_repl)
+
 return {
     "milanglacier/yarepl.nvim",
     cmd = "REPLStart",
-    ft = { "python", "julia", "lua", "racket" },
+    ft = fts,
     init = function()
-        vim.api.nvim_create_autocmd({ "BufReadPost", "BufNew" }, {
+        vim.api.nvim_create_autocmd("FileType", {
             desc = "Set localleader mappings for yarepl",
-            pattern = { "*.py", "*.jl", "*.rkt" },
+            pattern = fts,
             callback = function(opts)
-                local yarepl = require("yarepl")
+                local repl = ft_to_repl[vim.bo.filetype]
+                repl = repl and ("-" .. repl) or ""
+
+                vim.keymap.set("n", "<localleader>rs", "<Plug>(REPLStart" .. repl .. ")", {
+                    buffer = opts.buf,
+                    desc = "Start REPL",
+                })
                 vim.keymap.set("n", "<localleader>rl", "<Plug>(REPLSendLine)", {
                     buffer = opts.buf,
                     desc = "Send line to REPL",
@@ -27,15 +41,14 @@ return {
                     buffer = opts.buf,
                     desc = "Focus REPL and enter insert mode",
                 })
-                vim.keymap.set("n", "<localleader>rf", function()
+                vim.keymap.set("n", "<localleader>rb", function()
                     local cursor_pos = vim.api.nvim_win_get_cursor(0)
-                    vim.cmd("normal! gg")
-                    vim.cmd("REPLSendOperator")
-                    vim.api.nvim_feedkeys("G", "n", true)
+                    vim.cmd("normal! ggVG")
+                    vim.cmd("REPLSendVisual")
                     vim.api.nvim_win_set_cursor(0, cursor_pos)
                 end, {
                     buffer = opts.buf,
-                    desc = "Send entire file to REPL",
+                    desc = "Send entire buffer to REPL",
                 })
             end,
         })
@@ -48,6 +61,10 @@ return {
                 })
             end,
         })
+
+        pcall(function()
+            require("which-key").add({ { "<localleader>r", "[r]epl" } })
+        end)
     end,
     config = function()
         local yarepl = require("yarepl")
@@ -64,6 +81,7 @@ return {
                 bash = false,
                 zsh = false,
                 ipython = { cmd = "ipython --no-confirm-exit", formatter = yarepl.formatter.bracketed_pasting },
+                py = { cmd = "ipython --no-confirm-exit", formatter = yarepl.formatter.bracketed_pasting },
                 garfield_ipython = {
                     cmd = "ssh -t garfield bash -lc 'ipython --no-confirm-exit'",
                     formatter = yarepl.formatter.bracketed_pasting,
