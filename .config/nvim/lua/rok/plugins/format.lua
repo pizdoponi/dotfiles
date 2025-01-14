@@ -19,13 +19,11 @@ return {
             ["_"] = { "trim_whitespace", "trim_newlines" },
             lua = { "stylua" },
             python = { "isort", "black", "docformatter" },
-            -- python = { "ruff_format", "docformatter" },
             javascript = { "prettier" },
             typescript = { "prettier" },
-            svelte = { "prettier" },
+            markdown = { "mdformat" },
             html = { "prettier" },
             plaintex = { "latexindent" },
-            latex = { "latexindent" },
             tex = { "latexindent" },
             bib = { "bibtex-tidy" },
             fish = { "fish_indent" },
@@ -36,16 +34,17 @@ return {
         require("conform").setup(opts)
 
         -- Command to toggle format on save
-        local format_on_save = true
-        vim.api.nvim_create_user_command("ToggleConformFormatOnSave", function()
-            if format_on_save then
-                format_on_save = false
+        local should_format_on_save = true
+        vim.api.nvim_create_user_command("ToggleFormatOnSave", function()
+            if should_format_on_save then
+                should_format_on_save = false
+                ---@diagnostic disable-next-line: assign-type-mismatch
                 require("conform").setup({ format_after_save = false })
-                print("Format on save is disabled")
+                vim.notify("Format on save is disabled", vim.log.levels.INFO)
             else
-                format_on_save = true
+                should_format_on_save = true
                 require("conform").setup({ format_after_save = format_opts })
-                print("Format on save is enabled")
+                vim.notify("Format on save is enabled", vim.log.levels.INFO)
             end
         end, { desc = "Toggle format on save" })
     end,
