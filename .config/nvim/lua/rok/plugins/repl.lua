@@ -2,7 +2,6 @@ local ft_to_repl = {
     python = "ipython",
     julia = "julia",
     lua = "lua",
-    racket = "racket",
 }
 local fts = vim.tbl_keys(ft_to_repl)
 
@@ -73,7 +72,6 @@ return {
             metas = {
                 julia = { cmd = "julia", formatter = yarepl.formatter.bracketed_pasting },
                 lua = { cmd = "lua", formatter = yarepl.formatter.bracketed_pasting },
-                racket = { cmd = "racket", formatter = yarepl.formatter.trim_empty_lines },
                 aichat = false,
                 radian = false,
                 python = false,
