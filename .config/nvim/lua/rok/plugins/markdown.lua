@@ -2,14 +2,12 @@ return {
     {
         "MeanderingProgrammer/markdown.nvim",
         ft = "markdown",
-        name = "render-markdown", -- Only needed if you have another plugin named markdown.nvim
+        name = "render-markdown",
         dependencies = {
-            "nvim-treesitter/nvim-treesitter", -- Mandatory
-            "nvim-tree/nvim-web-devicons", -- Optional but recommended
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
         },
-        config = function()
-            require("render-markdown").setup({})
-        end,
+        opts = {},
     },
     {
         "toppair/peek.nvim",
@@ -17,8 +15,9 @@ return {
         build = "deno task --quiet build:fast",
         config = function()
             require("peek").setup()
-            vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
-            vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+            vim.api.nvim_buf_create_user_command(0, "PeekOpen", require("peek").open, {})
+            vim.api.nvim_buf_create_user_command(0, "PeekClose", require("peek").close, {})
+            vim.keymap.set("n", "<localleader>p", "<cmd>PeekOpen<cr>", { desc = "[p]review markdown", buffer = 0 })
         end,
     },
 }
