@@ -1,8 +1,3 @@
-if vim.g.vscode then
-    require("rok.vscode")
-    return
-end
-
 vim.keymap.set("n", "<space>", "<nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
