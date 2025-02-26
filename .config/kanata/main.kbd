@@ -85,6 +85,17 @@
     .    (tap-hold $tap-time $hold-time . ralt)
 )
 
+(defalias ;; fn
+    f21 (tap-hold $tap-time $hold-time f21 lalt)
+    f14 (tap-hold $tap-time $hold-time f14 lctl)
+    f15 (tap-hold $tap-time $hold-time f15 lsft)
+    f16 (tap-hold $tap-time $hold-time f16 lmet)
+    f4 (tap-hold $tap-time $hold-time f4 rmet)
+    f5 (tap-hold $tap-time $hold-time f5 rsft)
+    f6 (tap-hold $tap-time $hold-time f6 rctl)
+    f11 (tap-hold $tap-time $hold-time f11 ralt)
+)
+
 (defalias ;; mouse
     ms↑ (movemouse-up    10 1)
     ms← (movemouse-left  10 1)
@@ -116,19 +127,19 @@
 (deflayer sym1
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     M-1   M-2   M-3   M-4   M-5   M-6   M-7   M-8   M-9   M-0   ✗     ✗     ✗
-    M-tab @^    @#    @*    @$    @at   @```  `     S-[   S-]   @%    ✗     ✗
-    ✗     @<    @!    @-    @=    @>    \     @obrc @cbrc @?    @;    ✗     ✗     ✗
-    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     /     ✗
-    ✗     ✗     ✗     /                 '                 S-;   ✗
+    M-tab @^    @#    @*    @$    @at   @```  '     S-[   S-]   @%    ✗     ✗
+    ✗     @<    @!    @-    @=    @>    `     @obrc @cbrc @?    @;    ✗     ✗     ✗
+    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     1     ✗
+    ✗     ✗     ✗     /                 S-;               \     ✗
 )
 
 (deflayer sym2
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     M-1   M-2   M-3   M-4   M-5   M-6   M-7   M-8   M-9   M-0   ✗     ✗     ✗
-    M-tab @^    @#    @*    @$    @at   @```  `     S-[   S-]   @%    ✗     ✗
-    ✗     @<    @!    @-    @=    @>    \     @obrc @cbrc @?    @;    ✗     ✗     ✗
-    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     /     ✗
-    ✗     ✗     ✗     /                 S--               S-;   ✗
+    M-tab @^    @#    @*    @$    @at   @```  '     S-[   S-]   @%    ✗     ✗
+    ✗     @<    @!    @-    @=    @>    `     @obrc @cbrc @?    @;    ✗     ✗     ✗
+    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     1     ✗
+    ✗     ✗     ✗     /                 S--               \     ✗
 )
 
 (deflayer num_nav
@@ -146,7 +157,7 @@
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     f22   f17   f18   f19   ✗     ✗     f7    f8    f9    f12   ✗     ✗
-    ✗     f21   f14   f15   f16   ✗     ✗     f4    f5    f6    f11   ✗     ✗     ✗
+    ✗     @f21  @f14  @f15  @f16  ✗     ✗     @f4   @f5   @f6   @f11  ✗     ✗     ✗
     ✗     f20   f11   f12   f13   ✗     ✗     ✗     f1    f2    f3    f10   ✗
     ✗     ✗     ✗     ✗                 ✗                 f10   ✗
 )
