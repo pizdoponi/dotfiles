@@ -1,4 +1,11 @@
-vim.keymap.set("n", "yc", "yygccp", { desc = "Yank and Comment" })
+-- FIXME: this keymap is not working
+vim.keymap.set("n", "yc", function()
+    vim.cmd("normal! yy") -- Yank the current line
+    -- vim.cmd("normal! gcc")   -- Comment the line
+    -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("gcc", true, false, true), "n", false)
+    vim.api.nvim_feedkeys("gcc", "n", true)
+    vim.cmd("normal! p") -- Paste the yanked line below
+end, { desc = "Yank and Comment" })
 
 -- alt delete will delete a  word, like in all other programs and editors
 vim.keymap.set("i", "<A-Bs>", "<C-w>", { desc = "Delete Word" })
@@ -30,14 +37,3 @@ vim.keymap.set("n", "N", "Nzzzv")
 
 -- better yanking
 vim.keymap.set("v", "p", [["_dP]], { desc = "Paste Over" }) -- paste over visual selection without yanking
-
--- uuid generation
-vim.keymap.set("i", "guuid", function()
-    local template = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
-    local function replace(c)
-        local v = (c == "x") and math.random(0, 0xf) or math.random(8, 0xb)
-        return string.format("%x", v)
-    end
-    local uuid = string.gsub(template, "[xy]", replace)
-    vim.api.nvim_put({ uuid }, "c", true, true)
-end)

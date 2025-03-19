@@ -17,7 +17,13 @@ return {
             require("peek").setup()
             vim.api.nvim_buf_create_user_command(0, "PeekOpen", require("peek").open, {})
             vim.api.nvim_buf_create_user_command(0, "PeekClose", require("peek").close, {})
-            vim.keymap.set("n", "<localleader>p", "<cmd>PeekOpen<cr>", { desc = "[p]review markdown", buffer = 0 })
+            vim.keymap.set("n", "<localleader>p", require("peek").open, { desc = "[p]review markdown", buffer = 0 })
+            vim.keymap.set(
+                "n",
+                "<localleader>q",
+                require("peek").close,
+                { desc = "[q]uit markdown preview", buffer = 0 }
+            )
         end,
     },
 }

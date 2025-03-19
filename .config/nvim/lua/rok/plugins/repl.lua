@@ -55,7 +55,7 @@ return {
         vim.api.nvim_create_autocmd("FileType", {
             pattern = "REPL",
             callback = function()
-                vim.keymap.set("n", "<localleader>rr", "<cmd>quit<cr>", {
+                vim.keymap.set("n", "q", "<cmd>quit<cr>", {
                     desc = "Hide REPL",
                 })
             end,

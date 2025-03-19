@@ -122,6 +122,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
+        enabled = false,
         event = "VeryLazy",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",

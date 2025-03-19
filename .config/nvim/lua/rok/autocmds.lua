@@ -1,6 +1,6 @@
 local group = vim.api.nvim_create_augroup("pizdoponi", { clear = false })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "TabEnter", "BufNew" }, {
     group = group,
     desc = "Set number and relativenumber in every buffer",
     command = "setlocal number relativenumber",

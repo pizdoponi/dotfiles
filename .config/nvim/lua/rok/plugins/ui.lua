@@ -6,7 +6,7 @@ return {
     },
     {
         "j-hui/fidget.nvim",
-        event = "VeryLazy",
+        event = "LspAttach",
         opts = {},
     },
     {
@@ -28,11 +28,12 @@ return {
         event = "VeryLazy",
         main = "ibl",
         opts = {
-            scope = { enabled = false },
+            scope = { enabled = true, char = "▏", show_start = false, show_end = false },
         },
     },
     {
         "shellRaining/hlchunk.nvim",
+        enabled = false,
         event = "VeryLazy",
         opts = {
             chunk = {

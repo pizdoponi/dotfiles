@@ -1,6 +1,9 @@
+vim.cmd("cnoreabbrev tt ToggleTerm")
+
 return {
     "akinsho/toggleterm.nvim",
     version = "*",
+    cmd = "ToggleTerm",
     keys = {
         { "<A-t>", "<cmd>ToggleTerm<cr>", { desc = "[t]oggle terminal" } },
     },
@@ -11,7 +14,7 @@ return {
             open_mapping = "<A-t>",
             insert_mappings = true, -- whether or not the open mapping applies in insert mode
             terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-            hide_numbers = false,
+            direction = "vertical",
             size = function(term)
                 if term.direction == "horizontal" then
                     return height * 0.5
@@ -19,22 +22,21 @@ return {
                     return width * 0.5
                 end
             end,
-            direction = "vertical",
+            float_opts = {
+                border = "single",
+                width = width * 0.5,
+                height = height * 0.5,
+                title_pos = "center",
+            },
+            hide_numbers = false,
+            shade_terminals = false,
         })
 
         vim.keymap.set("n", "<leader>t<down>", function()
-            local count = vim.v.count
-            if count == 0 then
-                count = 1
-            end
-            vim.cmd(count .. "ToggleTerm direction=horizontal")
+            vim.cmd(vim.v.count1 .. "ToggleTerm direction=horizontal")
         end, { desc = "[t]erminal down" })
         vim.keymap.set("n", "<leader>t<right>", function()
-            local count = vim.v.count
-            if count == 0 then
-                count = 1
-            end
-            vim.cmd(count .. "ToggleTerm direction=vertical")
+            vim.cmd(vim.v.count1 .. "ToggleTerm direction=vertical")
         end, { desc = "[t]erminal right" })
 
         vim.keymap.set("n", "<leader>ts", "<cmd>TermSelect<cr>", { desc = "[t]erminal [s]elect" })

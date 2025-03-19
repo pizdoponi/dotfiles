@@ -49,6 +49,8 @@ return {
         },
         init = function()
             vim.cmd([[cnoreabbrev cc CodeCompanion]])
+            vim.cmd([[cnoreabbrev ccc CodeCompanionChat]])
+            vim.cmd([[cnoreabbrev cca CodeCompanionActions]])
         end,
         opts = {
             strategies = {

@@ -6,6 +6,7 @@ return {
             { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
             "theHamsta/nvim-dap-virtual-text",
             "mfussenegger/nvim-dap-python",
+            "leoluz/nvim-dap-go",
         },
         config = function()
             local dap, dapui = require("dap"), require("dapui")
@@ -99,7 +100,7 @@ return {
         "Goose97/timber.nvim",
         lazy = true,
         opts = {
-            defualt_keymaps_enabled = false,
+            default_keymaps_enabled = false,
             log_templates = {
                 default = {
                     python = [[print('[LOGZILLA]::%filename::%line_number::%log_target', %log_target)]],
