@@ -41,6 +41,7 @@
     e (tap-hold $tap-time $hold-time e rsft)
     i (tap-hold $tap-time $hold-time i rctl)
     o (tap-hold $tap-time $hold-time o ralt)
+    u (tap-hold $tap-time $hold-time u (layer-while-held mouse))
 )
 
 (defchords combo_mombo 30
@@ -90,9 +91,9 @@
     f14 (tap-hold $tap-time $hold-time f14 lctl)
     f15 (tap-hold $tap-time $hold-time f15 lsft)
     f16 (tap-hold $tap-time $hold-time f16 lmet)
-    f4 (tap-hold $tap-time $hold-time f4 rmet)
-    f5 (tap-hold $tap-time $hold-time f5 rsft)
-    f6 (tap-hold $tap-time $hold-time f6 rctl)
+    f4  (tap-hold $tap-time $hold-time f4  rmet)
+    f5  (tap-hold $tap-time $hold-time f5  rsft)
+    f6  (tap-hold $tap-time $hold-time f6  rctl)
     f11 (tap-hold $tap-time $hold-time f11 ralt)
 )
 
@@ -108,15 +109,15 @@
     ;; ma→ (movemouse-accel-right 1 1000 1 5)
 )
 
-;; map cmd-space to return; i + space = return
+;; map rightshift+space to return; e (k) + space = return
 (defoverrides
-    (lmet spc) (ret)
+    (lctl spc) (ret)
 )
 
 (deflayer base ;; colemak-dh
     esc   🔅    🔆    ✗     ✗     ✗     ✗     ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
     grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc
-    tab   q     w     f     p     b     j     l     u     y     ✗     ✗     ✗
+    tab   q     w     f     p     b     j     l     @u    y     '     ✗     ✗
     caps  @a    @r    @s    @t    g     m     @n    @e    @i    @o    ✗     ✗     ret
     @cw   z     x     c     d     v     ✗     k     h     ,     .     /     rsft
     fn    lctl  @esc  @tab              @spc              @bspc @cr
@@ -126,19 +127,19 @@
 ;; the layers are identical except fo the thumb keys
 (deflayer sym1
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-    ✗     M-1   M-2   M-3   M-4   M-5   M-6   M-7   M-8   M-9   M-0   ✗     ✗     ✗
-    M-tab @^    @#    @*    @$    @at   @```  '     S-[   S-]   @%    ✗     ✗
-    ✗     @<    @!    @-    @=    @>    `     @obrc @cbrc @?    @;    ✗     ✗     ✗
-    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     1     ✗
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     @^    @#    @*    @$    @at   @```  `     S-[   S-]   '     ✗     ✗
+    ✗     @<    @!    @-    @=    @>    '     @obrc @cbrc @?    @;    ✗     ✗     ✗
+    ✗     @~    @|    +     @%    @&    ✗     1     S-'   [     ]     0     ✗
     ✗     ✗     ✗     /                 S-;               \     ✗
 )
 
 (deflayer sym2
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-    ✗     M-1   M-2   M-3   M-4   M-5   M-6   M-7   M-8   M-9   M-0   ✗     ✗     ✗
-    M-tab @^    @#    @*    @$    @at   @```  '     S-[   S-]   @%    ✗     ✗
-    ✗     @<    @!    @-    @=    @>    `     @obrc @cbrc @?    @;    ✗     ✗     ✗
-    ✗     @~    @|    +     @%    @&    ✗     0     S-'   [     ]     1     ✗
+    ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
+    ✗     @^    @#    @*    @$    @at   @```  `     S-[   S-]   '     ✗     ✗
+    ✗     @<    @!    @-    @=    @>    '     @obrc @cbrc @?    @;    ✗     ✗     ✗
+    ✗     @~    @|    +     @%    @&    ✗     1     S-'   [     ]     0     ✗
     ✗     ✗     ✗     /                 S--               \     ✗
 )
 
@@ -151,15 +152,13 @@
     ✗     ✗     ✗     ✗                 ✗                 0     ✗
 )
 
-;; TODO: rearange keys on the left side and use the correct fn keys (f10-f24),
-;;       and also add home row mods (for shit like <S-F5>)
 (deflayer fn
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     f22   f17   f18   f19   ✗     ✗     f7    f8    f9    f12   ✗     ✗
     ✗     @f21  @f14  @f15  @f16  ✗     ✗     @f4   @f5   @f6   @f11  ✗     ✗     ✗
     ✗     f20   f11   f12   f13   ✗     ✗     ✗     f1    f2    f3    f10   ✗
-    ✗     ✗     ✗     ✗                 ✗                 f10   ✗
+    ✗     ✗     ✗     ✗                 f10               ✗     ✗
 )
 
 (deflayer mouse
