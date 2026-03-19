@@ -1,0 +1,6 @@
+# Search hidden files and directories.
+--hidden
+# Ignore git blobs.
+--glob=!.git/*
+# Search case insensitive unless the query contains CaPitAL LeTTerS.
+--smart-case
