@@ -3,6 +3,6 @@ function y
     if test -z "$argv[1]"
         pwd | pbcopy
     else
-        cat $argv[1] | pbcopy
+        echo $argv[1] | pbcopy
     end
 end
