@@ -2,8 +2,6 @@
   process-unmapped-keys no
 )
 
-;; lsgt is non-us backslash
-;; TODO: get the upper row with special keys working
 (defsrc
     esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
     lsgt 1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -24,7 +22,7 @@
     spc  (tap-hold $tap-time $hold-time spc  (layer-while-held num_nav)) ;; spc
     bspc (tap-hold $tap-time $hold-time bspc (layer-while-held sym2)) ;; rmet
     tab  (tap-hold $tap-time $hold-time tab  (layer-while-held sym1)) ;; ralt
-    cr   (tap-hold $tap-time $hold-time ret  (layer-while-held fn)) ;; lmet
+    cr   (tap-hold $tap-time $hold-time ret  (layer-while-held mouse)) ;; lmet
     esc  (tap-hold $tap-time $hold-time esc  (layer-while-held fn)) ;; lalt
 
     cw (caps-word 9999)
@@ -41,7 +39,6 @@
     e (tap-hold $tap-time $hold-time e rsft)
     i (tap-hold $tap-time $hold-time i rctl)
     o (tap-hold $tap-time $hold-time o ralt)
-    u (tap-hold $tap-time $hold-time u (layer-while-held mouse))
 )
 
 (defchords combo_mombo 30
@@ -56,8 +53,8 @@
     !    (tap-hold $tap-time $hold-time S-1 lctl)
     -    (tap-hold $tap-time $hold-time - lsft)
     =    (tap-hold $tap-time $hold-time = lmet)
-    obrc (tap-hold $tap-time $hold-time S-9 rmet)
-    cbrc (tap-hold $tap-time $hold-time S-0 rsft)
+    b[   (tap-hold $tap-time $hold-time S-9 rmet)
+    b]   (tap-hold $tap-time $hold-time S-0 rsft)
     ?    (tap-hold $tap-time $hold-time S-/ rctl)
     ;    (tap-hold $tap-time $hold-time ; ralt)
 
@@ -76,14 +73,13 @@
 )
 
 (defalias ;; numbers, navigation
-    4 (tap-hold $tap-time $hold-time 4 rmet)
-    5 (tap-hold $tap-time $hold-time 5 rsft)
-    6 (tap-hold $tap-time $hold-time 6 rctl)
-    8 (tap-hold $tap-time $hold-time 8 (layer-while-held mouse))
-    left (tap-hold $tap-time $hold-time left lctl)
-    down (tap-hold $tap-time $hold-time down lsft)
+    4    (tap-hold $tap-time $hold-time 4     rmet)
+    5    (tap-hold $tap-time $hold-time 5     rsft)
+    6    (tap-hold $tap-time $hold-time 6     rctl)
+    left (tap-hold $tap-time $hold-time left  lctl)
+    down (tap-hold $tap-time $hold-time down  lsft)
     rght (tap-hold $tap-time $hold-time right lmet)
-    .    (tap-hold $tap-time $hold-time . ralt)
+    .    (tap-hold $tap-time $hold-time .     rctl)
 )
 
 (defalias ;; fn
@@ -109,15 +105,17 @@
     ;; ma→ (movemouse-accel-right 1 1000 1 5)
 )
 
-;; map rightshift+space to return; e (k) + space = return
+
 (defoverrides
+    ;; map lctl+space to return
     (lctl spc) (ret)
 )
+
 
 (deflayer base ;; colemak-dh
     esc   🔅    🔆    ✗     ✗     ✗     ✗     ◀◀    ▶⏸    ▶▶    🔇    🔉    🔊
     grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc
-    tab   q     w     f     p     b     j     l     @u    y     '     ✗     ✗
+    tab   q     w     f     p     b     j     l     u     y     '     ✗     ✗
     caps  @a    @r    @s    @t    g     m     @n    @e    @i    @o    ✗     ✗     ret
     @cw   z     x     c     d     v     ✗     k     h     ,     .     /     rsft
     fn    lctl  @esc  @tab              @spc              @bspc @cr
@@ -129,26 +127,26 @@
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     @^    @#    @*    @$    @at   @```  `     S-[   S-]   '     ✗     ✗
-    ✗     @<    @!    @-    @=    @>    '     @obrc @cbrc @?    @;    ✗     ✗     ✗
-    ✗     @~    @|    +     @%    @&    ✗     1     S-'   [     ]     0     ✗
-    ✗     ✗     ✗     /                 S-;               \     ✗
+    ✗     @<    @!    @-    @=    @>    \     @b[   @b]   @?    @;    ✗     ✗     ✗
+    ✗     @~    @%    +     @|    @&    ✗     1     S-'   [     ]     0     ✗
+    ✗     ✗     ✗     /                 '                 S-;   ✗
 )
 
 (deflayer sym2
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     @^    @#    @*    @$    @at   @```  `     S-[   S-]   '     ✗     ✗
-    ✗     @<    @!    @-    @=    @>    '     @obrc @cbrc @?    @;    ✗     ✗     ✗
-    ✗     @~    @|    +     @%    @&    ✗     1     S-'   [     ]     0     ✗
-    ✗     ✗     ✗     /                 S--               \     ✗
+    ✗     @<    @!    @-    @=    @>    \     @b[   @b]   @?    @;    ✗     ✗     ✗
+    ✗     @~    @%    +     @|    @&    ✗     1     S-'   [     ]     0     ✗
+    ✗     ✗     ✗     /                 S--               S-;   ✗
 )
 
 (deflayer num_nav
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-    ✗     ✗     pgdn  up    pgup  ✗     ✗     7     @8    9     S-;   ✗     ✗
-    ✗     lalt  @left @down @rght ✗     ✗     @4    @5    @6    @.    ✗     ✗     ✗
-    ✗     ✗   S-left down S-right ✗     ✗     ✗     1     2     3     ,     ✗
+    ✗     ✗     pgdn  up    pgup  ✗     ✗     7     8     9     S-;   ✗     ✗
+    ✗     lctl  @left @down @rght ✗     -     @4    @5    @6    @.    ✗     ✗     ✗
+    ✗     ✗     left  down  right ✗     ✗     ✗     1     2     3     ,     ✗
     ✗     ✗     ✗     ✗                 ✗                 0     ✗
 )
 
@@ -158,7 +156,7 @@
     ✗     f22   f17   f18   f19   ✗     ✗     f7    f8    f9    f12   ✗     ✗
     ✗     @f21  @f14  @f15  @f16  ✗     ✗     @f4   @f5   @f6   @f11  ✗     ✗     ✗
     ✗     f20   f11   f12   f13   ✗     ✗     ✗     f1    f2    f3    f10   ✗
-    ✗     ✗     ✗     ✗                 f10               ✗     ✗
+    ✗     ✗     ✗     ✗                 f10               f12   ✗
 )
 
 (deflayer mouse
@@ -170,12 +168,4 @@
     ✗     ✗     ✗     ✗                 ✗                 ✗     ✗
 )
 
-;; legacy fn layer
-;; (deflayer fn
-;;     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-;;     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-;;     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗     ✗
-;;     ✗     f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   ✗     ✗     ✗
-;;     ✗     f11   f12   f13   f14   f15   f16   f17   f18   f19   f20   ✗     ✗
-;;     ✗     ✗     ✗     ✗                 ✗                 ✗     ✗
-;; )
+
