@@ -50,6 +50,7 @@ local keys = {
 	{ key = "s", mods = "ALT", action = wezterm.action({ SendString = "\x1bs" }) },
 	{ key = "a", mods = "ALT", action = wezterm.action({ SendString = "\x1ba" }) },
 	{ key = "d", mods = "ALT", action = wezterm.action({ SendString = "\x1bd" }) },
+	{ key = "c", mods = "ALT", action = wezterm.action({ SendString = "\x1bc" }) },
 }
 
 function M.apply_to_config(config)

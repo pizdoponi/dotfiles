@@ -10,6 +10,10 @@ M.apply_to_config = function(config)
 		-- anything inside quotes
 		'"[^"]+"',
 		"'[^']+'",
+		-- branch names, e.g. 42-bug-fix
+		"\\d+[a-zA-Z-_]+",
+		-- snake_case_variables
+		"[a-zA-Z]+_[a-zA-Z0-9_]+"
 	}
 	config.quick_select_alphabet = "arstqwfpzxcvneioluymdhgjbk" -- colemak
 end
