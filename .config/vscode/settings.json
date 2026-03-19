@@ -1,0 +1,174 @@
+{
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "vscode-neovim.NVIM_APPNAME": "vscode",
+  // ── editor ──────────────────────────────────────────────────────────
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.accessibilitySupport": "off",
+  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontSize": 13,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable", // only format my code and new files
+  "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "none",
+  "editor.scrollbar.horizontalScrollbarSize": 2,
+  "editor.scrollbar.verticalScrollbarSize": 2,
+  "editor.wordWrap": "on",
+  // find
+  "editor.find.autoFindInSelection": "never",
+  "editor.find.cursorMoveOnType": true,
+  "editor.find.findOnType": true,
+  "editor.find.history": "never",
+  "editor.find.loop": true,
+  "editor.find.seedSearchStringFromSelection": "selection",
+  // diff editor
+  "diffEditor.renderGutterMenu": false,
+  "diffEditor.renderIndicators": false,
+  "diffEditor.renderMarginRevertIcon": false,
+  "diffEditor.renderSideBySide": true,
+  // ── files ───────────────────────────────────────────────────────────
+  "files.autoSave": "onFocusChange",
+  "files.associations": {
+    ".env*": "dotenv",
+  },
+  // ── search ──────────────────────────────────────────────────────────
+  "search.smartCase": true,
+  "search.exclude": {
+    "**/.git": true,
+    "**/.venv": true,
+    "**/node_modules": true,
+  },
+  // ── terminal ────────────────────────────────────────────────────────
+  "terminal.integrated.suggest.enabled": false,
+  "terminal.integrated.inheritEnv": true,
+  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.external.osxExec": "Wezterm.app",
+  "terminal.integrated.automationProfile.osx": {
+    "path": "/usr/bin/bash"
+  },
+  "terminal.integrated.env.osx": {
+    "PYTHONPATH": "${workspaceFolder}:${env:PYTHONPATH}", // add cwd to python path
+  },
+  "terminal.integrated.env.linux": {
+    "PYTHONPATH": "${workspaceFolder}:${env:PYTHONPATH}", // same here
+  },
+  "terminal.integrated.confirmOnExit": "never",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.stickyScroll.enabled": false,
+  // copilot, chat
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "github.copilot.enable": {
+    "quarto": false,
+    "dotenv": false,
+    "python": true
+  },
+  "github.copilot.chat.agent.thinkingTool": true,
+  "chat.fontSize": 13,
+  "chat.editor.fontSize": 13,
+  // hide top bar
+  "window.commandCenter": false,
+  "workbench.editor.editorActionsLocation": "hidden",
+  "workbench.layoutControl.enabled": false,
+  "workbench.activityBar.location": "hidden",
+  // python
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+  "python.REPL.enableREPLSmartSend": true,
+  "python.REPL.sendToNativeREPL": true,
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.executeInFileDir": false,
+  // "python.terminal.launchArgs": ["-m", "asyncio"],
+  // "python.terminal.launchArgs": [
+  //   "-m",
+  //   "IPython",
+  //   "--no-autoindent",
+  //   "--no-confirm-exit",
+  //   "--no-banner",
+  //   "--TerminalInteractiveShell.editing_mode=vi"
+  // ],
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.inlayHints.callArgumentNames": "all",
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.displayEnglishDiagnostics": true,
+  "python.analysis.generateWithTypeAnnotation": true,
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.pytestParameters": true,
+  "python.analysis.languageServerMode": "full",
+  "python.analysis.typeEvaluation.strictDictionaryInference": true,
+  "python.analysis.typeEvaluation.strictListInference": true,
+  "python.analysis.typeEvaluation.strictSetInference": true,
+  // javascript
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // notebook
+  "notebook.lineNumbers": "on",
+  "notebook.formatOnSave.enabled": true,
+  "notebook.confirmDeleteRunningCell": false,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": "explicit"
+  },
+  "jupyter.askForKernelRestart": false,
+  // tests
+  "testing.automaticallyOpenTestResults": "openOnTestFailure",
+  "testing.followRunningTest": true,
+  // smooth smooth fruit
+  "editor.smoothScrolling": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "workbench.list.smoothScrolling": true,
+  "terminal.integrated.smoothScrolling": true,
+  "editor.cursorBlinking": "solid",
+  // zen mode
+  "zenMode.centerLayout": true,
+  "zenMode.hideStatusBar": false,
+  "zenMode.showTabs": "none",
+  "zenMode.hideLineNumbers": false,
+  "zenMode.hideActivityBar": true,
+  "zenMode.silentNotifications": true,
+  "zenMode.fullScreen": true,
+  "git.openRepositoryInParentFolders": "never",
+  "remote.SSH.permitPtyAllocation": true,
+  "workbench.editor.showTabs": "none",
+  "vscode_custom_css.imports": [
+    "file://${userHome}/.config/vscode/styles.css",
+    "file://${userHome}/.config/vscode/script.js"
+  ],
+  "workbench.colorCustomizations": {},
+  "javascript.suggest.paths": false,
+  "typescript.suggest.paths": false,
+  "currentFilePath.defaultPathStartsFrom": "workSpace",
+  "currentFilePath.priorityInStatusBar": 999999999,
+  "git.blame.editorDecoration.enabled": false,
+  "git.verboseCommit": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "codesnap.containerPadding": "0",
+  "codesnap.showWindowControls": false,
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "explorer.excludeGitIgnore": false,
+  "workbench.commandPalette.preserveInput": false,
+  "workbench.editor.closeEmptyGroups": true,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "latex-workshop.formatting.latex": "latexindent",
+}

@@ -1,0 +1,166 @@
+[
+  {
+    "key": "ctrl+l",
+    "command": "notifications.clearAll",
+    "when": "notificationToastsVisible"
+  },
+  {
+    "key": "alt+.",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.closeSidebar",
+        "workbench.action.closeAuxiliaryBar",
+        "workbench.action.closePanel",
+      ]
+    }
+  },
+  {
+    "key": "ctrl+f12",
+    "command": "editor.action.referenceSearch.trigger",
+    "when": "editorHasReferenceProvider && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "f1",
+    "command": "editor.action.showHover",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "f1",
+    "command": "-workbench.action.showCommands"
+  },
+  {
+    "key": "alt+s",
+    "command": "git.stageSelectedRanges",
+    "when": "editorTextFocus && !operationInProgress"
+  },
+  // {
+  //   "key": "alt+s",
+  //   "command": "git.diff.stageHunk",
+  //   "when": "editorTextFocus && inDiffEditor && !editorHasSelection"
+  // },
+  // {
+  //   "key": "alt+s",
+  //   "command": "runCommands",
+  //   "args": {
+  //     "commands": [
+  //       "git.diff.stageHunk",
+  //       "multiDiffEditor.goToNextChange",
+  //       "workbench.action.editor.nextChange"
+  //     ]
+  //   },
+  //   "when": "editorTextFocus && inDiffEditor && !editorHasSelection"
+  // },
+  {
+    "key": "alt+s",
+    "command": "extension.multiCommand.execute",
+    "args": {
+      "sequence": [
+        "git.diff.stageHunk",
+        "multiDiffEditor.goToNextChange",
+      ],
+      "interval": 3000,
+    },
+    "when": "editorTextFocus && inDiffEditor && !editorHasSelection"
+  },
+  {
+    "key": "alt+r",
+    "command": "git.revertSelectedRanges",
+    "when": "editorTextFocus && !operationInProgress"
+  },
+  {
+    "key": "alt+r",
+    "command": "git.unstageSelectedRanges",
+    "when": "editorTextFocus && isInDiffEditor && isInDiffRightEditor && !operationInProgress && resourceScheme == 'git'"
+  },
+  {
+    "key": "alt+g d",
+    "command": "git.openChange"
+  },
+  {
+    "key": "alt+t e",
+    "command": "workbench.action.terminal.moveToEditor"
+  },
+  {
+    "key": "alt+t t",
+    "command": "workbench.action.createTerminalEditor"
+  },
+  {
+    "key": "alt+t r",
+    "command": "python.execInTerminal",
+    "when": "editorLangId == 'python'"
+  },
+  {
+    "key": "alt+cmd+f12",
+    "command": "editor.action.goToTypeDefinition"
+  },
+  {
+    "key": "shift+alt+s",
+    "command": "workbench.action.files.saveWithoutFormatting"
+  },
+  {
+    "key": "alt+t c",
+    "command": "workbench.action.terminal.copyLastCommandOutput"
+  },
+  {
+    "key": "alt+t cmd+c",
+    "command": "workbench.action.terminal.copyLastCommandAndLastCommandOutput"
+  },
+  {
+    "key": "cmd+f9",
+    "command": "editor.debug.action.goToNextBreakpoint",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "key": "shift+cmd+f9",
+    "command": "editor.debug.action.goToPreviousBreakpoint",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  // {
+  //   "key": "shift+alt+z",
+  //   "command": "workbench.action.toggleMaximizeEditorGroup",
+  //   "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
+  // },
+  {
+    "key": "shift+alt+cmd+b",
+    "command": "workbench.action.toggleMaximizedAuxiliaryBar"
+  },
+  {
+    "key": "alt+t k",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalHasBeenCreated || terminalIsOpen || terminalProcessSupported"
+  },
+  {
+    "key": "alt+o",
+    "command": "vsnetrw.open",
+    "when": "editorLangId != vsnetrw"
+  },
+  {
+    "key": "alt+l",
+    "command": "-oil-code.refresh",
+    "when": "editorTextFocus && editorLangId == 'oil'"
+  },
+  {
+    "key": "shift+alt+z",
+    "command": "workbench.action.toggleZenMode",
+    "when": "!isAuxiliaryWindowFocusedContext"
+  },
+  {
+    "key": "alt+g c",
+    "command": "git.commit"
+  },
+  {
+    "key": "alt+t r",
+    "command": "workbench.action.terminal.rename",
+    "when": "terminalFocusInAny"
+  },
+  {
+    "key": "alt+f",
+    "command": "workbench.action.toggleMaximizeEditorGroup",
+    "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
+  },
+  {
+    "key": "shift+alt+cmd+f",
+    "command": "workbench.action.maximizeEditorHideSidebar"
+  }
+]
