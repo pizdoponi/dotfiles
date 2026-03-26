@@ -32,6 +32,8 @@ fish_add_path /Users/rok/.cargo/bin
 fish_add_path /opt/homebrew/opt/openjdk@17/bin
 # latex
 fish_add_path /Library/TeX/texbin
+# llvm, clangd
+fish_add_path /opt/homebrew/opt/llvm/bin
 # other
 fish_add_path /Applications/quarto/bin
 # Microsoft SQL ODBC Driver
