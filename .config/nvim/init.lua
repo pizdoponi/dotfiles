@@ -9,6 +9,18 @@ require("rm.keymaps")
 require("rm.autocmds")
 require("rm.lsp")
 
+-- ── Diagnostics ─────────────────────────────────────────────────────
+vim.diagnostic.config({
+	virtual_text = true,
+	severity_sort = true,
+	jump = {
+		float = true,
+	},
+	float = {
+		border = "single",
+	},
+})
+
 -- ── Plugins ─────────────────────────────────────────────────────────
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -290,16 +302,4 @@ require("lazy").setup({
 	install = { colorscheme = { "catppuccin" } },
 	-- Do not automatically check for plugin updates.
 	checker = { enabled = false },
-})
-
--- ── Diagnostics ─────────────────────────────────────────────────────
-vim.diagnostic.config({
-	virtual_text = true,
-	severity_sort = true,
-	jump = {
-		float = true,
-	},
-	float = {
-		border = "single",
-	},
 })
