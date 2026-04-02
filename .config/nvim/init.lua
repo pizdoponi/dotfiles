@@ -233,23 +233,40 @@ require("lazy").setup({
 			version = "*",
 			event = "InsertEnter",
 			cmd = "Copilot",
-			opts = {
-				filetypes = {
-					env = false,
-				},
-				suggestion = {
-					auto_trigger = true,
-					hide_during_completion = false,
-					keymap = {
-						accept = "<Tab>",
-						accept_line = "<C-l>",
-						dismiss = "<C-o>",
+			config = function()
+				local opts = {
+					filetypes = {
+						env = false,
 					},
-				},
-				panel = {
-					enabled = false,
-				},
-			},
+					suggestion = {
+						auto_trigger = true,
+						hide_during_completion = false,
+						keymap = {
+							accept = false, -- Disable default accept keymap to use custom Tab mapping.
+							accept_line = "<C-l>",
+							dismiss = "<C-c>",
+						},
+					},
+					panel = {
+						enabled = false,
+					},
+				}
+				local copilot = require("copilot")
+				copilot.setup(opts)
+
+				local suggestion = require("copilot.suggestion")
+
+				-- Accept Copilot suggestion with Tab, or insert a Tab if no suggestion is visible.
+				-- Alternatively, <C-i> can be used, as it is the same as Tab.
+				vim.keymap.set("i", "<Tab>", function()
+					if suggestion.is_visible() then
+						suggestion.accept()
+						return ""
+					else
+						return "<Tab>"
+					end
+				end, { expr = true, replace_keycodes = true, desc = "Accept Copilot suggestion or insert Tab" })
+			end,
 		},
 		{
 			"nvim-lualine/lualine.nvim",
