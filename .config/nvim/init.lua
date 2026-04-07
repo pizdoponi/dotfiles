@@ -192,7 +192,7 @@ require("lazy").setup({
 			dependencies = { "nvim-tree/nvim-web-devicons" },
 			cmd = "FzfLua",
 			keys = {
-				{ "<leader>f<leader>", "<Cmd>FzfLua<CR>", desc = "[f]ind FzfLua builtin" },
+				{ "<leader>f<leader>", "<Cmd>FzfLua<CR>", desc = "FzfLua builtin" },
 				{
 					"<leader><leader>",
 					"<Cmd>FzfLua combine pickers=git_files;lsp_workspace_symbols<CR>",
@@ -200,7 +200,21 @@ require("lazy").setup({
 				},
 				{ "<leader>ff", "<Cmd>FzfLua files<CR>", desc = "[f]ind [f]iles" },
 				{ "<leader>fh", "<Cmd>FzfLua helptags<CR>", desc = "[f]ind [h]elp" },
-				{ "<leader>fc", "<Cmd>FzfLua commands<CR>", desc = "[f]ind [c]ommands" },
+				{
+					"<leader>fH",
+					function()
+						local helpfiles = vim.api.nvim_get_runtime_file("doc/*.txt", true)
+						require("fzf-lua").live_grep({
+							search_paths = helpfiles,
+							prompt = "Grep Help> ",
+						})
+					end,
+					desc = "Grep helptags",
+				},
+				{ "<leader>f/", "<Cmd>FzfLua live_grep<CR>", desc = "FzfLua live_grep" },
+				{ "<leader>fw", "<Cmd>FzfLua grep_cword<CR>", desc = "FzfLua grep_cword" },
+				{ "<leader>fW", "<Cmd>FzfLua grep_cWORD<CR>", desc = "FzfLua grep_cWORD" },
+				{ "<leader>fc", "<Cmd>FzfLua commands<CR>", desc = "FzfLua commands" },
 				{ "<leader>fd", "<Cmd>FzfLua lsp_document_diagnostics<CR>", desc = "[f]ind document [d]iagnostics" },
 				{ "<leader>fD", "<Cmd>FzfLua lsp_document_diagnostics<CR>", desc = "[f]ind workspace [D]iagnostics" },
 				{ "<leader>fs", "<Cmd>FzfLua lsp_workspace_symbols<CR>", desc = "[f]ind [s]ymbols" },
@@ -303,8 +317,6 @@ require("lazy").setup({
 				{ "ds", mode = "n", desc = "Delete surrounding" },
 				{ "cs", mode = "n", desc = "Change surrounding" },
 				{ "ys", mode = "n", desc = "Add surrounding" },
-			},
-		},
 		{ "j-hui/fidget.nvim", version = "*", event = "LspAttach", opts = {} },
 	},
 	-- Colorscheme that will be used when installing plugins.
