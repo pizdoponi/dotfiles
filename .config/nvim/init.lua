@@ -8,6 +8,7 @@ require("rm.options")
 require("rm.keymaps")
 require("rm.autocmds")
 require("rm.lsp")
+require("rm.abbr_git")
 
 -- ── Diagnostics ─────────────────────────────────────────────────────
 vim.diagnostic.config({
