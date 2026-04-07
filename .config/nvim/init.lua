@@ -182,7 +182,9 @@ require("lazy").setup({
 				{ "t", "t" },
 				{ "T", "T" },
 			},
-			opts = {},
+			opts = {
+				modes = { char = { enabled = false } },
+			},
 		},
 		{
 			"ibhagwan/fzf-lua",
