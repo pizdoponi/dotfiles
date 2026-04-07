@@ -105,7 +105,7 @@ require("lazy").setup({
 					ghost_text = { enabled = false },
 					list = {
 						selection = {
-							preselect = true,
+							preselect = false,
 							auto_insert = false,
 						},
 					},
