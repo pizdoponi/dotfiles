@@ -58,17 +58,6 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter",
 			version = "*",
 			build = ":TSUpdate",
-			config = function()
-				local ts = require("nvim-treesitter")
-				local ensure_installed = { "lua", "luadoc", "markdown", "markdown_inline", "python" }
-				local installed = ts.get_installed()
-
-				for _, lang in ipairs(ensure_installed) do
-					if not vim.tbl_contains(installed, lang) then
-						ts.install(lang)
-					end
-				end
-			end,
 		},
 		{
 			"saghen/blink.cmp",
