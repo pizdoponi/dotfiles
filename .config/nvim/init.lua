@@ -45,121 +45,33 @@ require("lazy").setup({
 	spec = {
 		{
 			"catppuccin/nvim",
-			version = "*",
 			name = "catppuccin",
 			priority = 1000,
 			config = function()
 				vim.cmd.colorscheme("catppuccin")
 			end,
 		},
-		-- ── Core ────────────────────────────────────────────────────────────
-		{ "neovim/nvim-lspconfig", version = "*" },
-		{
-			"nvim-treesitter/nvim-treesitter",
-			version = "*",
-			build = ":TSUpdate",
-		},
-		{
-			"saghen/blink.cmp",
-			version = "1.*",
-			dependencies = {
-				"bydlw98/blink-cmp-env",
-				"erooke/blink-cmp-latex",
-			},
-			event = "InsertEnter",
-			opts = {
-				sources = {
-					default = { "lsp", "buffer", "snippets", "path", "env" },
-					per_filetype = {
-						tex = { inherit_default = true, "latex" },
-					},
-					providers = {
-						env = {
-							-- Triggered with $ in insert mode, for example when writing $API_KEY.
-							name = "Env",
-							module = "blink-cmp-env",
-							opts = {
-								-- item_kind = require("blink.cmp.types").CompletionItemKind.Variable,
-								show_braces = false, -- Show as $API_KEY instead of ${API_KEY}.
-								show_documentation_window = true, -- Show the value of the variable.
-							},
-						},
-						latex = {
-							name = "Latex",
-							module = "blink-cmp-latex",
-							opts = {
-								insert_command = true,
-							},
-						},
-					},
-				},
-				cmdline = { enabled = true },
-				completion = {
-					menu = { auto_show = true, border = "single", scrollbar = false },
-					documentation = {
-						auto_show = true,
-						auto_show_delay_ms = 50,
-						update_delay_ms = 50,
-						window = { border = "single" },
-					},
-					ghost_text = { enabled = false },
-					list = {
-						selection = {
-							preselect = false,
-							auto_insert = false,
-						},
-					},
-				},
-				signature = { enabled = true, window = { show_documentation = false, border = "single" } },
-				keymap = {
-					preset = "none",
-					["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-					["<C-n>"] = { "accept", "fallback" },
-					["<C-e>"] = { "hide", "fallback" },
-					["<Up>"] = { "select_prev", "fallback" },
-					["<Down>"] = { "select_next", "fallback" },
-					["<C-u>"] = { "scroll_documentation_up", "fallback" },
-					["<C-d>"] = { "scroll_documentation_down", "fallback" },
-					["<C-f>"] = { "snippet_forward", "fallback" },
-					["<C-b>"] = { "snippet_backward", "fallback" },
-					["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
-				},
-			},
-		},
+		{ import = "rm.plugins.lsp" },
+		{ import = "rm.plugins.treesitter" },
+		{ import = "rm.plugins.completion" },
+		{ import = "rm.plugins.ui" },
+		{ import = "rm.plugins.git" },
+		{ import = "rm.plugins.format" },
 		{
 			"stevearc/oil.nvim",
-			version = "*",
 			config = function()
 				local oil = require("oil")
-				oil.setup({})
+				oil.setup({
+					float = {
+						border = "single",
+					},
+				})
 
 				vim.keymap.set("n", "<leader>o", oil.open, { desc = "[o]il" })
 			end,
 		},
 		{
-			"stevearc/conform.nvim",
-			version = "*",
-			opts = {
-				formatters_by_ft = {
-					lua = { "stylua" },
-					python = function(bufnr)
-						if require("conform").get_formatter_info("ruff_format", bufnr).available then
-							return { "ruff_format" }
-						else
-							return { "isort", "black" }
-						end
-					end,
-					["_"] = { "trim_whitespace" },
-				},
-				default_format_opts = {
-					timeout_ms = 3000,
-					lsp_format = "fallback",
-				},
-			},
-		},
-		{
 			"folke/flash.nvim",
-			version = "*",
 			keys = {
 				{
 					"s",
@@ -177,10 +89,6 @@ require("lazy").setup({
 					mode = { "n", "x", "o" },
 					desc = "Flash Treesitter",
 				},
-				{ "f", "f" },
-				{ "F", "F" },
-				{ "t", "t" },
-				{ "T", "T" },
 			},
 			opts = {
 				modes = { char = { enabled = false } },
@@ -188,7 +96,6 @@ require("lazy").setup({
 		},
 		{
 			"ibhagwan/fzf-lua",
-			version = "*",
 			dependencies = { "nvim-tree/nvim-web-devicons" },
 			cmd = "FzfLua",
 			keys = {
@@ -221,131 +128,8 @@ require("lazy").setup({
 			},
 			opts = {},
 		},
-		-- ── Git ─────────────────────────────────────────────────────────────
-		{
-			"tpope/vim-fugitive",
-			version = "*",
-			event = "VeryLazy",
-			config = function()
-				vim.keymap.set("n", "<leader>gst", "<Cmd>tab Git<CR>", { desc = "Git status" })
-				vim.keymap.set("n", "<leader>gc", "<Cmd>Git commit -v<CR>", { desc = "Git commit" })
-				vim.keymap.set(
-					"n",
-					"<leader>gca",
-					"<Cmd>Git commit --amend --no-edit<CR>",
-					{ desc = "Git commit --amend" }
-				)
-
-				vim.api.nvim_create_autocmd("FileType", {
-					pattern = "gitcommit",
-					callback = function()
-						vim.cmd.wincmd("L")
-					end,
-				})
-			end,
-		},
-		{
-			"lewis6991/gitsigns.nvim",
-			version = "*",
-			event = "VeryLazy",
-			opts = {
-				signs = {
-					add = { text = "+" },
-					change = { text = "~" },
-				},
-				signs_staged = {
-					add = { text = "+" },
-					change = { text = "~" },
-				},
-				on_attach = function(bufnr)
-					local gitsigns = require("gitsigns")
-
-					vim.keymap.set(
-						{ "n", "x" },
-						"<leader>ga",
-						":Gitsigns stage_hunk<CR>", -- NOTE: <Cmd> does not work here for some reason.
-						{ buffer = bufnr, desc = "Stage/unstage hunk" }
-					)
-					vim.keymap.set(
-						"n",
-						"<C-k>",
-						"<Cmd>Gitsigns preview_hunk_inline<CR>",
-						{ buffer = bufnr, desc = "Preview hunk" }
-					)
-					vim.keymap.set("n", "]c", function()
-						if vim.wo.diff then
-							vim.cmd.normal({ "]c", bang = true })
-						else
-							gitsigns.nav_hunk("next")
-						end
-					end, { buffer = bufnr, desc = "Next change" })
-					vim.keymap.set("n", "[c", function()
-						if vim.wo.diff then
-							vim.cmd.normal({ "[c", bang = true })
-						else
-							gitsigns.nav_hunk("prev")
-						end
-					end, { buffer = bufnr, desc = "Previous change" })
-				end,
-			},
-		},
-		{
-			"zbirenbaum/copilot.lua",
-			version = "*",
-			event = "InsertEnter",
-			cmd = "Copilot",
-			config = function()
-				local opts = {
-					filetypes = {
-						env = false,
-					},
-					suggestion = {
-						auto_trigger = true,
-						hide_during_completion = false,
-						keymap = {
-							accept = false, -- Disable default accept keymap to use custom Tab mapping.
-							accept_line = "<C-l>",
-							dismiss = "<C-c>",
-						},
-					},
-					panel = {
-						enabled = false,
-					},
-				}
-				local copilot = require("copilot")
-				copilot.setup(opts)
-
-				local suggestion = require("copilot.suggestion")
-
-				-- Accept Copilot suggestion with Tab, or insert a Tab if no suggestion is visible.
-				-- Alternatively, <C-i> can be used, as it is the same as Tab.
-				vim.keymap.set("i", "<Tab>", function()
-					if suggestion.is_visible() then
-						suggestion.accept()
-						return ""
-					else
-						return "<Tab>"
-					end
-				end, { expr = true, replace_keycodes = true, desc = "Accept Copilot suggestion or insert Tab" })
-			end,
-		},
-		{
-			"nvim-lualine/lualine.nvim",
-			version = "*",
-			dependencies = { "nvim-tree/nvim-web-devicons" },
-			event = "VeryLazy",
-			opts = {
-				sections = {
-					lualine_x = { "filetype" },
-					lualine_y = { "progress" },
-					-- lualine_z = {"searchcount, selectioncount"},
-					lualine_z = {},
-				},
-			},
-		},
 		{
 			"jpalardy/vim-slime",
-			version = "*",
 			keys = {
 				{ "<leader>s", "<Plug>SlimeRegionSend", mode = "x", desc = "Slime send selection" },
 				{ "<leader>s", "<Plug>SlimeMotionSend", mode = "n", desc = "Slime send motion" },
@@ -358,24 +142,54 @@ require("lazy").setup({
 				vim.g.slime_bracketed_paste = 1
 			end,
 		},
-		{
-			"lukas-reineke/indent-blankline.nvim",
-			version = "*",
-			main = "ibl",
-			opts = {},
-		},
-		{ "LudoPinelli/comment-box.nvim", version = "*", cmd = { "CBlline", "CBllline" } },
+		{ "LudoPinelli/comment-box.nvim", cmd = { "CBlline", "CBllline" } },
 		{
 			"tpope/vim-surround",
-			version = "*",
 			keys = {
 				{ "ds", mode = "n", desc = "Delete surrounding" },
 				{ "cs", mode = "n", desc = "Change surrounding" },
 				{ "ys", mode = "n", desc = "Add surrounding" },
-		{ "j-hui/fidget.nvim", version = "*", event = "LspAttach", opts = {} },
+				{ "yS", mode = "n", desc = "Add surrounding" },
+				{ "S", mode = "x", desc = "Add surrounding" },
+			},
+		},
+		{ "mfussenegger/nvim-dap", lazy = true },
+		{
+			"Goose97/timber.nvim",
+			event = "VeryLazy",
+			opts = {
+				keymaps = { insert_log_below = "gll" },
+				log_templates = {
+					default = {
+						python = [[print(f"%watcher_marker_start | %filename:%line_number | {%log_target=} | %watcher_marker_end")]],
+						-- python = [[print(f"%filename:%line_number {%log_target=}")]],
+					},
+					plain = {
+						python = [[print(f"%filename:%line_number %insert_cursor")]],
+					},
+				},
+				log_watcher = {
+					enabled = true,
+					sources = { log_file = { name = "Log file", type = "filesystem", path = "/tmp/timber.log" } },
+				},
+			},
+		},
+		{
+			"szw/vim-maximizer",
+			init = function()
+				vim.g.maximizer_set_default_mapping = 0
+			end,
+			keys = {
+				{ "<C-w>m", "<Cmd>MaximizerToggle<CR>", desc = "Toggle window maximization" },
+			},
+		},
+		{ "nvim-lua/plenary.nvim", lazy = true },
 	},
 	-- Colorscheme that will be used when installing plugins.
 	install = { colorscheme = { "catppuccin" } },
 	-- Do not automatically check for plugin updates.
 	checker = { enabled = false },
+	defaults = {
+		version = nil,
+	},
 })
