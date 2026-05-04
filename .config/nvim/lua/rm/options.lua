@@ -24,6 +24,7 @@ vim.opt.smarttab = true -- insert tabstop when pressing tab
 -- windows
 vim.opt.splitright = true -- split new windows to the right
 vim.opt.splitbelow = true -- split new windows below
+vim.opt.winborder = "single" -- border style for floating windows
 -- scrolling
 vim.opt.startofline = true -- move cursor to first non-blank character on big movements
 vim.opt.scrolloff = 8 -- number of context lines above and below when scrolling

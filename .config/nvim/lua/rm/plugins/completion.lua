@@ -40,7 +40,7 @@ return {
 					auto_show = true,
 					auto_show_delay_ms = 50,
 					update_delay_ms = 50,
-					window = { border = "single" },
+					-- window = { border = "single" },
 				},
 				ghost_text = { enabled = false },
 				list = {

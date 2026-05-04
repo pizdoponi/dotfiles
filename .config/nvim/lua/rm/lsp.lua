@@ -32,8 +32,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		if connected_clients[client_key] == nil then
 			connected_clients[client_key] = true
-			-- vim.notify_once(client.name .. " started.")
-			require("fidget").notify(client.name .. " started.")
+
+			local ok, fidget = pcall(require, "fidget")
+			if ok then
+				fidget.notify(client.name .. " started.")
+			else
+				vim.notify_once(client.name .. " started.")
+			end
 		end
 
 		-- Uncomment the line below if not using blink.cmp or any other completion plugin, to use native LSP completion.

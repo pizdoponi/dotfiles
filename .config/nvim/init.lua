@@ -17,9 +17,6 @@ vim.diagnostic.config({
 	jump = {
 		float = true,
 	},
-	float = {
-		border = "single",
-	},
 })
 
 -- ── Plugins ─────────────────────────────────────────────────────────
@@ -143,16 +140,7 @@ require("lazy").setup({
 			end,
 		},
 		{ "LudoPinelli/comment-box.nvim", cmd = { "CBlline", "CBllline" } },
-		{
-			"tpope/vim-surround",
-			keys = {
-				{ "ds", mode = "n", desc = "Delete surrounding" },
-				{ "cs", mode = "n", desc = "Change surrounding" },
-				{ "ys", mode = "n", desc = "Add surrounding" },
-				{ "yS", mode = "n", desc = "Add surrounding" },
-				{ "S", mode = "x", desc = "Add surrounding" },
-			},
-		},
+		{ "tpope/vim-surround", event = "VeryLazy" },
 		{ "mfussenegger/nvim-dap", lazy = true },
 		{
 			"Goose97/timber.nvim",
