@@ -5,7 +5,7 @@
     "when": "notificationToastsVisible"
   },
   {
-    "key": "alt+.",
+    "key": "alt+l",
     "command": "runCommands",
     "args": {
       "commands": [
@@ -13,7 +13,18 @@
         "workbench.action.closeAuxiliaryBar",
         "workbench.action.closePanel",
       ]
-    }
+    },
+    "when": "!terminalEditorFocus"
+  },
+  // Let alt+l behave the same as fish's alt+l, which lists the current directory.
+  // For some reason, alt+l doesn't work in VS Code, as it sends a literal ¬ character instead.
+  {
+    "key": "alt+l",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "ls\n"
+    },
+    "when": "terminalFocus"
   },
   {
     "key": "ctrl+f12",
@@ -78,12 +89,25 @@
     "command": "git.openChange"
   },
   {
+    "key": "alt+t alt+t",
+    "command": "workbench.action.createTerminalEditor"
+  },
+  {
     "key": "alt+t e",
     "command": "workbench.action.terminal.moveToEditor"
   },
   {
-    "key": "alt+t t",
-    "command": "workbench.action.createTerminalEditor"
+    "key": "alt+t c",
+    "command": "workbench.action.terminal.copyLastCommandOutput"
+  },
+  {
+    "key": "alt+t cmd+c",
+    "command": "workbench.action.terminal.copyLastCommandAndLastCommandOutput"
+  },
+  {
+    "key": "alt+t k",
+    "command": "workbench.action.terminal.kill",
+    "when": "terminalHasBeenCreated || terminalIsOpen || terminalProcessSupported"
   },
   {
     "key": "alt+t r",
@@ -93,18 +117,6 @@
   {
     "key": "alt+cmd+f12",
     "command": "editor.action.goToTypeDefinition"
-  },
-  {
-    "key": "shift+alt+s",
-    "command": "workbench.action.files.saveWithoutFormatting"
-  },
-  {
-    "key": "alt+t c",
-    "command": "workbench.action.terminal.copyLastCommandOutput"
-  },
-  {
-    "key": "alt+t cmd+c",
-    "command": "workbench.action.terminal.copyLastCommandAndLastCommandOutput"
   },
   {
     "key": "cmd+f9",
@@ -122,26 +134,11 @@
   //   "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
   // },
   {
-    "key": "shift+alt+cmd+b",
+    "key": "cmd+shift+alt+b",
     "command": "workbench.action.toggleMaximizedAuxiliaryBar"
   },
   {
-    "key": "alt+t k",
-    "command": "workbench.action.terminal.kill",
-    "when": "terminalHasBeenCreated || terminalIsOpen || terminalProcessSupported"
-  },
-  {
-    "key": "alt+o",
-    "command": "vsnetrw.open",
-    "when": "editorLangId != vsnetrw"
-  },
-  {
-    "key": "alt+l",
-    "command": "-oil-code.refresh",
-    "when": "editorTextFocus && editorLangId == 'oil'"
-  },
-  {
-    "key": "shift+alt+z",
+    "key": "cmd+alt+z",
     "command": "workbench.action.toggleZenMode",
     "when": "!isAuxiliaryWindowFocusedContext"
   },
@@ -162,5 +159,80 @@
   {
     "key": "shift+alt+cmd+f",
     "command": "workbench.action.maximizeEditorHideSidebar"
+  },
+  {
+    "key": "cmd+b",
+    "command": "-markdown.extension.editing.toggleBold",
+    "when": "editorTextFocus && !editorReadonly && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+  },
+  {
+    "key": "shift+cmd+i",
+    "command": "chatgpt.sidebarSecondaryView.focus"
+  },
+  {
+    "key": "shift+cmd+i",
+    "command": "-workbench.action.chat.openagent",
+    "when": "config.chat.agent.enabled && !chatSetupDisabledInWorkspace && !chatSetupHidden"
+  },
+  {
+    "key": "shift+cmd+i",
+    "command": "-quarto.insertCodeCell",
+    "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
+  },
+  {
+    "key": "ctrl+shift+right",
+    "command": "-editor.action.smartSelect.expand",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+left",
+    "command": "-editor.action.smartSelect.shrink",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+w m",
+    "command": "workbench.action.toggleMaximizeEditorGroup",
+    "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
+  },
+  {
+    "key": "ctrl+w cmd+up",
+    "command": "workbench.action.moveEditorToAboveGroup"
+  },
+  {
+    "key": "ctrl+w cmd+down",
+    "command": "workbench.action.moveEditorToBelowGroup"
+  },
+  {
+    "key": "ctrl+w cmd+left",
+    "command": "workbench.action.moveEditorToLeftGroup"
+  },
+  {
+    "key": "ctrl+w cmd+right",
+    "command": "workbench.action.moveEditorToRightGroup"
   }
+  // To make scrolling be handled natively by Neovim, instead of by VS Code. Keeps visual selection when scrolling, but scrolls in a weird way.
+  // {
+  //   "key": "ctrl+d",
+  //   "command": "vscode-neovim.send",
+  //   "when": "editorTextFocus && neovim.ctrlKeysNormal.d && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+  //   "args": "<C-d>"
+  // },
+  // {
+  //   "key": "ctrl+u",
+  //   "command": "vscode-neovim.send",
+  //   "when": "editorTextFocus && neovim.ctrlKeysNormal.u && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+  //   "args": "<C-u>"
+  // },
+  // {
+  //   "key": "ctrl+f",
+  //   "command": "vscode-neovim.send",
+  //   "when": "editorTextFocus && neovim.ctrlKeysNormal.f && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+  //   "args": "<C-f>"
+  // },
+  // {
+  //   "key": "ctrl+b",
+  //   "command": "vscode-neovim.send",
+  //   "when": "editorTextFocus && neovim.ctrlKeysNormal.b && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+  //   "args": "<C-b>"
+  // }
 ]

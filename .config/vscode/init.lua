@@ -13,6 +13,26 @@ vim.opt.scrolloff = 4
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- vim.keymap.set("n", "<C-up>", "<C-w>k", { desc = "Move to upper split" })
+-- vim.keymap.set("n", "<C-right>", "<C-w>l", { desc = "Move to right split" })
+-- vim.keymap.set("n", "<C-down>", "<C-w>j", { desc = "Move to lower split" })
+-- vim.keymap.set("n", "<C-left>", "<C-w>h", { desc = "Move to left split" })
+-- vim.keymap.set("n", "<C-S-up", function()
+-- 	vscode.action("workbench.action.moveEditorToAboveGroup")
+-- end, { desc = "Move split up" })
+-- vim.keymap.set("n", "<C-S-right>", function()
+-- 	vscode.action("workbench.action.moveEditorToRightGroup")
+-- end, { desc = "Move split right" })
+-- vim.keymap.set("n", "<C-S-down>", function()
+-- 	vscode.action("workbench.action.moveEditorToBelowGroup")
+-- end, { desc = "Move split down" })
+-- vim.keymap.set("n", "<C-S-left>", function()
+-- 	vscode.action("workbench.action.moveEditorToLeftGroup")
+-- end, { desc = "Move split left" })
+-- vim.keymap.set("n", "<C-w>m", function()
+-- 	vscode.action("workbench.action.toggleMaximizeEditorGroup")
+-- end, { desc = "Toggle maximize split" })
+
 vim.api.nvim_create_autocmd("PackChanged", {
 	callback = function(event)
 		local name, kind = event.data.spec.name, event.data.kind

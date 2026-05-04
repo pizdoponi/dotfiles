@@ -19,13 +19,15 @@
   "editor.scrollbar.verticalScrollbarSize": 2,
   "editor.wordWrap": "on",
   // find
-  "editor.find.autoFindInSelection": "never",
+  "editor.find.autoFindInSelection": "never", // Always search the whole file, even if some text is selected.
   "editor.find.cursorMoveOnType": true,
   "editor.find.findOnType": true,
   "editor.find.history": "never",
   "editor.find.loop": true,
   "editor.find.seedSearchStringFromSelection": "selection",
-  // diff editor
+  "editor.find.addExtraSpaceOnTop": false,
+  "editor.find.closeOnResult": false,
+  // ── diff editor ─────────────────────────────────────────────────────
   "diffEditor.renderGutterMenu": false,
   "diffEditor.renderIndicators": false,
   "diffEditor.renderMarginRevertIcon": false,
@@ -61,6 +63,7 @@
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.stickyScroll.enabled": false,
+  "terminal.integrated.macOptionIsMeta": false,
   // copilot, chat
   "github.copilot.nextEditSuggestions.enabled": false,
   "github.copilot.enable": {
@@ -76,7 +79,7 @@
   "workbench.editor.editorActionsLocation": "hidden",
   "workbench.layoutControl.enabled": false,
   "workbench.activityBar.location": "hidden",
-  // python
+  // ── python ──────────────────────────────────────────────────────────
   "[python]": {
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "modifications",
@@ -118,7 +121,7 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  // notebook
+  // ── notebook, jupyter ───────────────────────────────────────────────
   "notebook.lineNumbers": "on",
   "notebook.formatOnSave.enabled": true,
   "notebook.confirmDeleteRunningCell": false,
@@ -126,24 +129,37 @@
     "notebook.source.fixAll": "explicit"
   },
   "jupyter.askForKernelRestart": false,
-  // tests
+  // ── tests ───────────────────────────────────────────────────────────
   "testing.automaticallyOpenTestResults": "openOnTestFailure",
   "testing.followRunningTest": true,
-  // smooth smooth fruit
+  // ── smooth smooth fruit ─────────────────────────────────────────────
   "editor.smoothScrolling": true,
   "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "solid",
   "workbench.list.smoothScrolling": true,
   "terminal.integrated.smoothScrolling": true,
-  "editor.cursorBlinking": "solid",
-  // zen mode
+  // ── zen mode ────────────────────────────────────────────────────────
   "zenMode.centerLayout": true,
+  "zenMode.fullScreen": true,
+  "zenMode.hideActivityBar": true,
+  "zenMode.hideLineNumbers": false,
   "zenMode.hideStatusBar": false,
   "zenMode.showTabs": "none",
-  "zenMode.hideLineNumbers": false,
-  "zenMode.hideActivityBar": true,
   "zenMode.silentNotifications": true,
-  "zenMode.fullScreen": true,
+  // ── git ─────────────────────────────────────────────────────────────
   "git.openRepositoryInParentFolders": "never",
+  "git.blame.editorDecoration.enabled": false,
+  "git.verboseCommit": true,
+  // git lens
+  "gitlens.currentLine.enabled": false,
+  // ── telemetry ───────────────────────────────────────────────────────
+  "telemetry.feedback.enabled": false,
+  "telemetry.telemetryLevel": "off",
+  "telemetry.editStats.enabled": false,
+  "gitlens.telemetry.enabled": false,
+  "marimo.telemetry": false,
+  "rest-client.enableTelemetry": false,
+  // ── other ───────────────────────────────────────────────────────────
   "remote.SSH.permitPtyAllocation": true,
   "workbench.editor.showTabs": "none",
   "vscode_custom_css.imports": [
@@ -151,12 +167,8 @@
     "file://${userHome}/.config/vscode/script.js"
   ],
   "workbench.colorCustomizations": {},
-  "javascript.suggest.paths": false,
-  "typescript.suggest.paths": false,
   "currentFilePath.defaultPathStartsFrom": "workSpace",
   "currentFilePath.priorityInStatusBar": 999999999,
-  "git.blame.editorDecoration.enabled": false,
-  "git.verboseCommit": true,
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
@@ -171,4 +183,8 @@
   "gitlens.ai.model": "vscode",
   "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "latex-workshop.formatting.latex": "latexindent",
+  "chat.viewSessions.orientation": "stacked",
+  "cSpell.userWords": [
+    "CUDA"
+  ],
 }
