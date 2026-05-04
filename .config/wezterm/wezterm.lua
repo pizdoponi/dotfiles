@@ -34,8 +34,8 @@ local keys = {
 	{ key = "LeftArrow", mods = "SHIFT|SUPER", action = wezterm.action.MoveTabRelative(-1) },
 	{ key = "RightArrow", mods = "SHIFT|SUPER", action = wezterm.action.MoveTabRelative(1) },
 	-- panes
-	{ key = "%", mods = "SUPER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = '"', mods = "SUPER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "|", mods = "SUPER", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = "-", mods = "SUPER", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{ key = "LeftArrow", mods = "SUPER", action = wezterm.action.ActivatePaneDirection("Left") },
 	{ key = "RightArrow", mods = "SUPER", action = wezterm.action.ActivatePaneDirection("Right") },
 	{ key = "UpArrow", mods = "SUPER", action = wezterm.action.ActivatePaneDirection("Up") },
@@ -66,23 +66,22 @@ local keys = {
 	{ key = "c", mods = "ALT", action = wezterm.action({ SendString = "\x1bc" }) },
 }
 
-config.disable_default_key_bindings = true
 config.keys = keys
 
 -- ── Yanking ─────────────────────────────────────────────────────────
 config.disable_default_key_bindings = false
 config.quick_select_patterns = {
-  -- base file names
-  "[a-zA-Z][a-zA-Z0-9_.-]*\\.(?:c|cpp|py|lua|json|csv|ts|js|html|css|scss|md|sh|java|rs|go|zip|tar|pdf|xlsx|docx|pptx|txt|yml|yaml|toml|log|xml|sql|rb|php|dart)",
-  -- dot files ... many false positives
-  -- "\\.[a-zA-Z0-9_.-]*",
-  -- anything inside quotes
-  '"[^"]+"',
-  "'[^']+'",
-  -- branch names, e.g. 42-bug-fix
-  "\\d+[a-zA-Z-_]+",
-  -- snake_case_variables
-  "[a-zA-Z]+_[a-zA-Z0-9_]+"
+	-- base file names
+	"[a-zA-Z][a-zA-Z0-9_.-]*\\.(?:c|cpp|py|lua|json|csv|ts|js|html|css|scss|md|sh|java|rs|go|zip|tar|pdf|xlsx|docx|pptx|txt|yml|yaml|toml|log|xml|sql|rb|php|dart)",
+	-- dot files ... many false positives
+	-- "\\.[a-zA-Z0-9_.-]*",
+	-- anything inside quotes
+	'"[^"]+"',
+	"'[^']+'",
+	-- branch names, e.g. 42-bug-fix
+	"\\d+[a-zA-Z-_]+",
+	-- snake_case_variables
+	"[a-zA-Z]+_[a-zA-Z0-9_]+",
 }
 config.quick_select_alphabet = "arstqwfpzxcvneioluymdhgjbk" -- colemak
 
